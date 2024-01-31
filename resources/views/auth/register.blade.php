@@ -1,30 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
+<img id="regFormPicture" src="../storage/pictures/regForm.jpg" alt="background" title="background">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+            <div class="card bg-dark text-light">
+                <div class="card-header text-light" id="RegFormTittle">{{ __('Register') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                            <label for="fullname" class="col-md-4 col-form-label text-md-end">{{ __('Fullname') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="fullname" type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" required autocomplete="fullname" autofocus>
 
-                                @error('name')
+                                @error('fullname')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+
+                                @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="currency" class="col-md-4 col-form-label text-md-end">{{ __('Currency') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="currency" type="text" class="form-control @error('currency') is-invalid @enderror" name="currency" value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+
+                                @error('currency')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 

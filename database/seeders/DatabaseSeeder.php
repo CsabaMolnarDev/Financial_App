@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             ]);
         /* Creating dummy users */
          \App\Models\User::factory(5)->create([
-            'roles_id' => rand(2,3) /* Sets the role id when new user in generated (1=> developer version 2=> premium version 3=> basic version) */
+            'roles_id' => rand(2,3), /* Sets the role id when new user in generated (1=> developer version 2=> premium version 3=> basic version) */
+            'finances_id' => rand(1,10),
          ]);
          /* Default developer user */
          /* Passw: 1234 */
@@ -28,7 +29,8 @@ class DatabaseSeeder extends Seeder
              'fullname' => 'Laravel Dev',
              'username' => 'Dev',
              'email' => 'dev@dev.com',
-             'roles_id' => 1
+             'roles_id' => 1,
+             'finances_id' => rand(1,10),
          ]);
 
 
