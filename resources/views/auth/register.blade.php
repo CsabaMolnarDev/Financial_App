@@ -1,3 +1,5 @@
+{{-- TODO: make the currency filled from database???? line 50 --}}
+
 @extends('layouts.app')
 
 @section('content')
@@ -5,8 +7,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card bg-dark text-light">
-                <div class="card-header text-light" id="RegFormTittle">{{ __('Register') }}</div>
+            <div class="card bg-dark text-info">
+                <div class="card-header text-info" id="RegFormTittle">{{ __('Register') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -40,17 +42,25 @@
                         </div>
                         <div class="row mb-3">
                             <label for="currency" class="col-md-4 col-form-label text-md-end">{{ __('Currency') }}</label>
-
                             <div class="col-md-6">
-                                <input id="currency" type="text" class="form-control @error('currency') is-invalid @enderror" name="currency" value="{{ old('currency') }}" required autocomplete="currency" autofocus>
-
+                                <select id="currency" class="form-control"  type="text"  @error('currency') is-invalid @enderror" name="currency" value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                <option value="1">Eur</option>
+                                <option value="2">Huf</option>
+                                <option value="3">Usd</option>
+                                {{-- @foreach ($currencys as $item)
+                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @endforeach
+                                    CONTROLLER IS NEEDED ELSE IT WONT WORK
+                                --}}
+                                </select>
                                 @error('currency')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                          </div>
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
@@ -89,7 +99,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-outline-info registerButton">
                                     {{ __('Register') }}
                                 </button>
                             </div>
