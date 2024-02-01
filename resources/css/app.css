@@ -129,5 +129,20 @@ body {
 }
 
 /* About us page */
+.aboutPic {
+    height: 10vh;
+    width: 10vh;
+}
+
+.aboutTittle {
+    font-size: 160%;
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.aboutFont {
+    font-size: 110%;
+    font-family: "Arial", Gadget, sans-serif;
+}
+
 /* income page */
 /* spending page */

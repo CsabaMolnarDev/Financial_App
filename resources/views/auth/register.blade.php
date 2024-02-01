@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-<img id="regFormPicture" src="../storage/pictures/regForm.jpg" alt="background" title="background">
+<img id="regFormPicture" src="../storage/pictures/register.jpg" alt="background" title="background">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
