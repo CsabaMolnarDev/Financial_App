@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,67 +18,63 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-            <div class="container navContainer">
+        {{-- Navnar --}}
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                {{-- Home img/button --}}
                 <a class="navbar-brand text-light" href="
-                @guest
-                    {{ url('/') }}
-                @else
-                    {{ url('/home') }}
-                @endguest
-                    "><img id="homeIcon" src="../storage/icons/homeIcon3.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    @guest
+                        {{ url('/') }}
+                    @else
+                        {{ url('/home') }}
+                    @endguest
+                        ">
+                    <img id="homeIcon" src="../storage/icons/homeIcon3.png" alt="">
+                </a>
+                {{-- Side menu  --}}
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="offcanvas offcanvas-end bg-dark text-info" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img  src="../storage/icons/appIcon.png" alt="">Finances</h5>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-                    {{-- Middle --}}
-                    <ul class="navbar-nav m-auto">
-                        <img id="appIcon" src="../storage/icons/appIcon.png" alt="">
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto nav-item dropdown">
-                        <!-- Authentication Links -->
-                        @guest
+                        <button type="button" class="btn text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close">X</button>
+                    </div>
+                    {{-- Log in / Register and Log out --}}
+                    <div class="offcanvas-body bg-dark text-info">
+                        <ul class="navbar-nav">
+                            @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-info" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/login") }} '">{{ __('Login') }}</button>
                             @endif
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-info" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/register") }} '"> {{ __('Register') }}</button>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item bg-dark text-light" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                         <button id="menuBtn" class="btn btn-outline-info" type="submit" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}</button>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                </div>
-                            </li>
+                                    {{-- <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '"">Finances</button> --}}
+                                    {{-- both income and spending maybe? here we could edit our incomes --}}
+                                    <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/incomes") }} '"">Incomes</button>
+                                    <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/spendings") }} '"">Spendings</button>
                         @endguest
-                    </ul>
+                        <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '"">About us</button>
+                        {{-- Make about us page and controler and route --}}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
-
         <main class="py-4"id="content">
             @yield('content')
             @yield('footer')

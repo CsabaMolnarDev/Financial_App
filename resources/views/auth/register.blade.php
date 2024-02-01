@@ -97,12 +97,31 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-outline-info registerButton">
+                        <div class="row content-justify-center">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4 text-center">
+                                <button id="logButton" type="submit" class="btn btn-outline-info registerButton">
                                     {{ __('Register') }}
                                 </button>
                             </div>
+                            <div class="col-4">
+
+                            </div>
+                        </div>
+                        <div class="row content-justify-center">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4 text-center">
+
+                                    <a href="{{ route('login') }}">I have account? Log in!</a>
+                            </div>
+                            <div class="col-4">
+
+                            </div>
+                        </div>
                         </div>
                     </form>
                 </div>

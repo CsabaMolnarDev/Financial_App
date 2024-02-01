@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<img id="regFormPicture" src="../storage/pictures/regForm.jpg" alt="background" title="background">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card bg-dark text-info">
+                <div class="card-header bg-dark text-info" id="RegFormTittle">{{ __('Login') }}</div>
 
-                <div class="card-body">
+                <div class="card-body bg-dark text-info">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -38,31 +39,45 @@
                                 @enderror
                             </div>
                         </div>
+                            <div class="row content-justify-center">
+                                <div class="col-4">
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                </div>
+                                <div class="col-3 text-center logbtn">
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                                    <button type="submit" class="btn btn-outline-info">
+                                        {{ __('Login') }}
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                        <label class="form-check-label" for="remember">
+                                            {{ __('Remember Me') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+
                                 </div>
                             </div>
-                        </div>
+                            <div class="row content-justify-center">
+                                <div class="col-4">
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                                </div>
+                                <div class="col-4 text-center">
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                    <a href="{{ route('register') }}">Register now!</a>
+                                    @if (Route::has('password.request'))
+                                   <a class="btn btn-link" href="{{ route('password.request') }}">Forgot password?</a>
+                                   @endif
+                                </div>
+                                <div class="col-4">
+
+                                </div>
                             </div>
+
                         </div>
                     </form>
                 </div>

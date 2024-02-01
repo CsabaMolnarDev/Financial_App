@@ -39,6 +39,14 @@ body {
     width: 100%;
 }
 
+.navbar-toggler-icon {
+    border-color: cyan;
+}
+
+#menuBtn {
+    margin-bottom: 3%;
+}
+
 /* register page */
 #regFormPicture {
     z-index: -100;
@@ -49,12 +57,24 @@ body {
     position: absolute;
 }
 
+#registerButton {
+    display: flex;
+    flex-direction: column;
+}
+
 #RegFormTittle {
     font-size: 120%;
 }
 
-.registerButton {
-    width: 100%;
+#logButton {
+    margin: 5%;
+    width: fit-content;
+}
+
+/* login page */
+.logbtn {
+    display: flex;
+    flex-direction: column;
 }
 
 /* welcome page */
@@ -107,3 +127,7 @@ body {
     font-weight: normal;
     text-decoration: none;
 }
+
+/* About us page */
+/* income page */
+/* spending page */
