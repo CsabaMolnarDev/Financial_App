@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-       /*  Schema::table('finances', function (Blueprint $table) {
+          Schema::table('finances', function (Blueprint $table) {
             $table->foreignId('currency_id')->references('id')->on('currencies')->constrained();
-        }); */
+        });  
     }
 
     /**
