@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         /* Creating dummy users */
          \App\Models\User::factory(5)->create([
             'roles_id' => rand(2,3), /* Sets the role id when new user in generated (1=> developer version 2=> premium version 3=> basic version) */
-            'finances_id' => rand(1,10),
+            
          ]);
          /* Default developer user */
          /* Passw: 1234 */
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'picture' => 'pic1',
             'email' => 'frontenddeeloper@dev.com',
             'roles_id' => 1,
-            'finances_id' => rand(1,10),
+            
          ]);
          \App\Models\User::factory()->create([
             'fullname' => 'Láng Ricsi',
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             'picture' => 'pic2',
             'email' => 'ideamakerdeveloper@dev.com',
             'roles_id' => 1,
-            'finances_id' => rand(1,10),
+            
         ]);
         \App\Models\User::factory()->create([
             'fullname' => 'Ambrus Dobai Kristóf',
@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             //'picture' => 'pic3',
             'email' => 'backenddeveloper@dev.com',
             'roles_id' => 1,
-            'finances_id' => rand(1,10),
+           
         ]);
 
 

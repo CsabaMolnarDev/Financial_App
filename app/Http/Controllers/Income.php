@@ -23,6 +23,8 @@ class Income extends Controller
      */
     public function index()
     {
-        return view('includes.income');
+        $user = Auth::user();
+        $finances = $user->finances()->get();
+        return view('includes.income', ['finances' => $finances]);
     }
 }

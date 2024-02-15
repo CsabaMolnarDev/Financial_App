@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('finances', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->string('name');
-            $table->double('price');
-            $table->date('time');
-            $table->timestamps();
-        });
+       /*  Schema::table('finances', function (Blueprint $table) {
+            $table->foreignId('currency_id')->references('id')->on('currencies')->constrained();
+        }); */
     }
 
     /**
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('finances');
+        Schema::table('finances', function (Blueprint $table) {
+            //
+        });
     }
 };

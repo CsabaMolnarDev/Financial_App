@@ -13,19 +13,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/* This is the welcome root */
+/* This is the welcome rout */
 Route::get('/', function () {
     return view('welcome');
 });
-/* This is the auth root */
+/* This is the auth rout */
 Auth::routes();
-/* This is the home root */
+/* This is the home rout */
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-/* This is the about us root */
+/* Add category route */
+Route::post('/add-category', 'SpendingController@addCategory')->name('addCategory');
+/* This is the about us rout */
 Route::get('/about_us', [App\Http\Controllers\AboutUs::class, 'index'])->name('about_us');
-/* This is the income root */
+/* This is the income rout */
 Route::get('/income', [App\Http\Controllers\Income::class, 'index'])->name('income');
-/* This is the spending root */
-Route::get('/spending', [App\Http\Controllers\Spending::class, 'index'])->name('spending');
+/* This is the spending rout */
+Route::get('/spending', [App\Http\Controllers\SpendingController::class, 'index'])->name('spending');
