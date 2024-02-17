@@ -12,18 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        /* Calling the other seeders */
-         /* WARNING: The order matters!!! */
+        /* Calling the seeders */
+        /* WARNING: The order matters!!! */
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
             FinanceSeeder::class
-            ]);
-        /* Creating dummy users */
-        
-        
-
-
+        ]);
     }
 }

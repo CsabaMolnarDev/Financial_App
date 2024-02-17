@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-          Schema::table('finances', function (Blueprint $table) {
-            $table->foreignId('currency_id')->references('id')->on('currencies')->constrained();
-        });  
+        Schema::table('finances', function (Blueprint $table) {
+            /* default '2'-> USD, '11' -> EUR  */
+            $table->foreignId('currencies_id')->references('id')->on('currencies')->constrained();
+        });
     }
-
     /**
      * Reverse the migrations.
      */

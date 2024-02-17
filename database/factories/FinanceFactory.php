@@ -17,13 +17,14 @@ class FinanceFactory extends Factory
     public function definition(): array
     {
         $array = ['Income', 'Spending'];
-      
-        
+
+
         return [
             'type' => $array[rand(0,1)],
             'name' => fake()->name(),
             'price' => fake()->numberBetween(1,50),
-            'time' => fake()->date()
+            'time' => fake()->date(),
+            'currencies_id' => 11,
         ];
     }
 }
