@@ -29,7 +29,23 @@ class FinanceController extends Controller
      */
     public function store(StoreFinanceRequest $request)
     {
-        //
+        $request->validate([
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'time' => 'required|date'
+        ]);
+
+        Finance::create([
+            'type' => 'spending',
+            'name'=> $request->name,
+            'price' => $request->price,
+            'time' => $request->time,
+            'user_id'=> auth()->user()->id,
+            'category_id'=> $request->category_id,
+            'currency_id' =>auth()->user()->currency_id
+        ]);
+        return redirect()->back();
     }
 
     /**

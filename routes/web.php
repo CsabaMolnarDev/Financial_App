@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FinanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,5 @@ Route::get('/about_us', [App\Http\Controllers\AboutUs::class, 'index'])->name('a
 Route::get('/income', [App\Http\Controllers\Income::class, 'index'])->name('income');
 /* This is the spending rout */
 Route::get('/spending', [App\Http\Controllers\SpendingController::class, 'index'])->name('spending');
+
+Route::post('/finances', [FinanceController::class, 'store'])->name('finances.store');
