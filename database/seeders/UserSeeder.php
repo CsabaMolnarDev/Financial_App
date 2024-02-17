@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
         User::factory(5)->create([
             'roles_id' => rand(2,3), /* Sets the role id when new user in generated (1=> developer version 2=> premium version 3=> basic version) */
             
+            
          ]);
          /* Default developer user */
          /* Passw: 1234 */
@@ -27,6 +28,7 @@ class UserSeeder extends Seeder
             'email' => 'frontenddeeloper@dev.com',
             'roles_id' => 1,
             
+            
          ]);
          User::factory()->create([
             'fullname' => 'Láng Ricsi',
@@ -35,6 +37,7 @@ class UserSeeder extends Seeder
             'picture' => 'pic2',
             'email' => 'ideamakerdeveloper@dev.com',
             'roles_id' => 1,
+           
             
         ]);
         User::factory()->create([
@@ -44,6 +47,7 @@ class UserSeeder extends Seeder
             //'picture' => 'pic3',
             'email' => 'backenddeveloper@dev.com',
             'roles_id' => 1,
+  
            
         ]);
     }

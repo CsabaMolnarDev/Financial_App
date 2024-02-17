@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Finance;
@@ -30,33 +30,28 @@ class SpendingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        /* 
-        $finances = Finance::where('id', $user->finances_id)->get();
-        return view('includes.income', ['finances' => $finances]); */
+        $sharedCategories = Category::where('owner_id', 0)->get();
 
-        $currencies = Finance::distinct()->pluck('currency');
-        $categories = Finance::join('users', 'finances.id', '=', 'users.finances_id')
-        ->where('users.id', $user->id)
-        ->where('finances.type', 'spending')
-        ->distinct()
-        ->pluck('finances.category');
+        $userCategories = $user->finances()->with('category')->get()->pluck('category')->unique();
+
+        $categories = $sharedCategories->merge($userCategories);
 
 
-        return view('includes.spending', ['currencies' => $currencies], ['categories' => $categories]);
+        return view('includes.spending', ['categories' => $categories]);
     }
     public function addCategory(Request $request)
-{
+    {
         $request->validate([
             'new_category' => 'required|string|max:255',
         ]);
 
             // Create a new finance record
-            $finance = new Finance();
-            $finance->user_id = auth()->user()->id;
-            $finance->category = $request->input('new_category');
-            $finance->type = 'spending';
-            $finance->save();
+            $category = new Category();
+            $category->name = $request->input('new_category');
+            $category->owner_id = auth()->id();
+            $category->save();
 
+           
         return redirect()->back()->with('success', 'Category added successfully.');
-}
+    }
 }

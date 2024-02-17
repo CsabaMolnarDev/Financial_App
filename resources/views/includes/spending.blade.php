@@ -20,9 +20,7 @@
                 <h3 class="card-title">Amount</h3>
                 <input type="number">
                 <select name="currency">
-                    @foreach($currencies as $currency)
-                        <option value="{{ $currency }}">{{ $currency }}</option>
-                    @endforeach
+            
                 </select>
             </div>
         </div>
@@ -34,7 +32,7 @@
                 <select name="category" id="categorySelect">
                     <option value="" selected disabled>Select a category</option>
                 @foreach($categories as $category)
-                        <option value="{{ $category }}">{{ $category }}</option>
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                         <option value="add_category">Add new Category</option>
                 </select>
@@ -43,7 +41,7 @@
                     @csrf
                     <div id="newCategoryForm" style="display: none;">
                         <input type="text" id="newCategoryInput" name="new_category" placeholder="Enter new category">
-                        <button id="addCategoryBtn" type="button">Add Category</button>
+                        <button id="addCategoryBtn" type="submit">Add Category</button>
                     </div>
                 </form>
             </div>

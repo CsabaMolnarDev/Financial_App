@@ -20,6 +20,7 @@ class User extends Authenticatable
     public function finances() : HasMany{
         return $this->hasMany(Finance::class);
     }
+    
 
     /**
      * The attributes that are mass assignable.

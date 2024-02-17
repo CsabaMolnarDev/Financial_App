@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Currency;
 
 class RegisterController extends Controller
 {
@@ -51,7 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'fullname' => ['required', 'string', 'max:255', 'min:5'],
             'username' => ['required', 'string', 'max:255','min:5'],
-            'currency' => ['required', 'string'],
+            'currency_id' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,18 +65,25 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        $finances_id = 1;   // every post with 1 can be announcement or smt or nothing gets 1 as an id
+    {   
+        
+     
         $roles_id = 3; // basic role, 2 pro, 1 dev
         return User::create([
             'fullname' => $data['fullname'],
             'username' => $data['username'],
-            'currency' => $data['currency'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'roles_id' => $roles_id,
-            'finances_id' => $finances_id,
+            'currency_id' => $data['currency_id']
+            
         ]);
 
+    }
+
+    public function showRegistrationForm()
+    {
+        $currencies = Currency::all();
+        return view('auth.register', compact('currencies'));
     }
 }

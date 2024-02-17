@@ -22,7 +22,7 @@ Auth::routes();
 /* This is the home rout */
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /* Add category route */
-Route::post('/add-category', 'SpendingController@addCategory')->name('addCategory');
+Route::post('/add-category', [App\Http\Controllers\SpendingController::class, 'addCategory'])->name('addCategory');
 /* This is the about us rout */
 Route::get('/about_us', [App\Http\Controllers\AboutUs::class, 'index'])->name('about_us');
 /* This is the income rout */

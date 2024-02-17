@@ -17,7 +17,7 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $array = ['Freetime', 'Hobby'];
+        $array = ['Freetime', 'Hobby', 'Food', 'Sport'];
         return [
             'name' => $array[rand(0,1)]
         ];

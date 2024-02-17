@@ -43,16 +43,13 @@
                         <div class="row mb-3">
                             <label for="currency" class="col-md-4 col-form-label text-md-end">{{ __('Currency') }}</label>
                             <div class="col-md-6">
-                                <select id="currency" class="form-control"  type="text"  @error('currency') is-invalid @enderror" name="currency" value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+                                <select id="currency" class="form-control"  type="text"  @error('currency') is-invalid @enderror name="currency_id" value="{{ old('currency') }}" required autocomplete="currency" autofocus>
                                 <option value="" disabled selected hidden>Please Choose...</option>
-                                <option value="1">Eur</option>
-                                <option value="2">Huf</option>
-                                <option value="3">Usd</option>
-                                {{-- @foreach ($currencys as $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                 @foreach ($currencies as $currency)
+                                    <option value="{{ $currency->id }}">{{ $currency->name }} - {{ $currency->symbol }}</option>
                                 @endforeach
-                                    CONTROLLER IS NEEDED ELSE IT WONT WORK
-                                --}}
+                                    
+                                
                                 </select>
                                 @error('currency')
                                     <span class="invalid-feedback" role="alert">
