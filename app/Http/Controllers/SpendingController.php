@@ -29,15 +29,8 @@ class SpendingController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $sharedCategories = Category::where('owner_id', 0)->get();
-
-        $userCategories = $user->finances()->with('category')->get()->pluck('category')->unique();
-
-        $categories = $sharedCategories->merge($userCategories);
-
-
-        return view('includes.spending', ['categories' => $categories]);
+        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
+        return view('includes.spending', ['categories' => $availableCategories]);
     }
     public function addCategory(Request $request)
     {

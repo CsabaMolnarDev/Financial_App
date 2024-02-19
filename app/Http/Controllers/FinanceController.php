@@ -37,13 +37,13 @@ class FinanceController extends Controller
         ]);
 
         Finance::create([
-            'type' => 'spending',
+            'user_id'=> auth()->user()->id,
+            'type' => 'spending', //if income create set this to income else spending
             'name'=> $request->name,
             'price' => $request->price,
-            'time' => $request->time,
-            'user_id'=> auth()->user()->id,
+            'time' => $request->time, //needs to be current time     
             'category_id'=> $request->category_id,
-            'currency_id' =>auth()->user()->currency_id
+            'currency_id' =>auth()->user()->currency_id 
         ]);
         return redirect()->back();
     }
