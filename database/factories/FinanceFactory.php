@@ -24,7 +24,7 @@ class FinanceFactory extends Factory
             'name' => fake()->name(),
             'price' => fake()->numberBetween(1,50),
             'time' => fake()->date(),
-            'currencies_id' => 11,
+            'currency_id' => 11,
         ];
     }
 }

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Currency;
+use App\Mail\RegistrationSuccessful;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -67,7 +69,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {   
         
-     
+        $defaultCurrencyId = 1;
         $roles_id = 3; // basic role, 2 pro, 1 dev
         return User::create([
             'fullname' => $data['fullname'],
@@ -75,10 +77,14 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'roles_id' => $roles_id,
-            'currency_id' => $data['currency_id']
+            'currency_id' => $defaultCurrencyId,
+            /* 'currency_id' => $data['currency_id'] */
             
         ]);
-
+        $userName = $user->username;
+        Mail::to($user->email)->send(new RegistrationSuccessful($userName));
+        return $user;
+     
     }
 
     public function showRegistrationForm()

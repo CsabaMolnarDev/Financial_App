@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('finances', function (Blueprint $table) {
             /* default '2'-> USD, '11' -> EUR  */
-            $table->foreignId('currencies_id')->references('id')->on('currencies')->constrained();
+            $table->foreignId('currency_id')->references('id')->on('currencies')->constrained();
         });
     }
     /**
