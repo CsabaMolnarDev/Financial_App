@@ -28,9 +28,9 @@ class SpendingController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
-        return view('includes.spending', ['categories' => $availableCategories]);
+    {       
+        $finances = Finance::where('type','Spending')->get();
+        return view('includes.spending',['finances' => $finances]);
     }
     public function addCategory(Request $request)
     {
@@ -46,5 +46,9 @@ class SpendingController extends Controller
 
            
         return redirect()->back()->with('success', 'Category added successfully.');
+    }
+    public function create(){
+        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
+        return view('includes.spendingCreate',['categories' => $availableCategories]);
     }
 }

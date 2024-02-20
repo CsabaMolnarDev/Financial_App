@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Finance;
 use App\Http\Requests\StoreFinanceRequest;
 use App\Http\Requests\UpdateFinanceRequest;
+use Illuminate\Support\Str;
 
 class FinanceController extends Controller
 {
@@ -36,12 +37,16 @@ class FinanceController extends Controller
             'time' => 'required|date'
         ]);
 
+        
+            $bool = Str::contains(request()->url(), 'spending');
+        
+
         Finance::create([
             'user_id'=> auth()->user()->id,
-            'type' => 'spending', //if income create set this to income else spending
+            'type' => $bool ? 'Spending' : 'Income', //if income create set this to income else spending
             'name'=> $request->name,
             'price' => $request->price,
-            'time' => $request->time, //needs to be current time     
+            'time' => time(),   
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id 
         ]);

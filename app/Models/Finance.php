@@ -23,9 +23,9 @@ class Finance extends Model
     protected $fillable = [
         'type',
         'name',
-        'category',
+        'category_id',
         'price',
-        'currency',
+        'currency_id',
         'time'
     ];
 }

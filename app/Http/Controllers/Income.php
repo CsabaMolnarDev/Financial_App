@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Finance;
 
 class Income extends Controller
 {
@@ -23,8 +24,12 @@ class Income extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $finances = $user->finances()->get();
-        return view('includes.income', ['finances' => $finances]);
+
+        $finances = Finance::where('type','Income')->get();
+        return view('includes.income',['finances' => $finances]);
+    }
+    public function create(){
+        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
+        return view('includes.incomeCreate',['categories' => $availableCategories]);
     }
 }
