@@ -46,7 +46,7 @@ class FinanceController extends Controller
             'type' => $bool ? 'Spending' : 'Income', //if income create set this to income else spending
             'name'=> $request->name,
             'price' => $request->price,
-            'time' => time(),   
+            'time' => $request->input('time'),   
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id 
         ]);
