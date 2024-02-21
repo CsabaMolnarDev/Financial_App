@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Finance;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class Income extends Controller
 {
@@ -31,5 +33,20 @@ class Income extends Controller
     public function create(){
         $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
         return view('includes.incomeCreate',['categories' => $availableCategories]);
+    }
+    public function addCategory(Request $request)
+    {
+        $request->validate([
+            'new_category' => 'required|string|max:255',
+        ]);
+
+            // Create a new finance record
+            $category = new Category();
+            $category->name = $request->input('new_category');
+            $category->owner_id = auth()->id();
+            $category->save();
+
+           
+        return redirect()->back()->with('success', 'Category added successfully.');
     }
 }
