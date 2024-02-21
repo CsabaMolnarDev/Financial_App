@@ -14,7 +14,7 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -31,8 +31,6 @@ class FinanceController extends Controller
     public function store(StoreFinanceRequest $request)
     {   
         $bool = str_contains(url()->previous(), 'spending');
-/*         dd($request);
-        dd($request->category_id); */
         $finance = Finance::create([
             'user_id'=> auth()->user()->id,
             'type' => $bool ? 'Spending' : 'Income', //if income create set this to income else spending
@@ -41,12 +39,10 @@ class FinanceController extends Controller
             'time' => date("Y/m/d") .'-' . date("H:i:s"),   
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id 
-        ]);
-        $finance->save();
-        $finances = Finance::where('type','Spending')->get();
-        return view('includes.spending',['finances' => $finances]);
+            ]);
+            $finance->save();
+       return redirect()->route('spending');
     }
-
     /**
      * Display the specified resource.
      */
