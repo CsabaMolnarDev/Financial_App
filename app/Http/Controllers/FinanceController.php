@@ -41,7 +41,13 @@ class FinanceController extends Controller
             'currency_id' =>auth()->user()->currency_id 
             ]);
             $finance->save();
-       return redirect()->route('spending');
+            if($bool){
+                return redirect()->route('spending');
+            }
+            else{
+                return redirect()->route('income');
+            }
+       
     }
     /**
      * Display the specified resource.
