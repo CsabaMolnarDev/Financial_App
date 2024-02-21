@@ -29,28 +29,22 @@ class FinanceController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreFinanceRequest $request)
-    {
-        $request->validate([
-            'type' => 'required|string',
-            'name' => 'required|string',
-            'price' => 'required|numeric',
-            'time' => 'required|date'
-        ]);
-
-        
-            $bool = Str::contains(request()->url(), 'spending');
-        
-
-        Finance::create([
+    {   
+        $bool = str_contains(url()->previous(), 'spending');
+/*         dd($request);
+        dd($request->category_id); */
+        $finance = Finance::create([
             'user_id'=> auth()->user()->id,
             'type' => $bool ? 'Spending' : 'Income', //if income create set this to income else spending
             'name'=> $request->name,
             'price' => $request->price,
-            'time' => $request->input('time'),   
+            'time' => date("Y/m/d") .'-' . date("H:i:s"),   
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id 
         ]);
-        return redirect()->back();
+        $finance->save();
+        $finances = Finance::where('type','Spending')->get();
+        return view('includes.spending',['finances' => $finances]);
     }
 
     /**

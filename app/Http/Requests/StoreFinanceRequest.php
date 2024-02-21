@@ -21,8 +21,10 @@ class StoreFinanceRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        return [       
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'type' => 'string',
         ];
     }
 }
