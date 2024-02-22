@@ -18,7 +18,7 @@ class RegistrationSuccessful extends Mailable
      */
     public function __construct($userName)
     {
-        $this->userName = $userName;
+       
     }
 
     /**
@@ -39,6 +39,7 @@ class RegistrationSuccessful extends Mailable
     {
         return new Content(
             view: 'mails.registrationSuccessfull',
+            with: ['userName' => $this->userName]
         );
     }
 

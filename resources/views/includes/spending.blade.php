@@ -31,7 +31,52 @@
                 </div>       
             </div>         
         </div>
+        <div id="chart">
+
+        </div>
         @endforeach
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>
+
+            var financesData = @json($finances);
+
+            var categoriesData = {!! json_encode($categories) !!};
+            console.log(categoriesData);
+            var categoryPrices = {};
+
+            financesData.forEach(function(finance){
+                var categoryId = finance.category_id;
+                var categoryName = categoriesData[categoryId];
+                var price = finance.price;
+
+                if (!categoryPrices[categoryName]) {
+                    categoryPrices[categoryName] = price;
+                }
+                else{
+                    categoryPrices[categoryName] += price;
+                }
+            });
+
+            var seriesData = [];
+            for (var categoryName in categoryPrices) {
+                seriesData.push({
+                    x: categoryName,
+                    y: categoryPrices[categoryName]
+                });
+            }
+
+            var options = {
+                chart: {
+                    type: 'pie',
+                },
+                labels: Object.keys(categoryPrices),
+                series: Object.values(categoryPrices),
+            };
+
+            var chart = new ApexCharts(document.querySelector('#chart'), options)
+            chart.render();
+        </script>
+    
     </div>
 </div>
 @endsection

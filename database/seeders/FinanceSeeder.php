@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Finance;
 
 class FinanceSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class FinanceSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Finance::factory(10)->create();
+        /* \App\Models\Finance::factory(10)->create(); */
     }
 }

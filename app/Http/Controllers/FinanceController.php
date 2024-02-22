@@ -31,6 +31,7 @@ class FinanceController extends Controller
     public function store(StoreFinanceRequest $request)
     {   
         $bool = str_contains(url()->previous(), 'spending');
+       
         $finance = Finance::create([
             'user_id'=> auth()->user()->id,
             'type' => $bool ? 'Spending' : 'Income', //if income create set this to income else spending
@@ -40,6 +41,7 @@ class FinanceController extends Controller
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id 
             ]);
+            
             $finance->save();
             if($bool){
                 return redirect()->route('spending');

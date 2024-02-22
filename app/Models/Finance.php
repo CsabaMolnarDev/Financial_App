@@ -26,6 +26,7 @@ class Finance extends Model
         'category_id',
         'price',
         'currency_id',
+        'user_id',
         'time'
     ];
 }

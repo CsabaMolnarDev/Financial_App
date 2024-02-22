@@ -1,2 +1,2 @@
-Hi, {{ $user->name }}
+Hi, {{ $userName }}
 Welcome to our page
