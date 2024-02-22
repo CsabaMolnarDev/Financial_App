@@ -33,7 +33,7 @@ class SpendingController extends Controller
         $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
         $categoryIdys = $finances->pluck('category_id')->unique();
         $categories = Category::whereIn('id', $categoryIdys)->pluck('name', 'id');
-        return view('includes.spending',['finances' => $finances], ['categories' => $cate]);
+        return view('includes.spending',['finances' => $finances], ['categories' => $categories]);
     }
     public function addCategory(Request $request)
     {
