@@ -34,14 +34,14 @@ class FinanceController extends Controller
        
         $finance = Finance::create([
             'user_id'=> auth()->user()->id,
-            'type' => $bool ? 'Spending' : 'Income', //if income create set this to income else spending
+            'type' => $bool ? 'Spending' : 'Income', 
             'name'=> $request->name,
             'price' => $request->price,
             'time' => date("Y/m/d") .'-' . date("H:i:s"),   
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id 
             ]);
-            
+            TODO:/* prevent form submission, if the user selects the add new category option, maybe toastr warning */
             $finance->save();
             if($bool){
                 return redirect()->route('spending');

@@ -33,7 +33,7 @@ class SpendingController extends Controller
         $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
         $categoryIdys = $finances->pluck('category_id')->unique();
         $categories = Category::whereIn('id', $categoryIdys)->pluck('name', 'id');
-        return view('includes.spending',['finances' => $finances], ['categories' => $categories]);
+        return view('includes.spending',['finances' => $finances], ['categories' => $cate]);
     }
     public function addCategory(Request $request)
     {
@@ -48,7 +48,7 @@ class SpendingController extends Controller
             $category->save();
 
            
-        return redirect()->back()->with('success', 'Category added successfully.');
+        return back();
     }
     public function create(){
         $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();

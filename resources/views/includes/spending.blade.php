@@ -14,7 +14,7 @@
 
 <div class="container">
     <div class="row">
-        @foreach($finances as $item)
+       {{--  @foreach($finances as $item)
         <div class="col-4">
             <div class="card bg-dark text-info text-center" id="financeCard">
                 <div class="row-3">
@@ -31,24 +31,27 @@
                 </div>       
             </div>         
         </div>
+     
+        @endforeach --}}
         <div id="chart">
 
         </div>
-        @endforeach
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
+           /*  TODO:  use ajax maybe */
 
+           //user associated finances php array to json string
             var financesData = @json($finances);
-
+            //user associated categories php array tp json string
             var categoriesData = {!! json_encode($categories) !!};
-            console.log(categoriesData);
+           /*  console.log(categoriesData); */
             var categoryPrices = {};
-
+            /* iterates over each finance record, retrieves the category name, calculates the price */
             financesData.forEach(function(finance){
                 var categoryId = finance.category_id;
                 var categoryName = categoriesData[categoryId];
                 var price = finance.price;
-
+                /* checks if the category has been already added */
                 if (!categoryPrices[categoryName]) {
                     categoryPrices[categoryName] = price;
                 }
@@ -56,7 +59,7 @@
                     categoryPrices[categoryName] += price;
                 }
             });
-
+            /* passing the data to the apexcharts */
             var seriesData = [];
             for (var categoryName in categoryPrices) {
                 seriesData.push({
@@ -65,6 +68,7 @@
                 });
             }
 
+            /* configure apexcharts options */
             var options = {
                 chart: {
                     type: 'pie',
@@ -72,7 +76,7 @@
                 labels: Object.keys(categoryPrices),
                 series: Object.values(categoryPrices),
             };
-
+            /* render apexcharts */
             var chart = new ApexCharts(document.querySelector('#chart'), options)
             chart.render();
         </script>

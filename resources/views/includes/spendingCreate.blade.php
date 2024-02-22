@@ -18,7 +18,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
-                    <input type="numeric" name="price" id="price" class="form-control @if($errors->has('price')) is-invalid @endif" value="{{old('price')}}">
+                    <input type="number" min="0" name="price" id="price" class="form-control @if($errors->has('price')) is-invalid @endif" value="{{old('price')}}">
                     @error('price')
                         <small class="text-danger">*{{ $message }}</small>
                     @enderror
@@ -49,8 +49,7 @@
 </div>
 
 
-<div id="chart">
-</div>
+TODO:{{-- Make this into an AJAX code --}}
 <script>
     document.getElementById('category_id').addEventListener('change', function() {
         var newCategoryForm = document.getElementById('newCategoryForm');
@@ -60,7 +59,7 @@
             newCategoryForm.style.display = 'none';
         }
     });
-</script>
+</script> 
 
 
 @endsection
