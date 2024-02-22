@@ -49,7 +49,7 @@
 </div>
 
 
-TODO:{{-- Make this into an AJAX code --}}
+{{-- TODO:{{-- Make this into an AJAX code --}} 
 <script>
     document.getElementById('category_id').addEventListener('change', function() {
         var newCategoryForm = document.getElementById('newCategoryForm');

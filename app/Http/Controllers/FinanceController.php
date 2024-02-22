@@ -41,7 +41,7 @@ class FinanceController extends Controller
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id 
             ]);
-            TODO:/* prevent form submission, if the user selects the add new category option, maybe toastr warning */
+            /* TODO:prevent form submission, if the user selects the add new category option, maybe toastr warning */
             $finance->save();
             if($bool){
                 return redirect()->route('spending');
