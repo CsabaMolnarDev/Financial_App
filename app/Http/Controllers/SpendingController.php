@@ -47,7 +47,7 @@ class SpendingController extends Controller
             $category->owner_id = auth()->id();
             $category->save();
 
-           
+        toastr()->success($category->name . ' has been added to the categories successfully');
         return back();
     }
     public function create(){
