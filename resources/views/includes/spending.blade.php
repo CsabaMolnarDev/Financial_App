@@ -82,6 +82,19 @@
             var chart = new ApexCharts(document.querySelector('#chart'), options)
             chart.render();
         </script>
+         
+        <script>
+            var prices = financesData.map(function(item){
+                return item.price;
+            });
+            var sum = 0;
+            for (let i = 0; i < prices.length; i++) {
+                sum += prices[i];
+                
+            }
+            
+            console.log(sum/prices.length);
+        </script>
         {{-- Monthly spending in progress --}}
         {{-- <script>
             var monthlyData = {};
