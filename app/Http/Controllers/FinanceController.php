@@ -31,7 +31,7 @@ class FinanceController extends Controller
     public function store(StoreFinanceRequest $request)
     {   
         $bool = str_contains(url()->previous(), 'spending');
-       
+
         $finance = Finance::create([
             'user_id'=> auth()->user()->id,
             'type' => $bool ? 'Spending' : 'Income', 

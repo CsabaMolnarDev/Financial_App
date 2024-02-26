@@ -34,14 +34,16 @@
      
         @endforeach --}}
         <div id="chart">
-
+        
         </div>
+        <div id ="chart2"></div>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
            /*  TODO:  use ajax maybe */
 
            //user associated finances php array to json string
             var financesData = @json($finances);
+            console.log(financesData);
             //user associated categories php array tp json string
             var categoriesData = {!! json_encode($categories) !!};
            /*  console.log(categoriesData); */
@@ -80,6 +82,40 @@
             var chart = new ApexCharts(document.querySelector('#chart'), options)
             chart.render();
         </script>
+        {{-- Monthly spending in progress --}}
+        {{-- <script>
+            var monthlyData = {};
+            financesData.forEach(function(item){
+                var month = item.time.substring(0,7);
+                if (!monthlyData[month]){
+                    monthlyData[month] = 0;
+                }
+                monthlyData[month] += item.price;
+            });
+            var months = Object.keys(monthlyData);
+            var spending = months.map(function(month) {
+            return monthlyData[month];
+            });
+
+        // Create the line chart
+        var options = {
+            chart: {
+                type: 'line',
+                height: 400
+            },
+            series: [{
+                name: 'Monthly Spending',
+                data: spending
+            }],
+            xaxis: {
+                categories: months
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart2"), options);
+        chart.render();
+
+        </script> --}}
     
     </div>
 </div>
