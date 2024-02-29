@@ -31,7 +31,7 @@
                             <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                <input onchange="checkUsernameTaken(this.value);" id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
                                 @error('username')
                                     <span class="invalid-feedback" role="alert">
@@ -126,4 +126,31 @@
         </div>
     </div>
 </div>
+<script>
+    function checkUsernameTaken(input){
+        $.ajax({
+            type: 'POST',
+            url: '/checkUsernameTaken',
+            data: {
+                '_token' : '{{csrf_token()}}',
+                'name': input
+            },
+            success: function(data) {
+           
+                if (data.status == "failed")
+                {   
+                    $('#responseText').removeClass('text-danger text-success')
+                    $('#responseText').html('Username is taken');
+                    $('#responseText').addClass('text-danger');
+                    
+                }
+                else {
+                    $('#responseText').removeClass('text-danger text-success')
+                    $('#responseText').html("Username available");
+                    $('#responseText').addClass('text-success');
+                }
+            }
+        });
+    }
+</script>
 @endsection

@@ -12,11 +12,11 @@ use Illuminate\Queue\SerializesModels;
 class RegistrationSuccessful extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $userName;
+    /* protected $userName; */
     /**
      * Create a new message instance.
      */
-    public function __construct($userName)
+    public function __construct(/* $userName */)
     {
        
     }
@@ -27,7 +27,8 @@ class RegistrationSuccessful extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Registration Successful',
+            subject: 'Registration Successful Welcome to our site',
+
 
         );
     }
@@ -39,7 +40,7 @@ class RegistrationSuccessful extends Mailable
     {
         return new Content(
             view: 'mails.registrationSuccessfull',
-            with: ['userName' => $this->userName]
+           /*  with: ['userName' => $this->userName] */
         );
     }
 

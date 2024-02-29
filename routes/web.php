@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FinanceController;
+use App\http\Controllers\Auth\RegisterController;
 
 
 /*
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Auth::routes();
 /* This is the home route */
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+/* This is the check for username*/
+Route::post('/checkUsernameTaken', [RegisterController::class, 'checkNameIsTaken'])->name('username.check');
 /* Add category route */
 Route::post('/add-category', [SpendingController::class, 'addCategory'])->name('addCategory');
 /* This is the about us route */

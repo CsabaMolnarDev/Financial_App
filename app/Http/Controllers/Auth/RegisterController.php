@@ -89,4 +89,18 @@ class RegisterController extends Controller
         $currencies = Currency::all();
         return view('auth.register', compact('currencies'));
     }
+
+    public function checkNameIsTaken(Request $request)
+    {
+        $username = $request->input('username'); 
+
+        $userFound = User::where('username', $username)->exists(); 
+        if ($userFound) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Username is taken',
+            ]);
+        }
+    }
 }
+
