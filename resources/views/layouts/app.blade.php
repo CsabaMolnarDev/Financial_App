@@ -69,6 +69,8 @@
                                     {{-- both income and spending maybe? here we could edit our incomes --}}
                                     <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/income") }} '"">Incomes</button>
                                     <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/spending") }} '"">Spendings</button>
+                                    <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/settings") }} '"">Settings</button>
+
                         @endguest
                         <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '"">About us</button>
                         {{-- Make about us page and controler and route --}}

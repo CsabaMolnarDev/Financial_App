@@ -3,7 +3,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FinanceController;
-use App\http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\SettingsController;
 
 
 /*
@@ -38,5 +39,7 @@ Route::get('/incomeCreate', [Income::class, 'create'])->name('incomeCreate');
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 /* This is the spending create */
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
+/* Settings route */
+Route::get('/settings', [SettingsController::class, 'show'])->name('settings');
 /* This is the creating a new finance */
 Route::post('/finances', [FinanceController::class, 'store'])->name('finances.store');

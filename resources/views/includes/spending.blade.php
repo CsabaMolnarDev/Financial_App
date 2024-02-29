@@ -33,8 +33,8 @@
         </div>
      
         @endforeach --}}
-        <div id="chart">
-        
+        <div class="graph-border">
+            <div id="chart"></div>
         </div>
         <div id ="chart2"></div>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -74,6 +74,8 @@
             var options = {
                 chart: {
                     type: 'pie',
+                    width: 300, 
+                    height: 200, 
                 },
                 labels: Object.keys(categoryPrices),
                 series: Object.values(categoryPrices),

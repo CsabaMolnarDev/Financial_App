@@ -158,3 +158,9 @@ body {
     margin-bottom: 4%;
 }
 
+/* spending page graphicons, design */
+.graph-border {
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+}
