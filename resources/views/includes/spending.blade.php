@@ -33,11 +33,16 @@
         </div>
      
         @endforeach --}}
+        @if ($finances->isNotEmpty())
         <div class="graph-border">
-            <div id="chart"></div>
+            <div id="chart"><h1>Spending by categories</h1></div>
+            <div id ="chart2"></div>
+            <h1 id="avarage"></h1>
         </div>
-        <div id ="chart2"></div>
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        @endif
+      
+        
+        
         <script>
            /*  TODO:  use ajax maybe */
 
@@ -94,8 +99,12 @@
                 sum += prices[i];
                 
             }
+        
             
-            console.log(sum/prices.length);
+            let avarage = 'Avarage spending: ' + Math.round(sum/prices.length);
+            document.getElementById('avarage').innerHTML = avarage;
+            /* console.log(sum/prices.length); */
+        
         </script>
         {{-- Monthly spending in progress --}}
         {{-- <script>
