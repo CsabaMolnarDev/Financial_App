@@ -1,4 +1,3 @@
-{{-- TODO: make the currency filled from database???? line 50 --}}
 
 @extends('layouts.app')
 
@@ -77,7 +76,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                                <div id="passwordStrength"></div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -133,7 +132,7 @@
             url: '/checkUsernameTaken',
             data: {
                 '_token' : '{{csrf_token()}}',
-                'name': input
+                'username': input
             },
             success: function(data) {
            
@@ -152,5 +151,44 @@
             }
         });
     }
+    document.getElementById('password').addEventListener('input', function() {
+        var password = this.value;
+
+        $.ajax({
+        type: 'POST',
+        url: '/calculate-entropy',
+        data: {
+             password: password,
+             _token: '{{ csrf_token() }}', 
+            },
+        success: function(response) {
+            var strength;
+            document.getElementById('passwordStrength').innerText = 'Password Strength: ' + strength;
+        
+            switch (true) {
+                case (response.entropy <= 35):
+                    strength = 'Weak';
+                    break;
+                case (response.entropy >= 36 && response.entropy <= 59):
+                    strength = 'Moderate';
+                    break;
+                case (response.entropy >= 60 && response.entropy <= 119):
+                    strength = 'Strong';
+                    break;
+                case (response.entropy >= 120):
+                    strength = 'Very Strong';
+                    break;
+                default:
+                    strength = 'Something went wrong';
+                    break;
+            }
+            document.getElementById('passwordStrength').innerText = 'Password Strength: ' + strength;
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            console.log("Error:", errorThrown);
+        }
+    });
+});
+
 </script>
 @endsection

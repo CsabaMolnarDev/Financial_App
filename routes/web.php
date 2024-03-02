@@ -27,6 +27,8 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 /* This is the check for username*/
 Route::post('/checkUsernameTaken', [RegisterController::class, 'checkNameIsTaken'])->name('username.check');
+
+Route::post('/calculate-entropy', [RegisterController::class, 'calculateEntropy'])->name('caculate-entropy');
 /* Add category route */
 Route::post('/add-category', [SpendingController::class, 'addCategory'])->name('addCategory');
 /* This is the about us route */
