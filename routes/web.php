@@ -43,5 +43,6 @@ Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
 /* Settings route */
 Route::get('/settings', [SettingsController::class, 'show'])->name('settings');
+Route::post('/changeUserName', [SettingsController::class, 'changeUserName'])->name('changeUserName');
 /* This is the creating a new finance */
 Route::post('/finances', [FinanceController::class, 'store'])->name('finances.store');
