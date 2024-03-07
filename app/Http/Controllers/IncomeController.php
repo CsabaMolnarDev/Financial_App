@@ -7,7 +7,7 @@ use App\Models\Finance;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
-class Income extends Controller
+class IncomeController extends Controller
 {
     /**
      * Create a new controller instance.

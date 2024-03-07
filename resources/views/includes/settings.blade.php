@@ -44,7 +44,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{-- {{ route('change.email') }} --}}" method="POST">
+                                    <form action=" {{ route('changeEmail') }} " method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="newEmail" class="form-label">New Email</label>

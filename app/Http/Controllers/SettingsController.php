@@ -33,10 +33,10 @@ class SettingsController extends Controller
 
     }
 
-    public function changeEmail()
+    public function changeEmail(Request $request)
     {
         $request->validate([
-            'newEmail' => 'required|string|max:255|unique:users,email'
+            'newEmail' => 'required|string|email|max:255|unique:users,email'
         ]);
 
         $user = auth()->user();
