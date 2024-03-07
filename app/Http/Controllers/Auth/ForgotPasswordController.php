@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\{DB, Hash, Mail, Str};
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ForgotPasswordController extends Controller
 {
@@ -26,7 +27,7 @@ class ForgotPasswordController extends Controller
 
         $token = Str::random(64);
 
-        DB::table('password_resets')->insert([
+        DB::table('password_reset_tokens')->insert([
             'email' => $request->email,
             'token' => $token,
             'created_at' => Carbon::now()
@@ -42,7 +43,8 @@ class ForgotPasswordController extends Controller
     }
 
     public function showResetPasswordForm($token)
-    {
+    {   
+       
         return view('auth.forgetPasswordLink', ['token' => $token]);
     }
 
@@ -52,23 +54,37 @@ class ForgotPasswordController extends Controller
             'email' => 'required|email|exists:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
-        $updatePassword = DB::table('password_resets')
-            ->where([
-                'email' => $request->email,
-                'token' => $request->token
-            ])
-            ->first();
-
-        if (!$updatePassword) {
-            return back()->withInput()->with('error', 'Invalid token!');
+        
+        if (!$request->has('token')) {
+            return back()->withInput()->with('error', 'Invalid token 1 !');
         }
-
+        // Retrieve all tokens for the user's email
+        $tokens = DB::table('password_reset_tokens')
+                    ->where('email', $request->email)
+                    ->get();
+    
+        $tokenFound = false;
+        foreach ($tokens as $tokenRecord) {
+            if (Hash::check($request->token, $tokenRecord->token)) {
+                $tokenFound = true;
+                break; // Exit the loop if a matching token is found
+            }
+        }
+    
+        if (!$tokenFound) {
+            return back()->withInput()->with('error', 'Invalid token 2 !');
+        }
+    
+        // Token is valid, proceed with password update
         User::where('email', $request->email)
             ->update(['password' => Hash::make($request->password)]);
-
-        DB::table('password_resets')->where(['email' => $request->email])->delete();
+    
+        // Delete all reset tokens for this user to prevent reuse
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+    
         toastr()->success('Your password has been changed');
         return redirect('/login');
     }
 }
+
+   

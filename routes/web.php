@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 
 /*

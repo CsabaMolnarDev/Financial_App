@@ -7,6 +7,6 @@
     <title>Welcome to our page</title>
 </head>
 <body>
-    <h1>Welcome {{-- {{$userName}} --}}</h1>
+    <h1>Welcome  {{$username}} </h1>
 </body>
 </html>

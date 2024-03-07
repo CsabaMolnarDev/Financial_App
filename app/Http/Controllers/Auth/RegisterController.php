@@ -80,7 +80,7 @@ class RegisterController extends Controller
             
         ]);
         $userName = $user->username;
-        /* Mail::to($user->email)->send(new RegistrationSuccessful($userName)); */
+        Mail::to($user->email)->send(new RegistrationSuccessful($userName)); 
         return $user;
      
     }

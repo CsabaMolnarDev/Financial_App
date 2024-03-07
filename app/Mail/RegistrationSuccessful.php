@@ -16,9 +16,9 @@ class RegistrationSuccessful extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(/* $userName */)
+    public function __construct()
     {
-       
+  
     }
 
     /**
@@ -40,7 +40,7 @@ class RegistrationSuccessful extends Mailable
     {
         return new Content(
             view: 'mails.registrationSuccessfull',
-           /*  with: ['userName' => $this->userName] */
+         /*    with: ['userName' => $this->username]  */
         );
     }
 
