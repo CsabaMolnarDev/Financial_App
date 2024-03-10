@@ -20,6 +20,10 @@ class User extends Authenticatable
     public function finances() : HasMany{
         return $this->hasMany(Finance::class);
     }
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
     
 
     /**
@@ -36,6 +40,9 @@ class User extends Authenticatable
         'password',
         'roles_id',
         'currency_id',
+        'notification',
+        'notification_time',
+        'timezone',
         'finances_id'
     ];
 

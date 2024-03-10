@@ -34,13 +34,14 @@
      
         @endforeach --}}
         @if ($finances->isNotEmpty())
+        <h1 id="sum"></h1>
         <div class="graph-border">
             <div id="chart"><h1>Spending by categories</h1></div>
-            <div id ="chart2"></div>
+            <div id ="monthlyByCategories"></div>
             <h1 id="avarage"></h1>
         </div>
         @endif
-      
+       
         
         
         <script>
@@ -101,45 +102,92 @@
             }
         
             
-            let avarage = 'Avarage spending: ' + Math.round(sum/prices.length);
+            let avarage = 'Avarage spending: ' + Math.round(sum/prices.length) + ' ' + '{{ $currencySymbol }}';
+            sum = 'Spending in total: ' + sum + ' ' + '{{ $currencySymbol }}';
+            document.getElementById('sum').innerHTML = sum;
             document.getElementById('avarage').innerHTML = avarage;
             /* console.log(sum/prices.length); */
         
         </script>
-        {{-- Monthly spending in progress --}}
-        {{-- <script>
-            var monthlyData = {};
-            financesData.forEach(function(item){
-                var month = item.time.substring(0,7);
-                if (!monthlyData[month]){
-                    monthlyData[month] = 0;
+        <script>
+            var financesData = @json($finances);
+            var categoriesData = {!! json_encode($categories) !!};
+        
+            var monthlyCategoryPrices = {};
+        
+            financesData.forEach(function(finance) {
+                var categoryId = finance.category_id;
+                var categoryName = categoriesData[categoryId];
+                var dateParts = finance.time.split('-'); // Split the date string into parts
+                var year = parseInt(dateParts[0]); // Get year
+                var month = parseInt(dateParts[1]); // Get month
+                var key = categoryName + '-' + year + '-' + month; // Unique key for each category and month
+        
+                if (!monthlyCategoryPrices[key]) {
+                    monthlyCategoryPrices[key] = finance.price;
+                } else {
+                    monthlyCategoryPrices[key] += finance.price;
                 }
-                monthlyData[month] += item.price;
             });
-            var months = Object.keys(monthlyData);
-            var spending = months.map(function(month) {
-            return monthlyData[month];
-            });
-
-        // Create the line chart
-        var options = {
-            chart: {
-                type: 'line',
-                height: 400
-            },
-            series: [{
-                name: 'Monthly Spending',
-                data: spending
-            }],
-            xaxis: {
-                categories: months
+        
+            var categories = {};
+            var seriesData = [];
+        
+            for (var key in monthlyCategoryPrices) {
+                var parts = key.split('-');
+                var categoryName = parts[0];
+                var year = parseInt(parts[1]);
+                var month = parseInt(parts[2]);
+                var value = monthlyCategoryPrices[key];
+        
+                if (!categories[categoryName]) {
+                    categories[categoryName] = [];
+                }
+        
+                
+                categories[categoryName].push([Date.UTC(year, month - 1), value]);
             }
-        };
+        
+            for (var categoryName in categories) {
+                seriesData.push({
+                    name: categoryName,
+                    data: categories[categoryName]
+                });
+            }
+        
+            var options = {
+                chart: {
+                    type: 'line',
+                    width: 800,
+                    height: 400,
+                },
+                xaxis: {
+                    type: 'datetime',
+                    labels: {
+                        datetimeFormatter: {
+                            year: 'yyyy',
+                            month: 'MMM yyyy',
+                            day: 'dd MMM',
+                            hour: 'HH:mm',
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function(value) {
+                            return value + ' ' + '{{ $currencySymbol }}'; 
+                        }
+                    }
+                },
+                series: seriesData
+            };
+        
+            var chart = new ApexCharts(document.querySelector('#monthlyByCategories'), options);
+            chart.render();
+        </script>
+        
 
-        var chart = new ApexCharts(document.querySelector("#chart2"), options);
-        chart.render();
 
-        </script> --}}
     
     </div>
 </div>

@@ -51,29 +51,6 @@
 
 
 
-
-
-{{-- <script>
-    document.getElementById('category_id').addEventListener('change', function() {
-        if (this.value === 'add_category') {
-            document.getElementById('form-submit').disabled = true;
-            toastr.warning('Please choose category before submitting your finance');
-        } else {
-            document.getElementById('form-submit').disabled = false;
-        }
-    });
-
-    document.getElementById('categoryForm').addEventListener('submit', function(event){
-        if (document.getElementById('category_id').value === 'add_category') {
-            event.preventDefault();
-            toastr.warning('Please choose category before submitting your finance');
-        }
-    })
-</script> --}}
-
-
-
-
 {{-- TODO:{{-- Make this into an AJAX code --}} 
 <script>
     document.getElementById('category_id').addEventListener('change', function() {

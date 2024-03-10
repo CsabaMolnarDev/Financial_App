@@ -164,3 +164,9 @@ body {
     border-radius: 5px;
     padding: 10px;
 }
+
+
+/* settings page - Set Time */
+#setTime {
+    display: none;
+}

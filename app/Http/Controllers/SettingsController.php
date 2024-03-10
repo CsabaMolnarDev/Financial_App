@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Curreny;
+use App\Models\Currency;
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class SettingsController extends Controller
@@ -14,7 +16,8 @@ class SettingsController extends Controller
     public function show()
     {
         $user = auth()->user();
-        return view('includes.settings', ['user' => $user ]);
+        $currencies = Currency::all();
+        return view('includes.settings', ['user' => $user, 'currencies' => $currencies ]);
     }
 
     public function changeUserName(Request $request)
@@ -45,6 +48,53 @@ class SettingsController extends Controller
         $user->save();
         toastr()->success("Email has been changed successfully");
         return back();
-
     }
+
+    public function changeCurrency(Request $request)
+    {
+        $request->validate([
+            'newCurrency' => 'required|exists:currencies,id'
+        ]);
+        $user = auth()->user();
+        $user->currency_id = $request->newCurrency;
+        $user->save();
+        toastr()->success("Currency has been changed successfully");
+        return back();
+    }
+
+    public function enableNotification(Request $request)
+    {   
+        $user = auth()->user();
+        $userTimezone = $request->input('timezone');
+        $selectedTime = $request->input('appt');
+        $checkboxValue = $request->input('notification'); 
+        $user->notification = $checkboxValue ? '1' : '0';
+        $user->notification_time = $selectedTime;
+        $user->timezone = $userTimezone;
+        $user->save();
+        toastr()->success('Notification settings updated successfully');
+        return redirect('/home');
+
+       /*  $userTimezone = $request->input('timezone');
+        $selectedTimeinput = $request->input('appt');
+        $checkboxValue = $request->input('notification'); 
+        if ($checkboxValue == 'on') {
+            
+            $timeNow = Carbon::now($userTimezone);
+            $selectedTime = Carbon::createFromFormat('Y-m-d H:i', $selectedTimeinput, $userTimezone);
+            
+            
+           
+            if ($timeNow->format('H:i') === $selectedTime->format('H:i')) {
+                echo 'Working, innit';
+            }
+        }
+        else { */
+         
+            
+        
+    }
+
+
+
 }

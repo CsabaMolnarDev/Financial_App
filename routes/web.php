@@ -52,6 +52,9 @@ Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spen
 Route::get('/settings', [SettingsController::class, 'show'])->name('settings')->middleware('auth');
 Route::post('/changeUserName', [SettingsController::class, 'changeUserName'])->name('changeUserName');
 Route::post('/changeEmail', [SettingsController::class, 'changeEmail'])->name('changeEmail');
+Route::post('/changeCurrency', [SettingsController::class, 'changeCurrency'])->name('changeCurrency');
+Route::post('/enableNotification', [SettingsController::class, 'enableNotification'])->name('enableNotification');
+
 /* This is the creating a new finance */
 Route::post('/finances', [FinanceController::class, 'store'])->name('finances.store');
 
