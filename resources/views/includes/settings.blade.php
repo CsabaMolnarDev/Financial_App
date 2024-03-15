@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('content')
-  
-{{--TODO: set these into a card + frontend, and possibly make a change option next to them --}}
-{{-- show currency, list out all categories --}}
-
 <div class="row justify-content-center">
     <div class="col-4">
         <div class="card">
@@ -169,10 +165,10 @@ document.getElementById('downloadButton').addEventListener('click', function() {
             type: 'POST', // or GET, depending on your requirements
             data: {
                 myCheckboxValue: valueToSend,
-                _token: '{{ csrf_token() }}' 
+                _token: '{{ csrf_token() }}'
             },
             success: function(response){
-        
+
                 console.log('Success:', response);
             },
             error: function(xhr){

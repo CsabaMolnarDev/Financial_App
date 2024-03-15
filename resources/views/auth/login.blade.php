@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-<img id="regFormPicture" src="../storage/pictures/login.jpg" alt="background" title="background">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -70,4 +68,7 @@
         </div>
     </div>
 </div>
+<script>
+    document.body.style.backgroundImage = "url('../storage/pictures/login.jpg')";
+</script>
 @endsection

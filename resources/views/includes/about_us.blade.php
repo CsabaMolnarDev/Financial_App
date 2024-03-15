@@ -1,7 +1,6 @@
 {{-- here we can read about the creators --}}
 @extends('layouts.app')
 @section('content')
-<img id="regFormPicture" src="../storage/pictures/about_us.jpg" alt="background" title="background">
 <div class="container">
     <div class="row">
         {{-- from database --}}
@@ -56,4 +55,8 @@
         @endforeach
     </div>{{-- end of row --}}
 </div>{{-- end of container --}}
+<script>
+    document.body.style.backgroundImage = "url('../storage/pictures/about.jpg')";
+</script>
 @endsection
+

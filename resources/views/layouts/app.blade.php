@@ -14,7 +14,6 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,10 +23,17 @@
     <script src="{{ asset('js/app.js') }}"></script>
 </head>
 
-<body>
+<body style="
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center;
+background-image: url('../storage/pictures/home.jpg');
+
+">
     <div id="app">
         {{-- Navnar --}}
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
                 {{-- Home img/button --}}
                 <a class="navbar-brand text-light" href="
@@ -61,22 +67,18 @@
                                 <button id="menuBtn" class="btn btn-outline-warning" type="submit" onclick="window.location=' {{ url("/register") }} '"> {{ __('Register') }}</button>
                             @endif
                         @else
-                         <button id="menuBtn" class="btn btn-outline-warning" type="submit" href="{{ route('logout') }}"
+                            <button id="menuBtn" class="btn btn-outline-warning" type="submit" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}</button>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                    {{-- <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '"">Finances</button> --}}
-                                    {{-- both income and spending maybe? here we could edit our incomes --}}
-                                    <button id="menuBtn" class="btn btn-outline-success" type="submit" onclick="window.location=' {{ url("/income") }} '"">Incomes</button>
-                                    <button id="menuBtn" class="btn btn-outline-danger" type="submit" onclick="window.location=' {{ url("/spending") }} '"">Spendings</button>
-                                    <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/settings") }} '"">Settings</button>
-
+                            <button id="menuBtn" class="btn btn-outline-success" type="submit" onclick="window.location=' {{ url("/income") }} '">Incomes</button>
+                            <button id="menuBtn" class="btn btn-outline-danger" type="submit" onclick="window.location=' {{ url("/spending") }} '">Spendings</button>
+                            <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/settings") }} '">Settings</button>
                         @endguest
-                        <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '"">About us</button>
-                        {{-- Make about us page and controler and route --}}
+                            <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '">About us</button>
                         </ul>
                     </div>
                 </div>

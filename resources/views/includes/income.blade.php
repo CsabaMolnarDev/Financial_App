@@ -1,7 +1,6 @@
 {{-- here we can track our income --}}
 @extends('layouts.app')
 @section('content')
-<img id="regFormPicture" src="../storage/pictures/income.jpg" alt="background" title="background">
 <div class="container">
     <div class="row">
         <div class="col-2"></div>
@@ -33,4 +32,7 @@
         @endforeach
     </div>
 </div>
+<script>
+    document.body.style.backgroundImage = "url('../storage/pictures/income.jpg')";
+</script>
 @endsection

@@ -1,7 +1,6 @@
 {{-- here we can track our spendings --}}
 @extends('layouts.app')
 @section('content')
-<img id="regFormPicture" src="../storage/pictures/spending.jpg" alt="background" title="background">
     <div class="col-4">
         <div class="card">
             <div class="card-body">
@@ -36,11 +35,10 @@
         </div>
     </div>
 </div>
-
-
 <div id="chart">
 </div>
 <script>
+    document.body.style.backgroundImage = "url('../storage/pictures/incomeCreate.jpg')";
     document.getElementById('categorySelect').addEventListener('change', function() {
         var newCategoryForm = document.getElementById('newCategoryForm');
         if (this.value === 'add_category') {
@@ -50,6 +48,4 @@
         }
     });
 </script>
-
-
 @endsection

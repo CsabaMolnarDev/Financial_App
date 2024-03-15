@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-<img id="regFormPicture" src="../storage/pictures/home.jpg" alt="background" title="background">
 <div id="homeContainer" class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
     <div class="row">
         <div class="col-2"></div>
