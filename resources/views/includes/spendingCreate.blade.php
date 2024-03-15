@@ -1,9 +1,6 @@
 {{-- here we can track our spendings --}}
 @extends('layouts.app')
-
 @section('content')
-<img id="regFormPicture" src="../storage/pictures/spending.jpg" alt="background" title="background">
-
 <div class="container">
     <div class="row">
         <div class="card">
@@ -22,7 +19,7 @@
                     @error('price')
                         <small class="text-danger">*{{ $message }}</small>
                     @enderror
-                </div>    
+                </div>
                 <div class="mb-3">
                     <label for="category_id" class="form-label">Category</label>
                     <select id="category_id" class="form-control" name="category_id">
@@ -47,12 +44,9 @@
         </div>
     </div>
 </div>
-
-
-
-
-{{-- TODO:{{-- Make this into an AJAX code --}} 
+{{-- TODO:{{-- Make this into an AJAX code --}}
 <script>
+    document.body.style.backgroundImage = "url('../storage/pictures/spendingCreate.jpg')";
     document.getElementById('category_id').addEventListener('change', function() {
         var newCategoryForm = document.getElementById('newCategoryForm');
         if (this.value === 'add_category') {
@@ -61,7 +55,5 @@
             newCategoryForm.style.display = 'none';
         }
     });
-</script> 
-
-
+</script>
 @endsection

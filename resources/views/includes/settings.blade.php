@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('content')
-  
-{{--TODO: set these into a card + frontend, and possibly make a change option next to them --}}
-{{-- show currency, list out all categories --}}
-
 <div class="row justify-content-center">
     <div class="col-4">
         <div class="card">
@@ -76,7 +72,7 @@
                             @csrf
                             <input type="checkbox" id="notification" name="notification">
                             <label for="notification"> I want to get notified to log my spendings</label><br>
-                            
+
 
                             <div id="setTime">
                                 <label for="appt">Select a time:</label>
@@ -84,17 +80,17 @@
                                 <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
                             </div>
                             <input type="hidden" id="timezone" name="timezone">
-                    </form> 
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
- document.addEventListener('DOMContentLoaded', function(){
+    document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";
+    document.addEventListener('DOMContentLoaded', function(){
     var checkbox = document.getElementById('notification');
     var setTime = document.getElementById('setTime');
-    
     checkbox.addEventListener('change', function(){
         if (this.checked) {
             setTime.style.display = 'block';
@@ -149,10 +145,10 @@
             type: 'POST', // or GET, depending on your requirements
             data: {
                 myCheckboxValue: valueToSend,
-                _token: '{{ csrf_token() }}' 
+                _token: '{{ csrf_token() }}'
             },
             success: function(response){
-        
+
                 console.log('Success:', response);
             },
             error: function(xhr){
