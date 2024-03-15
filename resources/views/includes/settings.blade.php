@@ -76,32 +76,52 @@
                             @csrf
                             <input type="checkbox" id="notification" name="notification">
                             <label for="notification"> I want to get notified to log my spendings</label><br>
-                            
-
-                            <div id="setTime">
+                            <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
+                            <input type="hidden" id="timezone" name="timezone">
+                           {{--  <div id="setTime">
                                 <label for="appt">Select a time:</label>
                                 <input type="time" id="appt" name="appt">
                                 <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
                             </div>
-                            <input type="hidden" id="timezone" name="timezone">
-                    </form> 
+                            <input type="hidden" id="timezone" name="timezone"> --}}
+                    </form>
+                    <p class="card-text"><strong>Download spendings in csv: </strong>
+                        <button id="downloadButton" type="submit" class="btn btn-primary">Download</button>
+                        {{-- https://www.npmjs.com/package/json-to-csv-export--}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <script>
+
+var financesData = @json($finances);
+document.getElementById('downloadButton').addEventListener('click', function() {
+
+    const dataToConvert = {
+        data: financesData,
+        filename: 'Spendings',
+        delimiter: ',',
+        headers: ['Name', 'Price', 'Time']
+    };
+
+ 
+    csvDownload(dataToConvert);
+});
+ //notification handle           
  document.addEventListener('DOMContentLoaded', function(){
     var checkbox = document.getElementById('notification');
-    var setTime = document.getElementById('setTime');
+   
+    /* var setTime = document.getElementById('setTime'); */
     
-    checkbox.addEventListener('change', function(){
+    /* checkbox.addEventListener('change', function(){
         if (this.checked) {
             setTime.style.display = 'block';
         } else {
             setTime.style.display = 'none';
         }
-    });
+    }); */
     document.getElementById('enableNotificationBtn').addEventListener('click', function(event) {
         var userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         document.getElementById('timezone').value = userTimezone;

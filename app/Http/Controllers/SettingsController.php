@@ -9,6 +9,7 @@ use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\Finance;
 
 
 class SettingsController extends Controller
@@ -17,7 +18,9 @@ class SettingsController extends Controller
     {
         $user = auth()->user();
         $currencies = Currency::all();
-        return view('includes.settings', ['user' => $user, 'currencies' => $currencies ]);
+        $userId = Auth::id();
+        $finances = Finance::where('type','Spending')->where('user_id', $userId)->get(); 
+        return view('includes.settings', ['user' => $user, 'currencies' => $currencies ], ['finances' => $finances]);
     }
 
     public function changeUserName(Request $request)
@@ -66,10 +69,10 @@ class SettingsController extends Controller
     {   
         $user = auth()->user();
         $userTimezone = $request->input('timezone');
-        $selectedTime = $request->input('appt');
+        /* $selectedTime = $request->input('appt'); */
         $checkboxValue = $request->input('notification'); 
         $user->notification = $checkboxValue ? '1' : '0';
-        $user->notification_time = $selectedTime;
+        /* $user->notification_time = $selectedTime; */
         $user->timezone = $userTimezone;
         $user->save();
         toastr()->success('Notification settings updated successfully');
@@ -89,12 +92,8 @@ class SettingsController extends Controller
                 echo 'Working, innit';
             }
         }
-        else { */
-         
-            
-        
+        else { */  
     }
-
 
 
 }

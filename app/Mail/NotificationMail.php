@@ -9,16 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class RegistrationSuccessful extends Mailable
+class NotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
-    /* protected $userName; */
+
     /**
      * Create a new message instance.
      */
-    public function __construct($username)
+    public function __construct()
     {
-        $this->username = $userName;
+        //
     }
 
     /**
@@ -27,9 +27,7 @@ class RegistrationSuccessful extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Registration Successful Welcome to our site',
-
-
+            subject: 'Notification Mail',
         );
     }
 
@@ -39,8 +37,7 @@ class RegistrationSuccessful extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.registrationSuccessfull',
-             with: ['userName' => $username]  
+            view: 'mails.notification',
         );
     }
 

@@ -1,0 +1,1 @@
+<h1>Don't forget to log your spendings</h1>
