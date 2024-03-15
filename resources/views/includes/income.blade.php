@@ -11,7 +11,6 @@
         <div class="col-2"></div>
     </div>
 </div>
-
 <div class="container">
     <div class="row">
         @foreach($finances as $item)
@@ -28,8 +27,8 @@
                 </div>
                 <div class="row-3">
                     <p class="card-text">{{$item->time}}</p>
-                </div>         
-            </div>         
+                </div>
+            </div>
         </div>
         @endforeach
     </div>

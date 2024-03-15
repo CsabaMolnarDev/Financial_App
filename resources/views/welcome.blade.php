@@ -14,7 +14,7 @@
                     <div class="card" id="welcomeCard">
                         <div class="card-body">
                             <h4 id="welcomeSlogen" class="card-title text-info">Start to manage your finances with our help today</h4>
-                            <button id="welcomeButton" type="button" class="btn btn-outline-info" onclick="window.location=' {{ url("/register") }} '">Getting started</button>
+                            <button id="welcomeButton" type="button" class="btn btn-outline-warning" onclick="window.location=' {{ url("/register") }} '">Getting started</button>
                         </div>
                     </div>
                 </div>

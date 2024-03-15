@@ -14,7 +14,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -53,13 +53,13 @@
                         <ul class="navbar-nav">
                             @guest
                             @if (Route::has('login'))
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/login") }} '">{{ __('Login') }}</button>
+                                <button id="menuBtn" class="btn btn-outline-success" type="submit" onclick="window.location=' {{ url("/login") }} '">{{ __('Login') }}</button>
                             @endif
                             @if (Route::has('register'))
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/register") }} '"> {{ __('Register') }}</button>
+                                <button id="menuBtn" class="btn btn-outline-warning" type="submit" onclick="window.location=' {{ url("/register") }} '"> {{ __('Register') }}</button>
                             @endif
                         @else
-                         <button id="menuBtn" class="btn btn-outline-info" type="submit" href="{{ route('logout') }}"
+                         <button id="menuBtn" class="btn btn-outline-warning" type="submit" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}</button>
@@ -68,8 +68,8 @@
                                     </form>
                                     {{-- <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '"">Finances</button> --}}
                                     {{-- both income and spending maybe? here we could edit our incomes --}}
-                                    <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/income") }} '"">Incomes</button>
-                                    <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/spending") }} '"">Spendings</button>
+                                    <button id="menuBtn" class="btn btn-outline-success" type="submit" onclick="window.location=' {{ url("/income") }} '"">Incomes</button>
+                                    <button id="menuBtn" class="btn btn-outline-danger" type="submit" onclick="window.location=' {{ url("/spending") }} '"">Spendings</button>
                                     <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/settings") }} '"">Settings</button>
 
                         @endguest

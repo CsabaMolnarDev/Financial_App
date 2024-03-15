@@ -6,19 +6,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card bg-dark text-info">
+            <div class="card bg-dark text-light">
                 <div class="card-header text-info" id="RegFormTittle">{{ __('Register') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
                         <div class="row mb-3">
                             <label for="fullname" class="col-md-4 col-form-label text-md-end">{{ __('Fullname') }}</label>
-
                             <div class="col-md-6">
                                 <input id="fullname" type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" required autocomplete="fullname" autofocus>
-
                                 @error('fullname')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -28,7 +25,6 @@
                         </div>
                         <div class="row mb-3">
                             <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
-
                             <div class="col-md-6">
                                 <input onchange="checkUsernameTaken(this.value);" id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
@@ -47,8 +43,6 @@
                                  @foreach ($currencies as $currency)
                                     <option value="{{ $currency->id }}">{{ $currency->name }} - {{ $currency->symbol }}</option>
                                 @endforeach
-                                    
-                                
                                 </select>
                                 @error('currency')
                                     <span class="invalid-feedback" role="alert">
@@ -59,10 +53,8 @@
                           </div>
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -70,13 +62,11 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                <div id="passwordStrength"></div>
+                                <div class="text-primary" id="passwordStrength"></div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -84,7 +74,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
@@ -92,30 +81,24 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
                         <div class="row content-justify-center">
                             <div class="col-4">
-
                             </div>
                             <div class="col-4 text-center">
-                                <button id="logButton" type="submit" class="btn btn-outline-info registerButton">
+                                <button id="logButton" type="submit" class="btn btn-outline-warning registerButton">
                                     {{ __('Register') }}
                                 </button>
                             </div>
                             <div class="col-4">
-
                             </div>
                         </div>
                         <div class="row content-justify-center">
                             <div class="col-4">
-
                             </div>
                             <div class="col-4 text-center">
-
-                                    <a href="{{ route('login') }}">I have account? Log in!</a>
+                                <a href="{{ route('login') }}">I have account? Log in!</a>
                             </div>
                             <div class="col-4">
-
                             </div>
                         </div>
                         </div>
@@ -135,13 +118,12 @@
                 'username': input
             },
             success: function(data) {
-           
                 if (data.status == "failed")
-                {   
+                {
                     $('#responseText').removeClass('text-danger text-success')
                     $('#responseText').html('Username is taken');
                     $('#responseText').addClass('text-danger');
-                    
+
                 }
                 else {
                     $('#responseText').removeClass('text-danger text-success')
@@ -153,18 +135,16 @@
     }
     document.getElementById('password').addEventListener('input', function() {
         var password = this.value;
-
         $.ajax({
         type: 'POST',
         url: '/calculate-entropy',
         data: {
              password: password,
-             _token: '{{ csrf_token() }}', 
+             _token: '{{ csrf_token() }}',
             },
         success: function(response) {
             var strength;
             document.getElementById('passwordStrength').innerText = 'Password Strength: ' + strength;
-        
             switch (true) {
                 case (response.entropy <= 35):
                     strength = 'Weak';
@@ -189,6 +169,5 @@
         }
     });
 });
-
 </script>
 @endsection

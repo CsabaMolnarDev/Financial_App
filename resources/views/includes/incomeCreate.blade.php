@@ -1,9 +1,7 @@
 {{-- here we can track our spendings --}}
 @extends('layouts.app')
-
 @section('content')
 <img id="regFormPicture" src="../storage/pictures/spending.jpg" alt="background" title="background">
-
     <div class="col-4">
         <div class="card">
             <div class="card-body">
@@ -13,14 +11,10 @@
             <div class="card-body">
                 <h3 class="card-title">Name</h3>
                 <input type="text" name="name" id="name">
-
-
                 <h3 class="card-title">Amount</h3>
                 <input type="number" min="0">
                 <select name="currency">
-            
                 </select>
-
                 <h3 class="card-title">Category</h3>
                 <select name="category" id="categorySelect">
                     <option value="" selected disabled>Select a category</option>
@@ -29,7 +23,6 @@
                     @endforeach
                         <option value="add_category">Add new Category</option>
                 </select>
-
                 <form action="{{ route('addCategory') }}" method="POST">
                     @csrf
                     <div id="newCategoryForm" style="display: none;">
@@ -37,7 +30,6 @@
                         <button id="addCategoryBtn" type="submit">Add Category</button>
                     </div>
                 </form>
-
                     <button type="submit">Add</button>
                 </form>
             </div>

@@ -1,9 +1,7 @@
 {{-- here we can read about the creators --}}
 @extends('layouts.app')
-
 @section('content')
 <img id="regFormPicture" src="../storage/pictures/about_us.jpg" alt="background" title="background">
-
 <div class="container">
     <div class="row">
         {{-- from database --}}
@@ -11,14 +9,13 @@
         {{-- sets the amount of card we can put next to each other col-4*3 = 12 -> 3 card will be displayed in one row --}}
         <div class="col-4">
             {{-- card --}}
-            <div class="card bg-dark text-info">
-                <div class="card-tittle"> {{-- tittle of the card --}}
+            <div class="card bg-dark text-light">
+                <div class="card-tittle text-info"> {{-- tittle of the card --}}
                     <div class="card-header cardTitle aboutTittle">{{$item->username}}</div>
                 </div>{{-- end of the tittle --}}
                 <div class="card-body"> {{-- body of the card --}}
                     <div class="row">{{-- main content of card --}}
                          <div class="col-4">{{-- left side of the card --}}
-
                             <div class="row-12">
                                 <?php
                                 if ($item->picture) {
@@ -31,7 +28,6 @@
                             </div>
                          </div>{{-- end of the left side of the card --}}
                          <div class="col-8">{{-- right side of the card --}}
-
                             <div class="row">{{-- TOP row --}}
                                 <div class="col-4">{{-- left side of the top row --}}
                                     <p class="card-text aboutFont">Name:</p>
