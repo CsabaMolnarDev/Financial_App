@@ -12,6 +12,38 @@
                     </div>
                     {{-- Card body --}}
                     <div class="card-body">
+                        {{-- Fullname area --}}
+                        <div>
+                            <p class="card-text"><strong>Full name:</strong> {{ $user->fullname }}</p>
+                            <button type="button" class="btn btn-primary"
+                                data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change Fullname</button>
+                            <!-- Fullname Modal -->
+                            <div class="modal fade" id="changeFullnameModal"
+                                tabindex="-1"aria-labelledby="changeFullnameModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="changeFullnameModalLabel">Change Fullname</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action=" {{ route('changeFullName') }} " method="POST">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <label for="newFullname" class="form-label">New Fullname</label>
+                                                    <input type="text" class="form-control"id="newFullname"
+                                                        name="newFullname" required>
+                                                </div>
+                                                <div>
+                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {{-- Username area --}}
                         <div>
                             <p class="card-text"><strong>Name:</strong> {{ $user->username }}</p>
@@ -82,7 +114,8 @@
                                 <select name="newCurrency" id="currency">
                                     <option value="" disabled selected hidden></option>
                                     @foreach ($currencies as $currency)
-                                        <option value="{{ $currency->id }}">{{ $currency->name }} - {{ $currency->symbol }}
+                                        <option value="{{ $currency->id }}">{{ $currency->name }} -
+                                            {{ $currency->symbol }}
                                         </option>
                                     @endforeach
                                 </select>

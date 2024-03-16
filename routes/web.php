@@ -18,14 +18,18 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 /* This is the welcome route */
 Route::get('/', function () {
     return view('welcome');
 });
+
 /* This is the auth route */
 Auth::routes();
+
 /* This is the home route */
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 /* This is the check for username*/
 Route::post('/checkUsernameTaken', [RegisterController::class, 'checkNameIsTaken'])->name('username.check');
 
@@ -35,24 +39,35 @@ Route::middleware(['auth'])->group(function (){
 
 });
 
+/* TODO: what is this???? */
 Route::post('/calculate-entropy', [RegisterController::class, 'calculateEntropy'])->name('caculate-entropy');
 /* Add category route */
 Route::post('/add-category', [SpendingController::class, 'addCategory'])->name('addCategory');
+
 /* This is the about us route */
 Route::get('/about_us', [AboutUsController::class, 'index'])->name('about_us');
+
 /* This is the income route */
 Route::get('/income', [IncomeController::class, 'index'])->name('income');
 /* This is the income create */
 Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCreate');
+
 /* This is the spending route */
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 /* This is the spending create */
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
+
 /* Settings route */
 Route::get('/settings', [SettingsController::class, 'show'])->name('settings')->middleware('auth');
+/* Change Fullname */
+Route::post('/changeFullName', [SettingsController::class, 'changeFullName'])->name('changeFullName');
+/* Change username */
 Route::post('/changeUserName', [SettingsController::class, 'changeUserName'])->name('changeUserName');
+/* Change email */
 Route::post('/changeEmail', [SettingsController::class, 'changeEmail'])->name('changeEmail');
+/* Change currency */
 Route::post('/changeCurrency', [SettingsController::class, 'changeCurrency'])->name('changeCurrency');
+/* Notifications */
 Route::post('/enableNotification', [SettingsController::class, 'enableNotification'])->name('enableNotification');
 
 /* This is the creating a new finance */

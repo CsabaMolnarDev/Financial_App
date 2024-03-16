@@ -19,10 +19,24 @@ class SettingsController extends Controller
         $user = auth()->user();
         $currencies = Currency::all();
         $userId = Auth::id();
-        $finances = Finance::where('type','Spending')->where('user_id', $userId)->get(); 
+        $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
         return view('includes.settings', ['user' => $user, 'currencies' => $currencies ], ['finances' => $finances]);
     }
+    public function changeFullName(Request $request)
+    {
+        $request->validate([
+            'newFullname' => 'required|string|max:255|unique:users,fullname'
+        ]);
 
+        $user = auth()->user();
+
+
+        $user->fullname = $request->newFullname;
+        $user->save();
+        toastr()->success("Username has been changed successfully");
+        return back();
+
+    }
     public function changeUserName(Request $request)
     {
         $request->validate([
@@ -31,7 +45,7 @@ class SettingsController extends Controller
 
         $user = auth()->user();
 
-        
+
         $user->username = $request->newUsername;
         $user->save();
         toastr()->success("Username has been changed successfully");
@@ -66,11 +80,11 @@ class SettingsController extends Controller
     }
 
     public function enableNotification(Request $request)
-    {   
+    {
         $user = auth()->user();
         $userTimezone = $request->input('timezone');
         /* $selectedTime = $request->input('appt'); */
-        $checkboxValue = $request->input('notification'); 
+        $checkboxValue = $request->input('notification');
         $user->notification = $checkboxValue ? '1' : '0';
         /* $user->notification_time = $selectedTime; */
         $user->timezone = $userTimezone;
@@ -80,19 +94,19 @@ class SettingsController extends Controller
 
        /*  $userTimezone = $request->input('timezone');
         $selectedTimeinput = $request->input('appt');
-        $checkboxValue = $request->input('notification'); 
+        $checkboxValue = $request->input('notification');
         if ($checkboxValue == 'on') {
-            
+
             $timeNow = Carbon::now($userTimezone);
             $selectedTime = Carbon::createFromFormat('Y-m-d H:i', $selectedTimeinput, $userTimezone);
-            
-            
-           
+
+
+
             if ($timeNow->format('H:i') === $selectedTime->format('H:i')) {
                 echo 'Working, innit';
             }
         }
-        else { */  
+        else { */
     }
 
 
