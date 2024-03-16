@@ -5,9 +5,9 @@
             <div class="col-3"></div>
             <div class="col-6">
                 {{-- Card --}}
-                <div class="card">
+                <div class="card bg-dark text-light">
                     {{-- Card tittle --}}
-                    <div class="card-tittle">
+                    <div class="card-header">
                         <h3 class="card-title">Profile Details</h3>
                     </div>
                     {{-- Card body --}}

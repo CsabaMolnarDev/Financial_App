@@ -32,11 +32,11 @@ class SettingsController extends Controller
             'newFullname' => 'required|string|max:255|min:5|unique:users,fullname'
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
 
 
         $user->fullname = $request->newFullname;
-        $user->save();
+        $user->update();
         toastr()->success("Fullname changed successfully");
         return back();
 
