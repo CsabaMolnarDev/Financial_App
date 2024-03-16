@@ -70,6 +70,8 @@ Route::post('/changeEmail', [SettingsController::class, 'changeEmail'])->name('c
 Route::post('/changeCurrency', [SettingsController::class, 'changeCurrency'])->name('changeCurrency');
 /* Notifications */
 Route::post('/enableNotification', [SettingsController::class, 'enableNotification'])->name('enableNotification');
+/* Change Phone */
+Route::post('/changePhone', [SettingsController::class, 'changePhone'])->name('changePhone');
 
 /* Download page */
 Route::get('/download', [DownloadController::class, 'index'])->name('download')->middleware('auth');

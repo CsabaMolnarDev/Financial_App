@@ -29,7 +29,7 @@ class SettingsController extends Controller
     public function changeFullName(Request $request)
     {
         $request->validate([
-            'newFullname' => 'required|string|max:255|unique:users,fullname'
+            'newFullname' => 'required|string|max:255|min:5|unique:users,fullname'
         ]);
 
         $user = auth()->user();
@@ -37,14 +37,14 @@ class SettingsController extends Controller
 
         $user->fullname = $request->newFullname;
         $user->save();
-        toastr()->success("Username has been changed successfully");
+        toastr()->success("Fullname changed successfully");
         return back();
 
     }
     public function changeUserName(Request $request)
     {
         $request->validate([
-            'newUsername' => 'required|string|max:255|unique:users,username'
+            'newUsername' => 'required|string|max:255|min:5|unique:users,username'
         ]);
 
         $user = auth()->user();
@@ -52,7 +52,7 @@ class SettingsController extends Controller
 
         $user->username = $request->newUsername;
         $user->save();
-        toastr()->success("Username has been changed successfully");
+        toastr()->success("Username changed successfully");
         return back();
 
     }
@@ -67,7 +67,7 @@ class SettingsController extends Controller
 
         $user->email = $request->newEmail;
         $user->save();
-        toastr()->success("Email has been changed successfully");
+        toastr()->success("Email changed successfully");
         return back();
     }
 
@@ -79,7 +79,7 @@ class SettingsController extends Controller
         $user = auth()->user();
         $user->currency_id = $request->newCurrency;
         $user->save();
-        toastr()->success("Currency has been changed successfully");
+        toastr()->success("Currency changed successfully");
         return back();
     }
 
@@ -111,6 +111,19 @@ class SettingsController extends Controller
             }
         }
         else { */
+    }
+    public function changePhone(Request $request)
+    {
+        $request->validate([
+            'newPhone' => 'required|string|phone|unique:users,phone'
+        ]);
+
+        $user = auth()->user();
+
+        $user->phone = $request->newPhone;
+        $user->save();
+        toastr()->success("Phone number changed successfully");
+        return back();
     }
 
 

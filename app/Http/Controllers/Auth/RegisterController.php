@@ -55,6 +55,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'fullname' => ['required', 'string', 'max:255', 'min:5'],
             'username' => ['required', 'string', 'max:255','min:5'],
+            'phone' => ['required', 'string',],
             'currency_id' => ['required',],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -68,21 +69,22 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {   
+    {
         $roles_id = 3; // basic role, 2 pro, 1 dev
         $user = User::create([
             'fullname' => $data['fullname'],
             'username' => $data['username'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'roles_id' => $roles_id,
-            'currency_id' => $data['currency_id'] 
-            
+            'currency_id' => $data['currency_id']
+
         ]);
         $userName = $user->username;
-        Mail::to($user->email)->send(new RegistrationSuccessful($userName)); 
+        Mail::to($user->email)->send(new RegistrationSuccessful($userName));
         return $user;
-     
+
     }
 
     public function showRegistrationForm()
@@ -93,9 +95,9 @@ class RegisterController extends Controller
 
     public function checkNameIsTaken(Request $request)
     {
-        $username = $request->input('username'); 
+        $username = $request->input('username');
 
-        $userFound = User::where('username', $username)->exists(); 
+        $userFound = User::where('username', $username)->exists();
         if ($userFound) {
             return response()->json([
                 'status' => 'failed',
@@ -115,7 +117,7 @@ class RegisterController extends Controller
     private function calculateEntropyScore($password)
     {
         $charset = 0;
-       
+
         if (preg_match('/[a-z]/', $password)) {
             $charset += 26;
         }
@@ -129,7 +131,7 @@ class RegisterController extends Controller
             $charset += 30;
         }
         $entropy = round(log(pow($charset, strlen($password)),2));
-     
+
 
         return $entropy;
     }

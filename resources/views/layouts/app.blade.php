@@ -23,7 +23,8 @@
     <script src="{{ asset('js/app.js') }}"></script>
 </head>
 
-<body style="
+<body
+    style="
 background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
@@ -36,22 +37,25 @@ background-image: url('../storage/pictures/home.jpg');
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
                 {{-- Home img/button --}}
-                <a class="navbar-brand text-light" href="
+                <a class="navbar-brand text-light"
+                    href="
                     @guest
-                        {{ url('/') }}
+{{ url('/') }}
                     @else
-                        {{ url('/home') }}
-                    @endguest
+                        {{ url('/home') }} @endguest
                         ">
                     <img id="homeIcon" src="../storage/icons/homeIcon3.png" alt="">
                 </a>
                 {{-- Side menu  --}}
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="offcanvas offcanvas-end bg-dark text-info" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas offcanvas-end bg-dark text-info" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img  src="../storage/icons/appIcon.png" alt="">Finances</h5>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img src="../storage/icons/appIcon.png"
+                                alt="">Finances</h5>
 
                         <button type="button" class="btn text-reset" data-bs-dismiss="offcanvas"
                             aria-label="Close">X</button>
@@ -60,35 +64,44 @@ background-image: url('../storage/pictures/home.jpg');
                     <div class="offcanvas-body bg-dark text-info">
                         <ul class="navbar-nav">
                             @guest
-                            @if (Route::has('login'))
-                                <button id="menuBtn" class="btn btn-outline-success" type="submit" onclick="window.location=' {{ url("/login") }} '">{{ __('Login') }}</button>
-                            @endif
-                            @if (Route::has('register'))
-                                <button id="menuBtn" class="btn btn-outline-warning" type="submit" onclick="window.location=' {{ url("/register") }} '"> {{ __('Register') }}</button>
-                            @endif
-                        @else
-                            <button id="menuBtn" class="btn btn-outline-warning" type="submit" href="{{ route('logout') }}"
+                                @if (Route::has('login'))
+                                    <button id="menuBtn" class="btn btn-outline-success" type="submit"
+                                        onclick="window.location=' {{ url('/login') }} '">{{ __('Login') }}</button>
+                                @endif
+                                @if (Route::has('register'))
+                                    <button id="menuBtn" class="btn btn-outline-warning" type="submit"
+                                        onclick="window.location=' {{ url('/register') }} '"> {{ __('Register') }}</button>
+                                @endif
+                            @else
+                                <button id="menuBtn" class="btn btn-outline-warning" type="submit"
+                                    href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}</button>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                            <button id="menuBtn" class="btn btn-outline-success" type="submit" onclick="window.location=' {{ url("/income") }} '">Incomes</button>
-                            <button id="menuBtn" class="btn btn-outline-danger" type="submit" onclick="window.location=' {{ url("/spending") }} '">Spendings</button>
-                            <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/settings") }} '">Settings</button>
-                            <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/download") }} '">Download</button>
-                        @endguest
-                            <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '">About us</button>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                                <button id="menuBtn" class="btn btn-outline-success" type="submit"
+                                    onclick="window.location=' {{ url('/income') }} '">Incomes</button>
+                                <button id="menuBtn" class="btn btn-outline-danger" type="submit"
+                                    onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/settings') }} '">Settings</button>
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/download') }} '">Download</button>
+                            @endguest
+                            <button class="btn btn-outline-info" type="submit"
+                                onclick="window.location=' {{ url('/about_us') }} '">About us</button>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
-        <main class="py-4"id="content">
+        <main class="py-4"id="content" style="margin-top: 7vh">
             @yield('content')
             @yield('footer')
         </main>
     </div>
 </body>
+
 </html>
