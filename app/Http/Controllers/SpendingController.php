@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Finance;
 use Illuminate\Support\Facades\DB;
-use App\Models\User; 
+use App\Models\User;
 
 class SpendingController extends Controller
 {
-    
+
 
     /**
      * Create a new controller instance.
@@ -28,9 +28,9 @@ class SpendingController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {       
+    {
         $userId = Auth::id();
-        $finances = Finance::where('type','Spending')->where('user_id', $userId)->get(); 
+        $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
         $categoryIdys = $finances->pluck('category_id')->unique();
         $categories = Category::whereIn('id', $categoryIdys)->pluck('name', 'id');
         $user = auth()->user();

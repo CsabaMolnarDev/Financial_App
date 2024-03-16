@@ -77,6 +77,7 @@ background-image: url('../storage/pictures/home.jpg');
                             <button id="menuBtn" class="btn btn-outline-success" type="submit" onclick="window.location=' {{ url("/income") }} '">Incomes</button>
                             <button id="menuBtn" class="btn btn-outline-danger" type="submit" onclick="window.location=' {{ url("/spending") }} '">Spendings</button>
                             <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/settings") }} '">Settings</button>
+                            <button id="menuBtn" class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/download") }} '">Download</button>
                         @endguest
                             <button class="btn btn-outline-info" type="submit" onclick="window.location=' {{ url("/about_us") }} '">About us</button>
                         </ul>

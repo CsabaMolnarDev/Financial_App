@@ -2,8 +2,8 @@
 @section('content')
     <div class="container justify-content-center">
         <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
+            <div class="col-3"></div>
+            <div class="col-6">
                 {{-- Card --}}
                 <div class="card">
                     {{-- Card tittle --}}
@@ -12,144 +12,154 @@
                     </div>
                     {{-- Card body --}}
                     <div class="card-body">
-                        {{-- Fullname area --}}
-                        <div>
-                            <p class="card-text"><strong>Full name:</strong> {{ $user->fullname }}</p>
-                            <button type="button" class="btn btn-primary"
-                                data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change Fullname</button>
-                            <!-- Fullname Modal -->
-                            <div class="modal fade" id="changeFullnameModal"
-                                tabindex="-1"aria-labelledby="changeFullnameModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="changeFullnameModalLabel">Change Fullname</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                        {{-- Top row for names --}}
+                        <div class="row">
+                            {{-- Fullname area --}}
+                            <div class="col-6">
+                                <p class="card-text"><strong>Full name:</strong> {{ $user->fullname }}</p>
+                                <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change Fullname</button>
+                                <!-- Fullname Modal -->
+                                <div class="modal fade" id="changeFullnameModal"
+                                    tabindex="-1"aria-labelledby="changeFullnameModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="changeFullnameModalLabel">Change Fullname</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action=" {{ route('changeFullName') }} " method="POST">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="newFullname" class="form-label">New Fullname</label>
+                                                        <input type="text" class="form-control"id="newFullname"
+                                                            name="newFullname" required>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            <form action=" {{ route('changeFullName') }} " method="POST">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="newFullname" class="form-label">New Fullname</label>
-                                                    <input type="text" class="form-control"id="newFullname"
-                                                        name="newFullname" required>
-                                                </div>
-                                                <div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Username area --}}
+                            <div class="col-6">
+                                <p class="card-text"><strong>Name:</strong> {{ $user->username }}</p>
+                                <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal"data-bs-target="#changeUsernameModal">Change Username</button>
+                                <!-- Username Modal -->
+                                <div class="modal fade" id="changeUsernameModal"
+                                    tabindex="-1"aria-labelledby="changeUsernameModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="changeUsernameModalLabel">Change Username</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action=" {{ route('changeUserName') }} " method="POST">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="newUsername" class="form-label">New Username</label>
+                                                        <input type="text" class="form-control"id="newUsername"
+                                                            name="newUsername" required>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- 2nd row for Email and notification --}}
+                        <div class="row">
+                            {{-- Email area --}}
+                            <div class="col-6">
+                                <p class="card-text"><strong>Email:</strong> {{ $user->email }}</p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#changeEmailModal">Change Email</button>
+                                <!-- Email Modal -->
+                                <div class="modal fade" id="changeEmailModal" tabindex="-1"
+                                    aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="changeEmailModalLabel">Change Email</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action=" {{ route('changeEmail') }} " method="POST">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="newEmail" class="form-label">New Email</label>
+                                                        <input type="email" class="form-control" id="newEmail"
+                                                            name="newEmail" required>
+                                                    </div>
                                                     <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {{-- Username area --}}
-                        <div>
-                            <p class="card-text"><strong>Name:</strong> {{ $user->username }}</p>
-                            <button type="button" class="btn btn-primary"
-                                data-bs-toggle="modal"data-bs-target="#changeUsernameModal">Change Username</button>
-                            <!-- Username Modal -->
-                            <div class="modal fade" id="changeUsernameModal"
-                                tabindex="-1"aria-labelledby="changeUsernameModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="changeUsernameModalLabel">Change Username</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action=" {{ route('changeUserName') }} " method="POST">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="newUsername" class="form-label">New Username</label>
-                                                    <input type="text" class="form-control"id="newUsername"
-                                                        name="newUsername" required>
-                                                </div>
-                                                <div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                            {{-- Notification --}}
+                            <div class="col-6">
+                                <p class="card-text"><strong>Notification: </strong></p>
+                                <form action="{{ route('enableNotification') }}" method="POST">
+                                    @csrf
+                                    <input type="checkbox" id="notification" name="notification">
+                                    <label for="notification"> I want to get notified to log my spendings</label><br>
+                                    <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable
+                                        notification</button>
+                                    <input type="hidden" id="timezone" name="timezone">
+                                    {{--
+                                    <div id="setTime">
+                                        <label for="appt">Select a time:</label>
+                                        <input type="time" id="appt" name="appt">
+                                        <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
                                     </div>
-                                </div>
+                                    <input type="hidden" id="timezone" name="timezone"> --}}
+                                </form>
                             </div>
                         </div>
-                        {{-- Email area --}}
-                        <div>
-                            <p class="card-text"><strong>Email:</strong> {{ $user->email }}</p>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#changeEmailModal">Change Email</button>
-                            <!-- Email Modal -->
-                            <div class="modal fade" id="changeEmailModal" tabindex="-1"
-                                aria-labelledby="changeEmailModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="changeEmailModalLabel">Change Email</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action=" {{ route('changeEmail') }} " method="POST">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="newEmail" class="form-label">New Email</label>
-                                                    <input type="email" class="form-control" id="newEmail"
-                                                        name="newEmail" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="row">
+                            {{-- Currency area --}}
+                            <div class="col-6">
+                                <p class="card-text"><strong>Current currency type: {{ $user->currency->name }}</strong>
+                                </p>
+                                <form action="{{ route('changeCurrency') }}" method="POST">
+                                    @csrf
+                                    <select name="newCurrency" id="currency">
+                                        <option value="" disabled selected hidden></option>
+                                        @foreach ($currencies as $currency)
+                                            <option value="{{ $currency->id }}">{{ $currency->name }} -
+                                                {{ $currency->symbol }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Change currency</button>
+                                </form>
                             </div>
-                        </div>
-                        {{-- Currency area --}}
-                        <div>
-                            <p class="card-text"><strong>Current currency type: {{ $user->currency->name }}</strong></p>
-                            <form action="{{ route('changeCurrency') }}" method="POST">
-                                @csrf
-                                <select name="newCurrency" id="currency">
-                                    <option value="" disabled selected hidden></option>
-                                    @foreach ($currencies as $currency)
-                                        <option value="{{ $currency->id }}">{{ $currency->name }} -
-                                            {{ $currency->symbol }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <button type="submit" class="btn btn-primary">Change currency</button>
-                            </form>
-                        </div>
-                        {{-- Notification --}}
-                        <div>
-                            <p class="card-text"><strong>Notification: </strong></p>
-                            <form action="{{ route('enableNotification') }}" method="POST">
-                                @csrf
-                                <input type="checkbox" id="notification" name="notification">
-                                <label for="notification"> I want to get notified to log my spendings</label><br>
-                                <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable
-                                    notification</button>
-                                <input type="hidden" id="timezone" name="timezone">
-                                {{--  <div id="setTime">
-                                <label for="appt">Select a time:</label>
-                                <input type="time" id="appt" name="appt">
-                                <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
+                            {{-- CSV --}}
+                            <div class="col-6">
+                                <p class="card-text"><strong>Download spendings in csv: </strong></p>
+                                <button id="downloadButton" type="submit" class="btn btn-primary">Download</button>
+                                {{-- https://www.npmjs.com/package/json-to-csv-export --}}
                             </div>
-                            <input type="hidden" id="timezone" name="timezone"> --}}
-                            </form>
-                        </div>
-                        {{-- CSV --}}
-                        <div>
-                            <p class="card-text"><strong>Download spendings in csv: </strong></p>
-                            <button id="downloadButton" type="submit" class="btn btn-primary">Download</button>
-                            {{-- https://www.npmjs.com/package/json-to-csv-export --}}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-4"></div>
+            <div class="col-3"></div>
         </div>
     </div>
 

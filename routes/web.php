@@ -47,18 +47,19 @@ Route::post('/add-category', [SpendingController::class, 'addCategory'])->name('
 /* This is the about us route */
 Route::get('/about_us', [AboutUsController::class, 'index'])->name('about_us');
 
+/* This is the creating a new finance */
+Route::post('/finances', [FinanceController::class, 'store'])->name('finances.store');
 /* This is the income route */
 Route::get('/income', [IncomeController::class, 'index'])->name('income');
 /* This is the income create */
 Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCreate');
-
 /* This is the spending route */
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 /* This is the spending create */
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
 
 /* Settings route */
-Route::get('/settings', [SettingsController::class, 'show'])->name('settings')->middleware('auth');
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings')->middleware('auth');
 /* Change Fullname */
 Route::post('/changeFullName', [SettingsController::class, 'changeFullName'])->name('changeFullName');
 /* Change username */
@@ -70,9 +71,8 @@ Route::post('/changeCurrency', [SettingsController::class, 'changeCurrency'])->n
 /* Notifications */
 Route::post('/enableNotification', [SettingsController::class, 'enableNotification'])->name('enableNotification');
 
-/* This is the creating a new finance */
-Route::post('/finances', [FinanceController::class, 'store'])->name('finances.store');
-
+/* Download page */
+Route::get('/download', [DownloadController::class, 'index'])->name('download')->middleware('auth');
 
 //Forget password routes
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');

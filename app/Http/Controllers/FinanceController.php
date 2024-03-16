@@ -9,6 +9,10 @@ use Illuminate\Support\Str;
 
 class FinanceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,17 +33,17 @@ class FinanceController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreFinanceRequest $request)
-    {   
+    {
         $bool = str_contains(url()->previous(), 'spending');
 
         $finance = Finance::create([
             'user_id'=> auth()->user()->id,
-            'type' => $bool ? 'Spending' : 'Income', 
+            'type' => $bool ? 'Spending' : 'Income',
             'name'=> $request->name,
             'price' => $request->price,
-            'time' => date("Y/m/d") .'-' . date("H:i:s"),   
+            'time' => date("Y/m/d") .'-' . date("H:i:s"),
             'category_id'=> $request->category_id,
-            'currency_id' =>auth()->user()->currency_id 
+            'currency_id' =>auth()->user()->currency_id
             ]);
             /* TODO:prevent form submission, if the user selects the add new category option, maybe toastr warning */
             $finance->save();
@@ -49,7 +53,7 @@ class FinanceController extends Controller
             else{
                 return redirect()->route('income');
             }
-       
+
     }
     /**
      * Display the specified resource.

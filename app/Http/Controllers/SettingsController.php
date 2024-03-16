@@ -14,7 +14,11 @@ use App\Models\Finance;
 
 class SettingsController extends Controller
 {
-    public function show()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function index()
     {
         $user = auth()->user();
         $currencies = Currency::all();
