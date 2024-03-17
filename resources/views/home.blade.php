@@ -3,6 +3,9 @@
     <div id="homeContainer" class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
         <div class="row">
             <h3 class="text-warning">Some content will come here later</h3>
+            <h3 class="text-warning">Total download count maybe with graph etc.</h3>
+            <h3 class="text-warning">Statistics...</h3>
+            <h3 class="text-warning">User manual(how to use the product)....</h3>
         </div>
     </div>
     <div class="container d-flex align-items-center justify-content-center">
