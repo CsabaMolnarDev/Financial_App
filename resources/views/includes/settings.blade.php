@@ -111,26 +111,41 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- Notification --}}
+                            {{-- Phone area --}}
                             <div class="col-6">
-                                <p class="card-text"><strong>Notification: </strong></p>
-                                <form action="{{ route('enableNotification') }}" method="POST">
-                                    @csrf
-                                    <input type="checkbox" id="notification" name="notification">
-                                    <label for="notification"> I want to get notified to log my spendings</label><br>
-                                    <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable
-                                        notification</button>
-                                    <input type="hidden" id="timezone" name="timezone">
-                                    {{--
-                                    <div id="setTime">
-                                        <label for="appt">Select a time:</label>
-                                        <input type="time" id="appt" name="appt">
-                                        <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
+                                <p class="card-text"><strong>Full name:</strong> {{ $user->fullname }}</p>
+                                <button type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change Fullname</button>
+                                <!-- Fullname Modal -->
+                                <div class="modal fade" id="changeFullnameModal"
+                                    tabindex="-1"aria-labelledby="changeFullnameModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="changeFullnameModalLabel">Change Fullname</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action=" {{ route('changeFullName') }} " method="POST">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="newFullname" class="form-label">New Fullname</label>
+                                                        <input type="text" class="form-control"id="newFullname"
+                                                            name="newFullname" required>
+                                                    </div>
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input type="hidden" id="timezone" name="timezone"> --}}
-                                </form>
+                                </div>
                             </div>
                         </div>
+                        {{-- 3rd row --}}
                         <div class="row">
                             {{-- Currency area --}}
                             <div class="col-6">
@@ -156,14 +171,60 @@
                                 {{-- https://www.npmjs.com/package/json-to-csv-export --}}
                             </div>
                         </div>
+                        {{-- 4th row --}}
+                        <div class="row">
+                            {{-- Notification --}}
+                            <div class="col-6">
+                                <p class="card-text"><strong>Notification: </strong></p>
+                                <form action="{{ route('enableNotification') }}" method="POST">
+                                    @csrf
+                                    <input type="checkbox" id="notification" name="notification">
+                                    <label for="notification"> I want to get notified to log my spendings</label><br>
+                                    <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable
+                                        notification</button>
+                                    <input type="hidden" id="timezone" name="timezone">
+                                    {{--
+                                    <div id="setTime">
+                                        <label for="appt">Select a time:</label>
+                                        <input type="time" id="appt" name="appt">
+                                        <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
+                                    </div>
+                                    <input type="hidden" id="timezone" name="timezone"> --}}
+                                </form>
+                            </div>
+                            {{-- Change theme --}}
+                            <div class="col-6">
+                                <h3>Change theme</h3>
+                            </div>
+                        </div>
+                        {{-- 5th row --}}
+                        <div class="row">
+                            {{-- Change langage area --}}
+                            <div class="col-6">
+                                <p>Change language</p>
+                            </div>
+                            {{-- Two fact auth --}}
+                            <div class="col-6">
+                                <p>Two factor auth</p>
+                            </div>
+                        </div>
+                        {{-- 6th row --}}
+                        <div class="row">
+                            {{-- Family system --}}
+                            <div class="col-6">
+                                <p>Family system</p>
+                            </div>
+                            {{-- Deactivate account --}}
+                            <div class="col-6">
+                                <p>Deactivate account</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-3"></div>
         </div>
     </div>
-
-
 
     <script>
         /* Change background image */
@@ -178,81 +239,15 @@
                 delimiter: ',',
                 headers: ['Name', 'Price', 'Time']
             };
-
-
             csvDownload(dataToConvert);
         });
         //notification handler
         document.addEventListener('DOMContentLoaded', function() {
             var checkbox = document.getElementById('notification');
-
-            /* var setTime = document.getElementById('setTime'); */
-
-            /* checkbox.addEventListener('change', function(){
-                if (this.checked) {
-                    setTime.style.display = 'block';
-                } else {
-                    setTime.style.display = 'none';
-                }
-            }); */
             document.getElementById('enableNotificationBtn').addEventListener('click', function(event) {
                 var userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                 document.getElementById('timezone').value = userTimezone;
             });
-            /* TODO: what is this???????  */
-            // Move the AJAX call into a separate function
-            /*  function sendTimezoneToServer() {
-                 var userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                 console.log(userTimezone);
-                 $.ajax({
-                     url: '/enableNotification',
-                     method: 'POST',
-                     data: {
-                         timezone: userTimezone,
-                         _token: '{{ csrf_token() }}'
-                     },
-                     headers: { // Add this section to include CSRF token in the request headers
-                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                     },
-
-                     success: function(response) {
-                         console.log('Timezone set successfully');
-                     },
-                     error: function(xhr, status, error){
-                         console.error('Error setting timezone:', error);
-                         console.log(xhr.responseText);
-                     }
-                 });
-             } */
-            /* TODO: what is this???????  */
-            /*
-                        $(document).ready(function() {
-                            $('#notification').change(function() {
-                                // This function is called whenever the checkbox is changed
-                                var isChecked = $(this).is(':checked'); // true if checked, false if unchecked
-                                var valueToSend = isChecked ? 1 :
-                                0; // Determine the value to send based on the checkbox state
-
-                                // Now, send this value to the server using AJAX
-                                $.ajax({
-                                    url: '/enableNotification', // The URL to your controller
-                                    type: 'POST', // or GET, depending on your requirements
-                                    data: {
-                                        myCheckboxValue: valueToSend,
-                                        _token: '{{ csrf_token() }}'
-                                    },
-                                    success: function(response) {
-
-                                        console.log('Success:', response);
-                                    },
-                                    error: function(xhr) {
-                                        console.log('Error:', xhr.responseText);
-                                    }
-                                });
-                            });
-                        }); */
-
         });
     </script>
-    {{-- if we don't want button, we can use ajax --}}
 @endsection
