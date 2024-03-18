@@ -55,7 +55,6 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'fullname' => ['required', 'string', 'max:255', 'min:5'],
             'username' => ['required', 'string', 'max:255','min:5'],
-            'phone' => ['required', 'string',],
             'currency_id' => ['required',],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -101,9 +100,25 @@ class RegisterController extends Controller
         if ($userFound) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'Username is taken',
+                'message' => 'Username is already taken',
             ]);
         }
+       
+    }
+
+
+    public function checkEmailIsTaken(Request $request)
+    {
+        $email = $request->input('email');
+
+        $userFound = User::where('email', $email)->exists();
+        if ($userFound) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Email is already taken',
+            ]);
+        }
+       
     }
 
     public function calculateEntropy(Request $request)
