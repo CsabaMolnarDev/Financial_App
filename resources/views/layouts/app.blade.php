@@ -21,6 +21,8 @@
     <script src="{{ asset('js/apexcharts.min.js') }}"></script>
     <script src="{{ asset('js/json-to-csv-export.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/clock.js') }}"></script>
+
 </head>
 
 <body
@@ -46,11 +48,13 @@ background-image: url('../storage/pictures/home.jpg');
                         ">
                     <img id="homeIcon" src="../storage/icons/homeIcon3.png" alt="">
                 </a>
+                <div id="clock">8:10:45</div>
                 {{-- Side menu  --}}
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+             
                 <div class="offcanvas offcanvas-end bg-dark text-info" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">

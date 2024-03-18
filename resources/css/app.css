@@ -153,7 +153,13 @@ html {
     padding: 10px;
 }
 
-
+#clock {
+    font-size: 50px; /* Adjust font size as needed */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 /* settings page - Set Time */
 #setTime {
     display: none;
