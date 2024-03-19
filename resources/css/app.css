@@ -28,8 +28,8 @@ html {
 
 /* Nav bar */
 #homeIcon {
-    width: 40%;
-    height: 40%;
+    width: 4vh;
+    height: 4vh;
 }
 
 .navContainer {
@@ -41,7 +41,7 @@ html {
 }
 
 #menuBtn {
-    margin-bottom: 3%;
+    margin-bottom: 1.5vh;
 }
 
 /* register page */
@@ -51,11 +51,11 @@ html {
 }
 
 #RegFormTittle {
-    font-size: 120%;
+    font-size: 3vh;
 }
 
 #logButton {
-    margin: 5%;
+    margin: 2vh;
     width: fit-content;
 }
 
@@ -89,7 +89,7 @@ html {
 }
 
 #welcomeSlogen {
-    font-size: 300%;
+    font-size: 5vh;
     font-family: "Arial Black", Gadget, sans-serif;
     letter-spacing: 0px;
     word-spacing: 2px;
@@ -98,13 +98,13 @@ html {
     font-style: italic;
     font-variant: normal;
     text-transform: capitalize;
-    margin-bottom: 7%;
+    margin-bottom: 3vh;
     text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.5136px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
 }
 
 #welcomeButton {
-    height: 70%;
-    width: 50%;
+    height: 6vh;
+    width: 30vh;
     font-size: 120%;
     font-family: "Arial Black", Gadget, sans-serif;
     letter-spacing: 0px;
@@ -123,12 +123,12 @@ html {
 }
 
 .aboutTittle {
-    font-size: 160%;
+    font-size: 2vh;
     font-family: "Arial Black", Gadget, sans-serif;
 }
 
 .aboutFont {
-    font-size: 110%;
+    font-size: 1.7vh;
     font-family: "Arial", Gadget, sans-serif;
 }
 
@@ -139,27 +139,13 @@ html {
 #financeCard {
     border: 3;
     border-color: lightgray;
-    margin-bottom: 5%;
+    margin-bottom: 2vh;
 }
 
 #financeButton {
-    margin-bottom: 4%;
+    margin-bottom: 2vh;
 }
 
-/* spending page graphicons, design */
-.graph-border {
-    border: 2px solid #000;
-    border-radius: 5px;
-    padding: 10px;
-}
-
-#clock {
-    font-size: 50px; /* Adjust font size as needed */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 /* settings page - Set Time */
 #setTime {
     display: none;

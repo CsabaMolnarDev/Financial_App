@@ -16,11 +16,11 @@
             <div class="col-3"></div>
         </div>
         @if ($finances->isNotEmpty())
-            <div class="card bg-dark text-warning">
+            <div class="card bg-dark " id="financeCard">
                 {{-- Header --}}
                 <div class="card-header">
-                    <div class="col-12">
-                        <h1>Spendings by chategories</h1>
+                    <div class="col-12 text-light">
+                        <h1>Spendings by categories</h1>
                     </div>
                 </div>
                 {{-- Body --}}
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 {{-- Footer --}}
-                <div class="card-footer">
+                <div class="card-footer text-light">
                     <div class="row">
                         <div class="col-6">
                             <h1 id="avarage"></h1>
@@ -79,8 +79,57 @@
                     y: categoryPrices[categoryName]
                 });
             }
+            var prices = financesData.map(function(item) {
+                return item.price;
+            });
+            var sum = 0;
+            for (let i = 0; i < prices.length; i++) {
+                sum += prices[i];
 
+            }
+            /* Avg spending */
+            let avarage = 'Avarage spending: ' + Math.round(sum / prices.length) + ' ' + '{{ $currencySymbol }}';
+            /* Sum spending */
+            sum = 'Spending in total: ' + sum + ' ' + '{{ $currencySymbol }}';
+            document.getElementById('sum').innerHTML = sum;
+            document.getElementById('avarage').innerHTML = avarage;
+            /* console.log(sum/prices.length); */
+            var financesData = @json($finances);
+            var categoriesData = {!! json_encode($categories) !!};
+            var monthlyCategoryPrices = {};
+            financesData.forEach(function(finance) {
+                var categoryId = finance.category_id;
+                var categoryName = categoriesData[categoryId];
+                var dateParts = finance.time.split('-'); // Split the date string into parts
+                var year = parseInt(dateParts[0]); // Get year
+                var month = parseInt(dateParts[1]); // Get month
+                var key = categoryName + '-' + year + '-' + month; // Unique key for each category and month
 
+                if (!monthlyCategoryPrices[key]) {
+                    monthlyCategoryPrices[key] = finance.price;
+                } else {
+                    monthlyCategoryPrices[key] += finance.price;
+                }
+            });
+            var categories = {};
+            var seriesData = [];
+            for (var key in monthlyCategoryPrices) {
+                var parts = key.split('-');
+                var categoryName = parts[0];
+                var year = parseInt(parts[1]);
+                var month = parseInt(parts[2]);
+                var value = monthlyCategoryPrices[key];
+                if (!categories[categoryName]) {
+                    categories[categoryName] = [];
+                }
+                categories[categoryName].push([Date.UTC(year, month - 1), value]);
+            }
+            for (var categoryName in categories) {
+                seriesData.push({
+                    name: categoryName,
+                    data: categories[categoryName]
+                });
+            }
             /* Graphs: */
             /* Pie graph */
             var options = {
@@ -88,35 +137,48 @@
                     type: 'pie',
                     width: 400,
                     height: 400,
+                    /* Fontcolor */
                     foreColor: '#FBFBFB',
+                },
+                /* Sets the color of the pie slices */
+                /* fill: {
+                    colors: ['#F44336', '#E91E63', '#9C27B0']
+                }, */
+                dataLabels: {
+                    style: {
+                        colors: ['#F44336', '#E91E63', '#9C27B0']
+                    }
                 },
                 plotOptions: {
                     bar: {
                         horizontal: true
                     }
                 },
+                /* % on the pie */
                 dataLabels: {
-                    enabled: false
+                    enabled: true
                 },
+                /* Size of the border between the pie slices */
                 stroke: {
-                    width: 1,
+                    width: 2,
                     colors: ["#fff"]
                 },
+                /* Categories list */
                 legend: {
                     position: "right",
                     verticalAlign: "top",
                     containerMargin: {
                         left: 35,
-                        right: 60
+                        right: 35,
                     }
                 },
                 labels: Object.keys(categoryPrices),
                 series: Object.values(categoryPrices),
                 /* Here we can adjust the setting to make it responsive */
                 responsive: [{
-                    // breakepoint in px.... when the window size goes under this, the graph changes 
+                    // breakepoint in px.... when the window size goes under this, the graph changes
                     breakpoint: 1000,
-                    // options for the changed responsive graph 
+                    // options for the changed responsive graph
                     options: {
                         plotOptions: {
                             chart: {
@@ -132,92 +194,53 @@
             /* render apexcharts */
             var chart = new ApexCharts(document.querySelector('#chart'), options)
             chart.render();
-            var prices = financesData.map(function(item) {
-                return item.price;
-            });
-            var sum = 0;
-            for (let i = 0; i < prices.length; i++) {
-                sum += prices[i];
-
-            }
-
-            /* Avg spending */
-            let avarage = 'Avarage spending: ' + Math.round(sum / prices.length) + ' ' + '{{ $currencySymbol }}';
-            /* Sum spending */
-            sum = 'Spending in total: ' + sum + ' ' + '{{ $currencySymbol }}';
-            document.getElementById('sum').innerHTML = sum;
-            document.getElementById('avarage').innerHTML = avarage;
-            /* console.log(sum/prices.length); */
-            var financesData = @json($finances);
-            var categoriesData = {!! json_encode($categories) !!};
-
-            var monthlyCategoryPrices = {};
-
-            financesData.forEach(function(finance) {
-                var categoryId = finance.category_id;
-                var categoryName = categoriesData[categoryId];
-                var dateParts = finance.time.split('-'); // Split the date string into parts
-                var year = parseInt(dateParts[0]); // Get year
-                var month = parseInt(dateParts[1]); // Get month
-                var key = categoryName + '-' + year + '-' + month; // Unique key for each category and month
-
-                if (!monthlyCategoryPrices[key]) {
-                    monthlyCategoryPrices[key] = finance.price;
-                } else {
-                    monthlyCategoryPrices[key] += finance.price;
-                }
-            });
-
-            var categories = {};
-            var seriesData = [];
-
-            for (var key in monthlyCategoryPrices) {
-                var parts = key.split('-');
-                var categoryName = parts[0];
-                var year = parseInt(parts[1]);
-                var month = parseInt(parts[2]);
-                var value = monthlyCategoryPrices[key];
-
-                if (!categories[categoryName]) {
-                    categories[categoryName] = [];
-                }
-
-
-                categories[categoryName].push([Date.UTC(year, month - 1), value]);
-            }
-
-            for (var categoryName in categories) {
-                seriesData.push({
-                    name: categoryName,
-                    data: categories[categoryName]
-                });
-            }
             /* Line graph */
             var options = {
                 chart: {
                     type: 'line',
-                    width: 800,
+                    width: 700,
                     height: 400,
                     foreColor: '#FBFBFB',
-                    
                 },
-                /* Responsivity */
-                /* responsive: [{
-                    // breakepoint in px.... when the window size goes under this, the graph changes 
-                    breakpoint: 1000,
-                    // options for the changed responsive graph 
-                    options: {
-                        plotOptions: {
-                            chart: {
-                                horizontal: false;
+                dataLabels: {
+                    enabled: false
+                },
+                chart: {
+                    toolbar: {
+                        show: true,
+                        offsetX: 0,
+                        offsetY: 0,
+                        tools: {
+                            download: true,
+                            selection: true,
+                            zoom: true,
+                            zoomin: true,
+                            zoomout: true,
+                            pan: true,
+                            reset: true | '<img src="/static/icons/reset.png" width="20">',
+                            customIcons: []
+                        },
+                        export: {
+                            csv: {
+                                filename: "finances",
+                                columnDelimiter: ',',
+                                headerCategory: 'category',
+                                headerValue: 'value',
+                                dateFormatter(timestamp) {
+                                    return new Date(timestamp).toDateString()
+                                }
+                            },
+                            svg: {
+                                filename: "finances",
+                            },
+                            png: {
+                                filename: "finances",
                             }
                         },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }] */
-                /*  */
+                        autoSelected: 'zoom'
+                    },
+                },
+                /* X line (bottom of the graphicon) */
                 xaxis: {
                     type: 'datetime',
                     labels: {
@@ -229,6 +252,7 @@
                         }
                     }
                 },
+                /* Y line (left of the graphicon) */
                 yaxis: {
                     labels: {
                         formatter: function(value) {
@@ -236,9 +260,10 @@
                         }
                     }
                 },
+                /* The data that we gain from DB */
                 series: seriesData
             };
-
+            /* Create the chart */
             var chart = new ApexCharts(document.querySelector('#monthlyByCategories'), options);
             chart.render();
         </script>
