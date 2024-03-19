@@ -115,7 +115,7 @@ class SettingsController extends Controller
     public function changePhone(Request $request)
     {
         $request->validate([
-            'newPhone' => 'required|string|phone|unique:users,phone'
+            'newPhone' => 'required|string|unique:users,phone'
         ]);
 
         $user = auth()->user();

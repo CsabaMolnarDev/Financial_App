@@ -236,11 +236,17 @@
                 type: 'line',
                 width: 700,
                 height: 400,
+                /* Font color */
                 foreColor: '#FBFBFB',
             },
             dataLabels: {
                 enabled: false
             },
+            /* Theme */
+            /* theme: {
+                mode:'light',              
+            }, */
+            /* toolbar */
             chart: {
                 toolbar: {
                     show: true,
@@ -276,6 +282,10 @@
                     autoSelected: 'zoom'
                 },
             },
+            /* Mouse hower over data - pop-up informtion window color */
+            tooltip: {
+                theme: 'dark',
+            }, 
             /* X line (bottom of the graphicon) */
             xaxis: {
                 type: 'datetime',

@@ -115,14 +115,14 @@
                             <div class="col-6">
                                 <p class="card-text"><strong>Phone number:</strong> {{ $user->phone }}</p>
                                 <button type="button" class="btn btn-primary"
-                                    data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change phone number</button>
-                                <!-- Fullname Modal -->
+                                    data-bs-toggle="modal"data-bs-target="#changePhoneNumberModal">Change phone number</button>
+                                <!-- Phone Modal -->
                                 <div class="modal fade" id="changePhoneNumberModal"
                                     tabindex="-1"aria-labelledby="changePhoneNumberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="changePhoneNumberModalLabel">Change Fullname</h5>
+                                                <h5 class="modal-title" id="changePhoneNumberModalLabel">Change phone number</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -130,7 +130,7 @@
                                                 <form action=" {{ route('changePhone') }} " method="POST">
                                                     @csrf
                                                     <div class="mb-3">
-                                                        <label for="newPhone" class="form-label">New Phone Number</label>
+                                                        <label for="newPhone" class="form-label">New phone number</label>
                                                         <input type="text" class="form-control"id="newPhone"
                                                             name="newPhone" required>
                                                     </div>
