@@ -285,7 +285,7 @@
             /* Mouse hower over data - pop-up informtion window color */
             tooltip: {
                 theme: 'dark',
-            }, 
+            },
             /* X line (bottom of the graphicon) */
             xaxis: {
                 type: 'datetime',
