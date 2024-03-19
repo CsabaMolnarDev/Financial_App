@@ -32,6 +32,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 /* This is the check for username*/
 Route::post('/checkUsernameTaken', [RegisterController::class, 'checkNameIsTaken'])->name('username.check');
+/* This is the check for email*/
+Route::post('/checkEmailTaken', [RegisterController::class, 'checkEmailIsTaken'])->name('email.check');
 
 
 //add routes to prevent directly written routes to the url
@@ -39,7 +41,7 @@ Route::middleware(['auth'])->group(function (){
 
 });
 
-/* TODO: what is this???? */
+
 Route::post('/calculate-entropy', [RegisterController::class, 'calculateEntropy'])->name('caculate-entropy');
 /* Add category route */
 Route::post('/add-category', [SpendingController::class, 'addCategory'])->name('addCategory');

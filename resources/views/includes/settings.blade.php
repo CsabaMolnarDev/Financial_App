@@ -113,26 +113,26 @@
                             </div>
                             {{-- Phone area --}}
                             <div class="col-6">
-                                <p class="card-text"><strong>Full name:</strong> {{ $user->fullname }}</p>
+                                <p class="card-text"><strong>Phone number:</strong> {{ $user->phone }}</p>
                                 <button type="button" class="btn btn-primary"
-                                    data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change Fullname</button>
+                                    data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change phone number</button>
                                 <!-- Fullname Modal -->
-                                <div class="modal fade" id="changeFullnameModal"
-                                    tabindex="-1"aria-labelledby="changeFullnameModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="changePhoneNumberModal"
+                                    tabindex="-1"aria-labelledby="changePhoneNumberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="changeFullnameModalLabel">Change Fullname</h5>
+                                                <h5 class="modal-title" id="changePhoneNumberModalLabel">Change Fullname</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action=" {{ route('changeFullName') }} " method="POST">
+                                                <form action=" {{ route('changePhone') }} " method="POST">
                                                     @csrf
                                                     <div class="mb-3">
-                                                        <label for="newFullname" class="form-label">New Fullname</label>
-                                                        <input type="text" class="form-control"id="newFullname"
-                                                            name="newFullname" required>
+                                                        <label for="newPhone" class="form-label">New Phone Number</label>
+                                                        <input type="text" class="form-control"id="newPhone"
+                                                            name="newPhone" required>
                                                     </div>
                                                     <div>
                                                         <button type="submit" class="btn btn-primary">Save
@@ -183,13 +183,6 @@
                                     <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable
                                         notification</button>
                                     <input type="hidden" id="timezone" name="timezone">
-                                    {{--
-                                    <div id="setTime">
-                                        <label for="appt">Select a time:</label>
-                                        <input type="time" id="appt" name="appt">
-                                        <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable notification</button>
-                                    </div>
-                                    <input type="hidden" id="timezone" name="timezone"> --}}
                                 </form>
                             </div>
                             {{-- Change theme --}}
@@ -205,7 +198,8 @@
                             </div>
                             {{-- Two fact auth --}}
                             <div class="col-6">
-                                <p>Two factor auth</p>
+                                <input type="checkbox" name="2fa" id="2fa">
+                                <label for="2fa">Two factor authenticate</label><br>
                             </div>
                         </div>
                         {{-- 6th row --}}
