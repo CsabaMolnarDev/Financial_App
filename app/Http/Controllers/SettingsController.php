@@ -125,6 +125,16 @@ class SettingsController extends Controller
         toastr()->success("Phone number changed successfully");
         return back();
     }
+    public function addFamilyMember(Request $request)
+    {
+        dd($request);
+        $request->validate([
+            'familymember' => 'required|string|exists:users,username'
+        ]);
+     
+       
+  
+    }
 
 
 }

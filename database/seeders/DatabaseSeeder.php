@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         /* WARNING: The order matters!!! */
         $this->call([
             RoleSeeder::class,
+            FamilySeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
             FinanceSeeder::class

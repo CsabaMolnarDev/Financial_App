@@ -113,7 +113,13 @@
                             </div>
                             {{-- Phone area --}}
                             <div class="col-6">
-                                <p class="card-text"><strong>Phone number:</strong> {{ $user->phone }}</p>
+                                
+                                @if($user->phone)
+                                    <p class="card-text"><strong>Phone number: </strong> {{ $user->phone }}</p>
+                                @else
+                                    <p class="card-text"><strong>Phone number: </strong>Not set</p>
+                                @endif
+
                                 <button type="button" class="btn btn-primary"
                                     data-bs-toggle="modal"data-bs-target="#changePhoneNumberModal">Change phone number</button>
                                 <!-- Phone Modal -->
@@ -196,10 +202,14 @@
                             <div class="col-6">
                                 <p>Change language</p>
                             </div>
-                            {{-- Two fact auth --}}
+                            {{-- Add family member(s) --}}
                             <div class="col-6">
-                                <input type="checkbox" name="2fa" id="2fa">
-                                <label for="2fa">Two factor authenticate</label><br>
+                                <form action="{{route('addFamilyMember')}}" method="POST">
+                                    @csrf
+                                    <p><strong>Add family member: </strong></p>
+                                    <input type="search" name="familymember" id="familymember" required>
+                                    <button type="submit" class="btn btn-primary">Add family member</button>
+                                </form>
                             </div>
                         </div>
                         {{-- 6th row --}}
@@ -223,7 +233,6 @@
     <script>
         /* Change background image */
         document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";
-        /* TODO: what is this???????  */
         var financesData = @json($finances);
         document.getElementById('downloadButton').addEventListener('click', function() {
 

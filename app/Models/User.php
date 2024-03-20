@@ -24,7 +24,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Currency::class);
     }
-    
+    public function families() : HasOne{
+        return $this->hasOne(Family::class);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -39,6 +41,7 @@ class User extends Authenticatable
         'email',
         'password',
         'roles_id',
+        'family_id',
         'currency_id',
         'notification',
         'notification_time',

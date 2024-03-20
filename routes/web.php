@@ -74,6 +74,8 @@ Route::post('/changeCurrency', [SettingsController::class, 'changeCurrency'])->n
 Route::post('/enableNotification', [SettingsController::class, 'enableNotification'])->name('enableNotification');
 /* Change Phone */
 Route::post('/changePhone', [SettingsController::class, 'changePhone'])->name('changePhone');
+/* Family system */
+Route::post('/add-family-member', [SettingsController::class, 'addFamilyMember'])->name('addFamilyMember');
 
 /* Download page */
 Route::get('/download', [DownloadController::class, 'index'])->name('download')->middleware('auth');
