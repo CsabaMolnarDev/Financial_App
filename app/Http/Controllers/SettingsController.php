@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Finance;
+use App\Models\Family;
 
 
 class SettingsController extends Controller
@@ -24,7 +25,13 @@ class SettingsController extends Controller
         $currencies = Currency::all();
         $userId = Auth::id();
         $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
-        return view('includes.settings', ['user' => $user, 'currencies' => $currencies ], ['finances' => $finances]);
+        $family = User::where('family_id', '=', $user->family_id)->get();
+        return view('includes.settings', [
+            'user' => $user,
+            'currencies' => $currencies,
+            'finances' => $finances,
+            'family' => $family
+        ]);
     }
     public function changeFullName(Request $request)
     {
@@ -87,30 +94,14 @@ class SettingsController extends Controller
     {
         $user = auth()->user();
         $userTimezone = $request->input('timezone');
-        /* $selectedTime = $request->input('appt'); */
         $checkboxValue = $request->input('notification');
         $user->notification = $checkboxValue ? '1' : '0';
-        /* $user->notification_time = $selectedTime; */
         $user->timezone = $userTimezone;
         $user->save();
         toastr()->success('Notification settings updated successfully');
-        return redirect('/home');
+        return back();
 
-       /*  $userTimezone = $request->input('timezone');
-        $selectedTimeinput = $request->input('appt');
-        $checkboxValue = $request->input('notification');
-        if ($checkboxValue == 'on') {
-
-            $timeNow = Carbon::now($userTimezone);
-            $selectedTime = Carbon::createFromFormat('Y-m-d H:i', $selectedTimeinput, $userTimezone);
-
-
-
-            if ($timeNow->format('H:i') === $selectedTime->format('H:i')) {
-                echo 'Working, innit';
-            }
-        }
-        else { */
+      
     }
     public function changePhone(Request $request)
     {
@@ -125,15 +116,54 @@ class SettingsController extends Controller
         toastr()->success("Phone number changed successfully");
         return back();
     }
+
+    public function createFamily()
+    {
+        
+        $user = auth()->user(); 
+        //we can only have 1 family, so if you already have 1 you can't create
+        if($user->family_id == null)
+        {
+            $userSplittedName = explode(" ", $user->fullname);
+        
+            $family = new Family();
+            $family->name = $userSplittedName[0];
+            $family->save();
+            $user->family_id = $family->id;
+            $user->save();
+            toastr()->success("Family created");
+            return back();
+        }
+        else {
+            toastr()->warning('You already have family created');
+            return back();
+        }  
+    }
+
+    public function deleteFamily()
+    {
+        $user = auth()->user();
+        $userFamilyId = $user->family_id;
+        $deleteFamily = Family::where('id', '=', $userFamilyId)->delete();
+        $deleteFamilyMembers = User::where('family_id', '=', $userFamilyId)->update(['family_id' => null]);
+        
+
+        toastr()->success("Family deleted");
+        return back();
+    }
+
+    //need to be finished
     public function addFamilyMember(Request $request)
     {
-        dd($request);
+
         $request->validate([
             'familymember' => 'required|string|exists:users,username'
         ]);
-     
+        $confirm = false;
+
+        Mail::to($request->user())->send(new MailableClass);
        
-  
+        
     }
 
 

@@ -75,6 +75,8 @@ Route::post('/enableNotification', [SettingsController::class, 'enableNotificati
 /* Change Phone */
 Route::post('/changePhone', [SettingsController::class, 'changePhone'])->name('changePhone');
 /* Family system */
+Route::post('/createFamily', [SettingsController::class, 'createFamily'])->name('createFamily');
+Route::post('/deleteFamily', [SettingsController::class, 'deleteFamily'])->name('deleteFamily');
 Route::post('/add-family-member', [SettingsController::class, 'addFamilyMember'])->name('addFamilyMember');
 
 /* Download page */

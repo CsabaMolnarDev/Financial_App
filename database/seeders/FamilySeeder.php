@@ -13,8 +13,8 @@ class FamilySeeder extends Seeder
      */
     public function run(): void
     {
-        Family::create([
+        /* Family::create([
             'name' => 'no family for ya'
-          ]);
+          ]); */
     }
 }

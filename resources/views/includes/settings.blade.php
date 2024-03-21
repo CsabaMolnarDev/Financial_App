@@ -204,12 +204,39 @@
                             </div>
                             {{-- Add family member(s) --}}
                             <div class="col-6">
-                                <form action="{{route('addFamilyMember')}}" method="POST">
+                                {{-- We only show this if user doesn't have family --}}
+                                @if(!$user->family_id)
+                                <form action="{{route('createFamily')}}" method="POST">
                                     @csrf
-                                    <p><strong>Add family member: </strong></p>
-                                    <input type="search" name="familymember" id="familymember" required>
-                                    <button type="submit" class="btn btn-primary">Add family member</button>
+                                    <p><strong>Create family: </strong><button type="submit" id="createFamily">+</button></p>
+                                   
+                                     
                                 </form>
+                                {{-- If they have we show the delete option --}}
+                                @else
+                                    <form action="{{ route('deleteFamily') }}" method="POST">
+                                        @csrf
+                                        <p><strong>Delete family: </strong><button type="submit" id="deleteFamily">-</button></p>
+                                   
+                                     
+                                    </form>
+                                @endif
+                                {{-- We check if the user has family or not, and if they have then they can add family member(s) --}}
+                                @isset($user->family_id)
+                                    <form action="{{route('addFamilyMember')}}" method="post" id="addfamilymemberinput">
+                                        <div >
+                                            <input type="search" name="familymember" id="familymember" required>
+                                            <button type="submit" class="btn btn-primary">Add family member</button> 
+                                        </div>
+                                    </form>
+                                @endisset
+                                {{-- We list out the family members --}}
+                                    @foreach ($family as $member)
+                                        @if ($member->id !== $user->id && $member->family_id !== null)
+                                            <p><strong>{{ $member->fullname }}: </strong><button type="submit" id="deleteFamily">-</button></p>
+                                        @endif
+                                        
+                                    @endforeach
                             </div>
                         </div>
                         {{-- 6th row --}}
@@ -220,7 +247,10 @@
                             </div>
                             {{-- Deactivate account --}}
                             <div class="col-6">
-                                <p>Deactivate account</p>
+                                <br>
+                                <form action="" method="post">
+                                    <button type="submit" class="btn btn-primary">Deactivate account</button> 
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -231,8 +261,9 @@
     </div>
 
     <script>
+
         /* Change background image */
-        document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";
+        document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";  //uncomment it
         var financesData = @json($finances);
         document.getElementById('downloadButton').addEventListener('click', function() {
 
