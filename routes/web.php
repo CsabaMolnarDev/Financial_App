@@ -77,7 +77,11 @@ Route::post('/changePhone', [SettingsController::class, 'changePhone'])->name('c
 /* Family system */
 Route::post('/createFamily', [SettingsController::class, 'createFamily'])->name('createFamily');
 Route::post('/deleteFamily', [SettingsController::class, 'deleteFamily'])->name('deleteFamily');
+Route::get('/deleteFamilyMember/{id}', [SettingsController::class, 'deleteFamilyMember'])->name('deleteFamilyMember');
 Route::post('/add-family-member', [SettingsController::class, 'addFamilyMember'])->name('addFamilyMember');
+/* accept invite */
+Route::get('/accept-invitation/{token}', [FamilyController::class, 'acceptInvitation'])->name('family.acceptInvitation');
+
 
 /* Download page */
 Route::get('/download', [DownloadController::class, 'index'])->name('download')->middleware('auth');

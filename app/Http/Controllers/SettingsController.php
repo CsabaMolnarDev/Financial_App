@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Finance;
 use App\Models\Family;
+use App\Models\FamilyInvitations;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FamilyInvitationMail;
+
 
 
 class SettingsController extends Controller
@@ -152,6 +157,13 @@ class SettingsController extends Controller
         return back();
     }
 
+    public function deleteFamilyMember($id)
+    {
+        $deleteFamilyMemberById = User::where('id', '=', $id)->update(['family_id' => null]);
+        toastr()->success("Family member deleted successfully");
+        return back();
+    }
+
     //need to be finished
     public function addFamilyMember(Request $request)
     {
@@ -159,12 +171,18 @@ class SettingsController extends Controller
         $request->validate([
             'familymember' => 'required|string|exists:users,username'
         ]);
-        $confirm = false;
-
-        Mail::to($request->user())->send(new MailableClass);
-       
-        
+        $joininguser = User::where('username', '=', $request->familymember)->first();
+        $user = auth()->user();
+        $token = Str::random(60);
+        $invitation = FamilyInvitations::create([
+            'recipient_email' => $joininguser->email,
+            'token' => $token,
+            'family_id' => $user->family_id,
+            'status' => 'pending',
+            'sender_id' => $user->id
+        ]);
+        Mail::to($joininguser->email)->send(new FamilyInvitationMail($invitation));
+        toastr()->success("Join request sent");
+        return back();
     }
-
-
 }

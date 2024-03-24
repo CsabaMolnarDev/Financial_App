@@ -224,7 +224,8 @@
                                 {{-- We check if the user has family or not, and if they have then they can add family member(s) --}}
                                 @isset($user->family_id)
                                     <form action="{{route('addFamilyMember')}}" method="post" id="addfamilymemberinput">
-                                        <div >
+                                        @csrf
+                                        <div>
                                             <input type="search" name="familymember" id="familymember" required>
                                             <button type="submit" class="btn btn-primary">Add family member</button> 
                                         </div>
@@ -233,7 +234,10 @@
                                 {{-- We list out the family members --}}
                                     @foreach ($family as $member)
                                         @if ($member->id !== $user->id && $member->family_id !== null)
-                                            <p><strong>{{ $member->fullname }}: </strong><button type="submit" id="deleteFamily">-</button></p>
+                                            <form action="{{ route('deleteFamilyMember', ['familyid' => $member->id]) }}" method="GET">
+                                                @csrf
+                                                <p><strong>{{ $member->fullname }}: </strong><button type="submit" id="deleteFamilyMember">-</button></p>
+                                            </form>
                                         @endif
                                         
                                     @endforeach
@@ -263,7 +267,7 @@
     <script>
 
         /* Change background image */
-        document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";  //uncomment it
+        /* document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";*/  //uncomment it
         var financesData = @json($finances);
         document.getElementById('downloadButton').addEventListener('click', function() {
 
