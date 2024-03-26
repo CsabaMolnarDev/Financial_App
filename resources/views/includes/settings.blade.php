@@ -214,15 +214,11 @@
                                 </form>
                                 {{-- If they have we show the delete option --}}
                                 @else
+                                    @if ($user->family->creator_id === $user->id)
                                     <form action="{{ route('deleteFamily') }}" method="POST">
                                         @csrf
                                         <p><strong>Delete family: </strong><button type="submit" id="deleteFamily">-</button></p>
-                                   
-                                     
                                     </form>
-                                @endif
-                                {{-- We check if the user has family or not, and if they have then they can add family member(s) --}}
-                                @isset($user->family_id)
                                     <form action="{{route('addFamilyMember')}}" method="post" id="addfamilymemberinput">
                                         @csrf
                                         <div>
@@ -230,17 +226,25 @@
                                             <button type="submit" class="btn btn-primary">Add family member</button> 
                                         </div>
                                     </form>
-                                @endisset
+                                        @foreach ($family as $member)
+                                            @if ($member->id !== $user->id && $member->family_id !== null)
+                                                <form action="{{ route('deleteFamilyMember', ['familyid' => $member->id]) }}" method="GET">
+                                                    @csrf
+                                                    <p><strong>{{ $member->fullname }}: </strong><button type="submit" id="deleteFamilyMember">-</button></p>
+                                                </form>
+                                            @endif
+                                        @endforeach
+                                    
+                                    @else
+                                        <p>You are the member of the {{ $user->family?->name }} family.</p>
+                                    @endif
+                                    
+                                @endif
+                           
                                 {{-- We list out the family members --}}
-                                    @foreach ($family as $member)
-                                        @if ($member->id !== $user->id && $member->family_id !== null)
-                                            <form action="{{ route('deleteFamilyMember', ['familyid' => $member->id]) }}" method="GET">
-                                                @csrf
-                                                <p><strong>{{ $member->fullname }}: </strong><button type="submit" id="deleteFamilyMember">-</button></p>
-                                            </form>
-                                        @endif
+                                    
                                         
-                                    @endforeach
+                                    
                             </div>
                         </div>
                         {{-- 6th row --}}

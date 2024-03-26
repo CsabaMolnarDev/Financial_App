@@ -24,8 +24,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Currency::class);
     }
-    public function families() : HasOne{
-        return $this->hasOne(Family::class);
+    public function family() : HasOne{
+        return $this->hasOne(Family::class, 'id', 'family_id');
     }
     
 

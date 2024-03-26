@@ -133,6 +133,7 @@ class SettingsController extends Controller
         
             $family = new Family();
             $family->name = $userSplittedName[0];
+            $family->creator_Id = $user->id;
             $family->save();
             $user->family_id = $family->id;
             $user->save();
@@ -167,10 +168,10 @@ class SettingsController extends Controller
     //need to be finished
     public function addFamilyMember(Request $request)
     {
-
         $request->validate([
             'familymember' => 'required|string|exists:users,username'
         ]);
+
         $joininguser = User::where('username', '=', $request->familymember)->first();
         $user = auth()->user();
         $token = Str::random(60);
