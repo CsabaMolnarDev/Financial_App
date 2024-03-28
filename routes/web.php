@@ -6,6 +6,7 @@ use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
 
 
 /*
@@ -79,6 +80,7 @@ Route::post('/createFamily', [SettingsController::class, 'createFamily'])->name(
 Route::post('/deleteFamily', [SettingsController::class, 'deleteFamily'])->name('deleteFamily');
 Route::get('/deleteFamilyMember/{id}', [SettingsController::class, 'deleteFamilyMember'])->name('deleteFamilyMember');
 Route::post('/add-family-member', [SettingsController::class, 'addFamilyMember'])->name('addFamilyMember');
+Route::post('/leaveFamily', [SettingsController::class, 'leaveFamily'])->name('leaveFamily');
 /* accept invite */
 Route::get('/accept-invitation/{token}', [FamilyController::class, 'acceptInvitation'])->name('family.acceptInvitation');
 

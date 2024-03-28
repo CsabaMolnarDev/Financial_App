@@ -33,7 +33,6 @@ class FamilyController extends Controller
         }
 
         $user = Auth::user();
-
         if ($user->family_id) {
             // User is already part of a family
             return redirect('/')->with('error', 'You are already part of a family.');

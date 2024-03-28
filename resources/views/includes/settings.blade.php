@@ -214,12 +214,14 @@
                                 </form>
                                 {{-- If they have we show the delete option --}}
                                 @else
+                                
+                       
                                     @if ($user->family->creator_id === $user->id)
                                     <form action="{{ route('deleteFamily') }}" method="POST">
                                         @csrf
                                         <p><strong>Delete family: </strong><button type="submit" id="deleteFamily">-</button></p>
                                     </form>
-                                    <form action="{{route('addFamilyMember')}}" method="post" id="addfamilymemberinput">
+                                    <form action="{{route('addFamilyMember')}}" method="POST" id="addfamilymemberinput">
                                         @csrf
                                         <div>
                                             <input type="search" name="familymember" id="familymember" required>
@@ -228,7 +230,7 @@
                                     </form>
                                         @foreach ($family as $member)
                                             @if ($member->id !== $user->id && $member->family_id !== null)
-                                                <form action="{{ route('deleteFamilyMember', ['familyid' => $member->id]) }}" method="GET">
+                                                <form action="{{ route('deleteFamilyMember', ['id' => $member->id]) }}" method="GET">
                                                     @csrf
                                                     <p><strong>{{ $member->fullname }}: </strong><button type="submit" id="deleteFamilyMember">-</button></p>
                                                 </form>
@@ -237,6 +239,10 @@
                                     
                                     @else
                                         <p>You are the member of the {{ $user->family?->name }} family.</p>
+                                        <form action="{{ route('leaveFamily') }}" method="POST">
+                                            @csrf
+                                            <p><button type="submit" id="leaveFamily">Leave family</button></p>
+                                        </form>
                                     @endif
                                     
                                 @endif

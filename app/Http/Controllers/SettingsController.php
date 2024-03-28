@@ -186,4 +186,12 @@ class SettingsController extends Controller
         toastr()->success("Join request sent");
         return back();
     }
+
+    public function leaveFamily()
+    {
+        $user = auth()->user();
+        $leaveFamily = User::where('id', '=', $user->id)->update(['family_id' => null]);
+        toastr()->success("You left the family successfully");
+        return back();
+    }
 }
