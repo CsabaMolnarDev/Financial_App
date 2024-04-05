@@ -37,6 +37,8 @@ Route::post('/checkUsernameTaken', [RegisterController::class, 'checkNameIsTaken
 /* This is the check for email*/
 Route::post('/checkEmailTaken', [RegisterController::class, 'checkEmailIsTaken'])->name('email.check');
 
+Route::post('/checkIfUserExists', [SettingsController::class, 'checkIfUserExists'])->name('checkIfUserExists');
+
 
 //add routes to prevent directly written routes to the url
 Route::middleware(['auth'])->group(function (){

@@ -224,8 +224,9 @@
                                     <form action="{{route('addFamilyMember')}}" method="POST" id="addfamilymemberinput">
                                         @csrf
                                         <div>
-                                            <input type="search" name="familymember" id="familymember" required>
+                                            <input oninput="checkIfUserExists(this.value);" type="search" name="familymember" id="familymember" required>
                                             <button type="submit" class="btn btn-primary">Add family member</button> 
+                                            <div id="responseText"></div>
                                         </div>
                                     </form>
                                         @foreach ($family as $member)
@@ -279,6 +280,9 @@
         /* Change background image */
         /* document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";*/  //uncomment it
         var financesData = @json($finances);
+
+        //csv downloader (under construction)
+        //maybe use the apexcharts's csv download functionality
         document.getElementById('downloadButton').addEventListener('click', function() {
 
             const dataToConvert = {
@@ -297,5 +301,34 @@
                 document.getElementById('timezone').value = userTimezone;
             });
         });
+
+
+        function checkIfUserExists(input) {
+        $.ajax({
+            type: 'POST',
+            url: '/checkIfUserExists',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'username': input
+            },
+            success: function(data) {
+                if (data.status === "failed") {
+                    $('#responseText').removeClass('text-success').addClass('text-danger').html(data.message);
+                } else if (data.status === "failed2") {
+                    $('#responseText').removeClass('text-success').addClass('text-danger').html(data.message);
+                } else {
+                    // If the user exists, you may choose not to display any message
+                    $('#responseText').removeClass('text-danger').removeClass('text-success').html('');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + status + " " + error);
+                $('#responseText').html('An error occurred. Please try again later.').addClass('text-danger');
+            }
+        });
+    }
+        
+
+
     </script>
 @endsection

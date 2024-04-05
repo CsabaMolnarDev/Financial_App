@@ -146,6 +146,32 @@ class SettingsController extends Controller
         }  
     }
 
+    public function checkIfUserExists(Request $request)
+    {
+
+        $username = $request->input('username');
+        $userFound = User::where('username', $username)->exists();
+        if (!$userFound) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'User not found',
+            ]);
+        }
+        
+        $userFamilyId = auth()->user()->family_id;
+        $inviteduser = User::where('username', $username)
+                   ->where('family_id', $userFamilyId)
+                   ->whereNotNull('family_id') 
+                   ->first();
+        if ($inviteduser) {
+            return response()->json([
+                'status' => 'failed2',
+                'message' => 'User is already in your family',
+            ]);    
+        }
+       
+    }
+
     public function deleteFamily()
     {
         $user = auth()->user();
