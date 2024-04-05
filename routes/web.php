@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SpendingController;
 
 
 /*
@@ -60,7 +61,9 @@ Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCr
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 /* This is the spending create */
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
-
+/* Edit finance */
+Route::post('/editSpendingValue', [SpendingController::class, 'editSpendingValue'])->name('editSpendingValue');
+Route::get('/deleteFinance/{id}', [SpendingController::class, 'deleteFinance'])->name('deleteFinance');
 /* Settings route */
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings')->middleware('auth');
 /* Change Fullname */

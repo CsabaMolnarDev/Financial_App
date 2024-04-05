@@ -45,7 +45,7 @@ background-image: url('../storage/pictures/home.jpg');
                 <a class="navbar-brand text-light"
                     href="
                     @guest
-{{ url('/') }}
+                        {{ url('/') }}
                     @else
                         {{ url('/home') }} @endguest
                         ">
