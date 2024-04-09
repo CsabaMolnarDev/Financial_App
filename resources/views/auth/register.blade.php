@@ -199,27 +199,32 @@
                 },
                 success: function(response) {
                     var strength;
-                    document.getElementById('passwordStrength').innerText = 'Password Strength: ' +
-                        strength;
+                    var colorClass;
                     switch (true) {
                         case (response.entropy <= 35):
                             strength = 'Weak';
+                            colorClass = 'text-danger';
                             break;
                         case (response.entropy >= 36 && response.entropy <= 59):
                             strength = 'Moderate';
+                            colorClass = 'text-warning';
                             break;
                         case (response.entropy >= 60 && response.entropy <= 119):
                             strength = 'Strong';
+                            colorClass = 'text-primary';
                             break;
                         case (response.entropy >= 120):
                             strength = 'Very Strong';
+                            colorClass = 'text-success';
                             break;
                         default:
                             strength = 'Something went wrong';
+                            colorClass = 'text-dark';
                             break;
                     }
-                    document.getElementById('passwordStrength').innerText = 'Password Strength: ' +
-                        strength;
+                    var passwordStrengthElement = document.getElementById('passwordStrength');
+                    passwordStrengthElement.innerText = 'Password Strength: ' + strength;
+                    passwordStrengthElement.className = colorClass; 
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     console.log("Error:", errorThrown);

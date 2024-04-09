@@ -131,37 +131,17 @@
                /*  sendEditData(rowId, columnIndex, newValue); */
             }
 
+            
             // Event handler to prevent button click event from propagating
             $('#spendingTable tbody').on('click', 'button', function(event) {
                 event.stopPropagation();
             });
 
-        // Function to send edited data to server via AJAX
-            /* function sendEditData(rowId, columnIndex, newValue) {
-                $.ajax({
-                    url: '/editSpendingValue', // Server endpoint for updating data
-                    method: 'POST', // HTTP method
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
-                    },
-                    data: {
-                        'id': rowId, // ID of the edited row
-                        'column': columnIndex, // Index of the edited column
-                        'value': newValue // New value to be updated
-                    },
-                    success: function(response) {
-                        console.log('Data saves!'); // Log success message
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Something went wrong:', error); // Log error message
-                    }
-                });
-            } */
         });
         
     </script>
     <script>
-        /*  TODO:  use ajax maybe */
+
         /* Functions: */
         //user associated finances php array to json string
         var financesData = @json($finances);

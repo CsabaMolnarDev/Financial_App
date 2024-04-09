@@ -15,7 +15,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
-                    <input type="number" min="0" name="price" id="price" class="form-control @if($errors->has('price')) is-invalid @endif" value="{{old('price')}}">
+                    <div class="input-group">
+                        <input type="number" min="0" name="price" id="price" class="form-control @if($errors->has('price')) is-invalid @endif" value="{{ old('price') }}">
+                        <span class="input-group-text">{{ $currency }}</span>
+                    </div>
                     @error('price')
                         <small class="text-danger">*{{ $message }}</small>
                     @enderror
@@ -44,7 +47,7 @@
         </div>
     </div>
 </div>
-{{-- TODO:{{-- Make this into an AJAX code --}}
+
 <script>
     document.body.style.backgroundImage = "url('../storage/pictures/spendingCreate.jpg')";
     document.getElementById('category_id').addEventListener('change', function() {
