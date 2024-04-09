@@ -150,9 +150,14 @@ html {
 #setTime {
     display: none;
 }
+
 /* Apexcharts */
 
+.apexcharts-menu {
+    background: #332D2D !important;
+    color: #FBFBFB !important;
+}
 
-
-
-
+.apexcharts-menu-item:hover {
+    background: #332D2D !important;
+}
