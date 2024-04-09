@@ -58,7 +58,10 @@ class SpendingController extends Controller
     }
     public function create(){
         $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
-        return view('includes.spendingCreate',['categories' => $availableCategories]);
+        $user = Auth::user();
+        return view('includes.spendingCreate',[
+            'categories' => $availableCategories,
+            'currency' => $user->currency->symbol]);
     }
 
     public function editSpendingValue(Request $request)
@@ -68,11 +71,11 @@ class SpendingController extends Controller
         $column = $request->input('column');
         $value = $request->input('value');
 
-        $finance = Finance::findOrFail($id);
+      /*   $finance = Finance::findOrFail($id);
         $finance->$column = $value;
         $finance->save();
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true]); */
     }
 
     public function deleteFinance($id)

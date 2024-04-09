@@ -45,7 +45,7 @@ background-image: url('../storage/pictures/home.jpg');
                 <a class="navbar-brand text-light"
                     href="
                     @guest
-                        {{ url('/') }}
+{{ url('/') }}
                     @else
                         {{ url('/home') }} @endguest
                         ">
@@ -94,8 +94,11 @@ background-image: url('../storage/pictures/home.jpg');
                                     onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
-                                <button id="menuBtn" class="btn btn-outline-success" type="submit"
-                                    onclick="window.location=' {{ url('/download') }} '">Download</button>
+                                {{-- Under construction --}}
+                                {{-- <button id="menuBtn" class="btn btn-outline-success" type="submit"
+                                    onclick="window.location=' {{ url('/download') }} '">Download</button> --}}
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/documentation') }} '">Documentation</button>
                             @endguest
                             <button class="btn btn-outline-info" type="submit"
                                 onclick="window.location=' {{ url('/about_us') }} '">About us</button>

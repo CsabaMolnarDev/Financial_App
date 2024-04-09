@@ -26,13 +26,17 @@ class IncomeController extends Controller
      */
     public function index()
     {
-
-        $finances = Finance::where('type','Income')->get();
-        return view('includes.income',['finances' => $finances]);
-    }
-    public function create(){
-        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
-        return view('includes.incomeCreate',['categories' => $availableCategories]);
+        $userId = Auth::id();
+        $finances = Finance::where('type','Income')->where('user_id', $userId)->get();
+        $categoryIdys = $finances->pluck('category_id')->unique();
+        $categories = Category::whereIn('id', $categoryIdys)->pluck('name', 'id');
+        $user = auth()->user();
+        $currencySymbol = $user->currency->symbol;
+        return view('includes.income', [
+            'finances' => $finances,
+            'categories' => $categories,
+            'currencySymbol' => $currencySymbol
+        ]);
     }
     public function addCategory(Request $request)
     {
@@ -46,7 +50,35 @@ class IncomeController extends Controller
             $category->owner_id = auth()->id();
             $category->save();
 
-           
-        return redirect()->back()->with('success', 'Category added successfully.');
+        toastr()->success($category->name . ' has been added to the categories successfully');
+        return back();
+    }
+    public function create(){
+        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
+        $user = Auth::user();
+        return view('includes.incomeCreate',[
+            'categories' => $availableCategories,
+            'currency' => $user->currency->symbol]);
+    }
+
+    public function editSpendingValue(Request $request)
+    {
+        dd($request);
+        $id = $request->input('id');
+        $column = $request->input('column');
+        $value = $request->input('value');
+
+      /*   $finance = Finance::findOrFail($id);
+        $finance->$column = $value;
+        $finance->save();
+
+        return response()->json(['success' => true]); */
+    }
+
+    public function deleteFinance($id)
+    {
+        $deleteFinanceById = Finance::where('id', '=', $id)->delete();
+        toastr()->success("Finance record deleted successfully");
+        return back();
     }
 }
