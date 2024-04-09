@@ -3,9 +3,7 @@
     <div id="homeContainer" class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
         <div class="row">
             <h3 class="text-warning">Some content will come here later</h3>
-            @foreach ($userCount as $item)
-                <h3 class="text-info">Total user count: {{ $item->id }}</h3>
-            @endforeach
+            <h3 class="text-info">Total user count: {{ $usersCount }}</h3>
             <h3 class="text-warning">Statistics...</h3>
         </div>
     </div>

@@ -25,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $userCount = User::whereRaw('id = (select max(`id`) from users)')->get();
-        return view('home',['userCount' => $userCount]);
+        
+        $usersCount = DB::table('users')->count();
+        return view('home',['usersCount'=>$usersCount]);
     }
 }
