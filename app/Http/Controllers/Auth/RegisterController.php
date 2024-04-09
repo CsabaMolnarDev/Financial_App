@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'fullname' => ['required', 'string', 'max:255', 'min:5'],
             'username' => ['required', 'string', 'max:255','min:5'],
             'currency_id' => ['required',],
-            'phone' => ['max:12'],
+            'phone' => ['min:4','max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -71,6 +71,26 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $roles_id = 3; // basic role, 2 pro, 1 dev
+        if($data['phone']!=null){
+            $phone = $data['phone'];
+            $numbers="";
+            $data['phone']=null;
+            for ($i=0; $i < strlen($phone); $i++) { 
+                if($i!=0){
+                    if(is_numeric($phone[$i])){
+                        $numbers.=strval($phone[$i]);
+                    }
+                }
+                else{
+                    if(is_numeric($phone[$i]) || $phone[$i]=='+'){
+                        $numbers.=strval($phone[$i]);
+                    }
+                }
+            }
+            $data['phone']=$numbers;
+            //@dd($data['phone']);
+        } 
+
         $user = User::create([
             'fullname' => $data['fullname'],
             'username' => $data['username'],
