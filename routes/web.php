@@ -93,6 +93,8 @@ Route::get('/accept-invitation/{token}', [FamilyController::class, 'acceptInvita
 /* Download page */
 Route::get('/download', [DownloadController::class, 'index'])->name('download')->middleware('auth');
 
+/* Documentation page */
+Route::get('/documentation', [DocumentationController::class, 'index'])->name('documentation')->middleware('auth');
 //Forget password routes
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
