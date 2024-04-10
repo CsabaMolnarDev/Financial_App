@@ -74,6 +74,7 @@ class RegisterController extends Controller
         if($data['phone']!=null){
             $phone = $data['phone'];
             $numbers="";
+            $firstchar=true;
             $data['phone']=null;
             for ($i=0; $i < strlen($phone); $i++) { 
                 if($i!=0){
@@ -84,6 +85,7 @@ class RegisterController extends Controller
                 else{
                     if(is_numeric($phone[$i]) || $phone[$i]=='+'){
                         $numbers.=strval($phone[$i]);
+                        $firstchar = false;
                     }
                 }
             }

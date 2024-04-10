@@ -57,8 +57,8 @@ class SpendingController extends Controller
         return back();
     }
     public function create(){
-        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', Auth::user()->id)->get();
         $user = Auth::user();
+        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', $user->id)->get();
         return view('includes.spendingCreate',[
             'categories' => $availableCategories,
             'currency' => $user->currency->symbol]);
