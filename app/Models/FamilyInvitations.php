@@ -12,7 +12,7 @@ class FamilyInvitations extends Model
         return $this->belongsTo(Family::class);
     }
 
-    public function sender(): BelongsTo{     
+    public function sender(): BelongsTo{
         return $this->belongsTo(User::class, 'sender_id');
     }
     protected $fillable = [

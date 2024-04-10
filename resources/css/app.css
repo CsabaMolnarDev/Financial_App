@@ -157,7 +157,6 @@ html {
 }
 
 /* Apexcharts */
-
 .apexcharts-menu {
     background: #332D2D !important;
     color: #FBFBFB !important;
@@ -165,4 +164,15 @@ html {
 
 .apexcharts-menu-item:hover {
     background: #332D2D !important;
+}
+
+/* Home page */
+.grid-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+}
+
+.grid-item {
+    grid-row: 1;
 }
