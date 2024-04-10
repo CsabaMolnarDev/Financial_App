@@ -26,6 +26,9 @@
     {{-- Jquerry table --}}
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
     <script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    {{-- Phone mask using: https://intl-tel-input.com --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@21.1.1/build/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@21.1.1/build/js/intlTelInput.min.js"></script>
 </head>
 
 <body
@@ -95,8 +98,8 @@ background-image: url('../storage/pictures/home.jpg');
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
                                 {{-- Under construction --}}
-                                {{-- <button id="menuBtn" class="btn btn-outline-success" type="submit"
-                                    onclick="window.location=' {{ url('/download') }} '">Download</button> --}}
+                                <button id="menuBtn" class="btn btn-outline-success" type="submit"
+                                    onclick="window.location=' {{ url('/download') }} '">Download</button>
                                 <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/documentation') }} '">Documentation</button>
                             @endguest
