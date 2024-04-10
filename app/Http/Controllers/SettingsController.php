@@ -114,6 +114,27 @@ class SettingsController extends Controller
             'newPhone' => 'required|string|unique:users,phone'
         ]);
 
+        
+            $phone = $request->newPhone;
+            $numbers="";
+            $firstchar=true;
+            $request->newPhone=null;
+            for ($i=0; $i < strlen($phone); $i++) { 
+                if(!$firstchar){
+                    if(is_numeric($phone[$i])){
+                        $numbers.=strval($phone[$i]);
+                    }
+                }
+                else{
+                    if(is_numeric($phone[$i]) || $phone[$i]=='+'){
+                        $numbers.=strval($phone[$i]);
+                        $firstchar = false;
+                    }
+                }
+            }
+            $request->newPhone=$numbers;
+            //@dd($request->newPhone);
+
         $user = auth()->user();
 
         $user->phone = $request->newPhone;
