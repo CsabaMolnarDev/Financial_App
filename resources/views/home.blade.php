@@ -57,7 +57,7 @@
                             <img src="../storage/icons/family.png">
                         </div>
                         <div class="row">
-                            <h4 class="card-title">Family support</h4>
+                            <h4 class="card-title">Family system</h4>
                             <p class="card-text">You can create a group with your family, and you can manage the finances
                                 together. //Clink link to get started with the family support</p>
                         </div>
