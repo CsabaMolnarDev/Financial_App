@@ -8,6 +8,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SpendingController;
+use App\Http\Controllers\AdvancedStatisticsController;
 
 
 /*
@@ -61,6 +62,8 @@ Route::get('/income', [IncomeController::class, 'index'])->name('income');
 Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCreate');
 /* This is the spending route */
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
+
+Route::get('/advancedStatistics', [AdvancedStatisticsController::class, 'index'])->name('advancedStatistics');
 /* This is the spending create */
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
 /* Edit finance */
