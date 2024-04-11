@@ -17,9 +17,17 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $array = ['Freetime', 'Hobby', 'Food', 'Sport'];
-        return [
-            'name' => $array[rand(0,1)]
-        ];
+        $spendingCategories = ['Freetime', 'Hobby', 'Food', 'Sport', 'Transportation'];
+        $incomeCategories = ['Salary', 'Bonus', 'Investment', 'Gift', 'Rent'];
+        $types = ['spending', 'income'];
+        $type = $this->faker->randomElement($types);
+        
+        $name = ($type === 'spending') 
+            ? $this->faker->unique()->randomElement($spendingCategories) 
+            : $this->faker->unique()->randomElement($incomeCategories);
+            return [
+                'name' => $name,
+                'type' => $type,
+            ];
     }
 }

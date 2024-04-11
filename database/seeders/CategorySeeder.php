@@ -13,6 +13,10 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory(5)->create();
+            // Create 5 spending categories
+        Category::factory()->count(5)->state(['type' => 'spending'])->create();
+        
+        // Create 5 income categories
+        Category::factory()->count(5)->state(['type' => 'income'])->create();
     }
 }

@@ -41,7 +41,7 @@
                         <button type="submit" class="btn btn-danger w-75">Add new</button>
                     </div>
                 </form>
-                <form action="{{ route('addCategory') }}" method="POST">
+                <form action="{{ route('addIncomeCategory') }}" method="POST">
                     @csrf
                     <div class="mb-3 text-center" id="newCategoryForm" style="display: none;">
                         <input type="text" id="newCategoryInput" name="new_category" placeholder="Enter new category">

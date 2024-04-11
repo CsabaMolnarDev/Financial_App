@@ -51,14 +51,24 @@ class SpendingController extends Controller
             $category = new Category();
             $category->name = $request->input('new_category');
             $category->owner_id = auth()->id();
+            $category->type = 'spending';
             $category->save();
 
         toastr()->success($category->name . ' has been added to the categories successfully');
         return back();
     }
+    /* spending create page */
     public function create(){
         $user = Auth::user();
-        $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', $user->id)->get();
+        $availableCategories = Category::where(function($query) use ($user) {
+            $query->where('owner_id', 0)
+                  ->where('type', 'spending');
+        })
+        ->orWhere(function($query) use ($user) {
+            $query->where('owner_id', $user->id)
+                  ->where('type', 'spending');
+        })
+        ->get();
         return view('includes.spendingCreate',[
             'categories' => $availableCategories,
             'currency' => $user->currency->symbol]);

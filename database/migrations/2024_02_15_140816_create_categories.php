@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('owner_id')->default(0);
             $table->string('name');
+            $table->enum('type', ['spending', 'income'])->default('spending'); 
             $table->timestamps();
         });
     }
