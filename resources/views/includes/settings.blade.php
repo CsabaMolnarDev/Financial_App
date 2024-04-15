@@ -23,7 +23,7 @@
                                 <div class="modal fade" id="changeFullnameModal"
                                     tabindex="-1"aria-labelledby="changeFullnameModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changeFullnameModalLabel">Change Fullname</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -55,7 +55,7 @@
                                 <div class="modal fade" id="changeUsernameModal"
                                     tabindex="-1"aria-labelledby="changeUsernameModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changeUsernameModalLabel">Change Username</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -90,7 +90,7 @@
                                 <div class="modal fade" id="changeEmailModal" tabindex="-1"
                                     aria-labelledby="changeEmailModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changeEmailModalLabel">Change Email</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -127,7 +127,7 @@
                                 <div class="modal fade" id="changePhoneNumberModal"
                                     tabindex="-1"aria-labelledby="changePhoneNumberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changePhoneNumberModalLabel">Change phone
                                                     number</h5>
