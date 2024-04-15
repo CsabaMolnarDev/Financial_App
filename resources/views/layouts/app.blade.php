@@ -95,16 +95,18 @@ background-image: url('../storage/pictures/home.jpg');
                                     onclick="window.location=' {{ url('/income') }} '">Incomes</button>
                                 <button id="menuBtn" class="btn btn-outline-danger" type="submit"
                                     onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
-                                    {{-- Advanced statistics --}}
-                                @if (auth()->user()->finances()->where('type', 'spending')->exists() && auth()->user()->finances()->where('type', 'income')->exists())
-                                <button id="menuBtn" class="btn btn-outline-secondary" type="submit"
-                                    onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced statistics</button>  
-                                    @endif 
+                                {{-- Advanced statistics --}}
+                                @if (auth()->user()->finances()->where('type', 'spending')->exists() &&
+                                        auth()->user()->finances()->where('type', 'income')->exists())
+                                    <button id="menuBtn" class="btn btn-outline-secondary" type="submit"
+                                        onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
+                                        statistics</button>
+                                @endif
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
                                 {{-- Under construction --}}
-                                <button id="menuBtn" class="btn btn-outline-success" type="submit"
-                                    onclick="window.location=' {{ url('/download') }} '">Download</button>
+                                {{-- <button id="menuBtn" class="btn btn-outline-success" type="submit"
+                                    onclick="window.location=' {{ url('/download') }} '">Download</button> --}}
                                 <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/documentation') }} '">Documentation</button>
                             @endguest
