@@ -1,14 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <div>
-    @if(!auth()->user()->family)
+    @if($familyMembers->count() == 0)
 
         @php
             $totalIncome = 0;
             $totalSpending = 0;
-        @endphp
-
-        @php
             $currentMonth = date('m'); 
         @endphp
 
@@ -20,7 +17,7 @@
             @endif
         @endforeach
 
-        @foreach ($spending as $spend)
+        @foreach ($spendings as $spend)
             @if (substr($spend->time, 5, 2) == $currentMonth) 
                 @php
                     $totalSpending += $spend->price;
@@ -36,7 +33,6 @@
         </div>
         <div class="specialcard-container">
         @php
-            $currentMonth = date('m');
             $currentYear = date('Y');
             $monthsToShow = [$currentMonth - 2, $currentMonth - 1, $currentMonth];
             $monthsLabels = [
@@ -61,20 +57,23 @@
                         @endif
                     @endforeach
 
-                    @foreach ($spending as $spend)
-                            @if (date('m', strtotime($spend->time)) == $monthsToShow[$i] && date('Y', strtotime($spend->time)) == $currentYear)
-                                @php
-                                    $totalSpending += $spend->price;
-                                @endphp
-                            @endif
-                        @endforeach
+                    @foreach ($spendings as $spend)
+                        @if (date('m', strtotime($spend->time)) == $monthsToShow[$i] && date('Y', strtotime($spend->time)) == $currentYear)
+                            @php
+                                $totalSpending += $spend->price;
+                            @endphp
+                        @endif
+                    @endforeach
                     <p class="specialcard-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
                     <p class="specialcard-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
+                </div>
             </div>
-        </div>
         @endfor
-    @endif
-    @elseif (auth()->user()->family && family)
+    </div>
+    @elseif ($familyMembers->count() > 0)
+            
+    @else
+    <h1>No family members found.</h1>
     @endif
 </div>
 @endsection

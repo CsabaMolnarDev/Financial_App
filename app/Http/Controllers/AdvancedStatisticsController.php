@@ -20,12 +20,15 @@ class AdvancedStatisticsController extends Controller
         $incomes = Finance::where('type','Income')->where('user_id', $userId)->get();
         $spendings = Finance::where('type','Spending')->where('user_id', $userId)->get();
         $currencySymbol = auth()->user()->currency->symbol;
-        $familyMembers = User::where()
-  
+        $familyMembers = User::where('family_id', auth()->user()->family_id)
+                     ->whereNotNull('family_id') 
+                     ->where('id', '!=', auth()->user()->id) 
+                     ->get();
         return view('includes.advancedStatistics', [
             'incomes' => $incomes,
-            'spending' => $spendings,
-            'currencySymbol' => $currencySymbol
+            'spendings' => $spendings,
+            'currencySymbol' => $currencySymbol,
+            'familyMembers' => $familyMembers
         ]);
     }
 }
