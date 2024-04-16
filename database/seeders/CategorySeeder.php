@@ -13,10 +13,54 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-            // Create 5 spending categories
-        Category::factory()->count(5)->state(['type' => 'spending'])->create();
+        Category::factory()->create([
+            'name' => 'Freetime',
+            'type' => 'spending',
+        ]);
         
-        // Create 5 income categories
-        Category::factory()->count(5)->state(['type' => 'income'])->create();
+        Category::factory()->create([
+            'name' => 'Hobby',
+            'type' => 'spending',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Food',
+            'type' => 'spending',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Sport',
+            'type' => 'spending',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Transportation',
+            'type' => 'spending',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Salary',
+            'type' => 'income',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Bonus',
+            'type' => 'income',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Investment',
+            'type' => 'income',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Gift',
+            'type' => 'income',
+        ]);
+        
+        Category::factory()->create([
+            'name' => 'Rent',
+            'type' => 'income',
+        ]);
     }
 }

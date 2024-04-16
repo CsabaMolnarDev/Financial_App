@@ -21,13 +21,20 @@ class CategoryFactory extends Factory
         $incomeCategories = ['Salary', 'Bonus', 'Investment', 'Gift', 'Rent'];
         $types = ['spending', 'income'];
         $type = $this->faker->randomElement($types);
-        
-        $name = ($type === 'spending') 
-            ? $this->faker->unique()->randomElement($spendingCategories) 
-            : $this->faker->unique()->randomElement($incomeCategories);
-            return [
-                'name' => $name,
-                'type' => $type,
-            ];
+
+        $categories = [];
+
+        if ($type === 'spending') {
+            shuffle($spendingCategories);
+            $categories = array_slice($spendingCategories, 0, 5);
+        } else {
+            shuffle($incomeCategories);
+            $categories = array_slice($incomeCategories, 0, 5);
+        }
+
+        return [
+            'name' => $this->faker->randomElement($categories),
+            'type' => $type,
+        ];
     }
 }
