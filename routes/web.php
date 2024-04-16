@@ -63,7 +63,7 @@ Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCr
 /* This is the spending route */
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 
-Route::get('/advancedStatistics', [AdvancedStatisticsController::class, 'index'])->name('advancedStatistics');
+Route::get('/advancedStatistics', [AdvancedStatisticsController::class, 'index'])->name('advancedStatistics')->middleware('auth');;
 /* This is the spending create */
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
 /* Edit finance */

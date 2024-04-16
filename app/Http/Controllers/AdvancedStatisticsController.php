@@ -2,12 +2,29 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Finance;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+
 
 class AdvancedStatisticsController extends Controller
 {
     public function index()
     {
-        return view('includes.advancedStatistics');
+   
+        $userId = Auth::id();
+        $incomes = Finance::where('type','Income')->where('user_id', $userId)->get();
+        $spendings = Finance::where('type','Spending')->where('user_id', $userId)->get();
+        $currencySymbol = auth()->user()->currency->symbol;
+  
+        return view('includes.advancedStatistics', [
+            'incomes' => $incomes,
+            'spending' => $spendings,
+            'currencySymbol' => $currencySymbol
+        ]);
     }
 }
