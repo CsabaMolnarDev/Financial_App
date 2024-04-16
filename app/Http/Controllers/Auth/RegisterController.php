@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'fullname' => ['required', 'string', 'max:255', 'min:5'],
             'username' => ['required', 'string', 'max:255','min:5'],
             'currency_id' => ['required',],
-            'phone' => ['min:4','max:18'],
+            'phone' => ['max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -76,7 +76,7 @@ class RegisterController extends Controller
             $numbers="";
             $firstchar=true;
             $data['phone']=null;
-            for ($i=0; $i < strlen($phone); $i++) { 
+            for ($i=0; $i < strlen($phone); $i++) {
                 if($i!=0){
                     if(is_numeric($phone[$i])){
                         $numbers.=strval($phone[$i]);
@@ -91,7 +91,7 @@ class RegisterController extends Controller
             }
             $data['phone']=$numbers;
             //@dd($data['phone']);
-        } 
+        }
 
         $user = User::create([
             'fullname' => $data['fullname'],
@@ -103,8 +103,8 @@ class RegisterController extends Controller
             'currency_id' => $data['currency_id']
 
         ]);
-        $userName = $user->username;
-        Mail::to($user->email)->send(new RegistrationSuccessful($userName));
+
+        Mail::to($data['email'])->send(new RegistrationSuccessful($data['username']));
         return $user;
 
     }
@@ -126,7 +126,7 @@ class RegisterController extends Controller
                 'message' => 'Username is already taken',
             ]);
         }
-       
+
     }
 
 
@@ -141,7 +141,7 @@ class RegisterController extends Controller
                 'message' => 'Email is already taken',
             ]);
         }
-       
+
     }
 
     public function calculateEntropy(Request $request)

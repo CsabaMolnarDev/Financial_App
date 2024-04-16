@@ -16,10 +16,12 @@ class RegistrationSuccessful extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($username)
-    {
-        /* $this->username = $userName; */
-    }
+    public $username;
+
+public function __construct($username)
+{
+    $this->username = $username;
+}
 
     /**
      * Get the message envelope.
@@ -40,7 +42,7 @@ class RegistrationSuccessful extends Mailable
     {
         return new Content(
             view: 'mails.registrationSuccessfull',
-             /* with: ['userName' => $username] */
+                with: ['username' => $this->username],
         );
     }
 
