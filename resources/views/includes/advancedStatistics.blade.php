@@ -1,20 +1,77 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <div class="card bg-dark text-light">
-                    <div class="card-body">
-                        {{-- Work here --}}
-                    </div>
-                </div>
+<div>
+
+
+    @php
+        $totalIncome = 0;
+        $totalSpending = 0;
+    @endphp
+
+    @php
+        $currentMonth = date('m'); 
+    @endphp
+
+    @foreach ($incomes as $income)
+        @if (substr($income->time, 5, 2) == $currentMonth) 
+            @php
+                $totalIncome += $income->price;
+            @endphp
+        @endif
+    @endforeach
+
+    @foreach ($spending as $spend)
+        @if (substr($spend->time, 5, 2) == $currentMonth) 
+            @php
+                $totalSpending += $spend->price;
+            @endphp
+        @endif
+    @endforeach
+
+    @php
+        $availableBalance = $totalIncome - $totalSpending;
+    @endphp
+
+    <h1>Available Balance: {{ $availableBalance }} {{ $currencySymbol }}</h1>
+</div>
+<div class="card-container">
+    @php
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $monthsToShow = [$currentMonth - 2, $currentMonth - 1, $currentMonth];
+        $monthsLabels = [
+            date('F', mktime(0, 0, 0, $currentMonth - 2, 1, $currentYear)), // Two months ago
+            date('F', mktime(0, 0, 0, $currentMonth - 1, 1, $currentYear)), // One month ago
+            date('F', mktime(0, 0, 0, $currentMonth, 1, $currentYear)) // Current month
+        ];
+    @endphp
+    @for ($i = 0; $i < 3; $i++)
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ $monthsLabels[$i] }}</h5>
+                @php
+                    $totalIncome = 0;
+                    $totalSpending = 0;
+                @endphp
+                @foreach ($incomes as $income)
+                    @if (date('m', strtotime($income->time)) == $monthsToShow[$i] && date('Y', strtotime($income->time)) == $currentYear)
+                        @php
+                            $totalIncome += $income->price;
+                        @endphp
+                    @endif
+                @endforeach
+
+                @foreach ($spending as $spend)
+                        @if (date('m', strtotime($spend->time)) == $monthsToShow[$i] && date('Y', strtotime($spend->time)) == $currentYear)
+                            @php
+                                $totalSpending += $spend->price;
+                            @endphp
+                        @endif
+                    @endforeach
+                <p class="card-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
+                <p class="card-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
             </div>
-            <div class="col-2"></div>
         </div>
-    </div>
-    <script>
-        /* Bg img */ /* Replace "documentation" with the picture we want */
-        document.body.style.backgroundImage = "url('../storage/pictures/documentation.jpg')";
-    </script>
+    @endfor
+</div>
 @endsection

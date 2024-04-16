@@ -225,7 +225,7 @@
                                             <div>
                                                 <input oninput="checkIfUserExists(this.value);" type="search"
                                                     name="familymember" id="familymember" required>
-                                                <button type="submit" class="btn btn-primary">Add family member</button>
+                                                <button type="submit" id="addFamilyMemberBTN" class="btn btn-primary">Add family member</button>
                                                 <div id="responseText"></div>
                                             </div>
                                         </form>
@@ -310,9 +310,11 @@
                     if (data.status === "failed") {
                         $('#responseText').removeClass('text-success').addClass('text-danger').html(data
                             .message);
+                            $('#addFamilyMemberBTN').prop('disabled', true)
                     } else if (data.status === "failed2") {
                         $('#responseText').removeClass('text-success').addClass('text-danger').html(data
                             .message);
+                            $('#addFamilyMemberBTN').prop('disabled', true)
                     } else {
                         // If the user exists, you may choose not to display any message
                         $('#responseText').removeClass('text-danger').removeClass('text-success').html('');
