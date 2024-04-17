@@ -41,6 +41,7 @@ class SpendingController extends Controller
             'currencySymbol' => $currencySymbol
         ]);
     }
+
     public function addCategory(Request $request)
     {
         $request->validate([

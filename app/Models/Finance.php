@@ -20,6 +20,9 @@ class Finance extends Model
     public function currency() : HasOne{
         return $this->hasOne(Currency::class);
     }
+    public function monthly() : BelongsTo{
+        return $this->belongsTo(Monthly::class);
+    }
     protected $fillable = [
         'type',
         'name',

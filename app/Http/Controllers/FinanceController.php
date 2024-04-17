@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Finance;
 use App\Http\Requests\StoreFinanceRequest;
 use App\Http\Requests\UpdateFinanceRequest;
+use App\Models\Monthly;
 use Illuminate\Support\Str;
 
 class FinanceController extends Controller
@@ -47,6 +48,13 @@ class FinanceController extends Controller
             ]);
             /* TODO:prevent form submission, if the user selects the add new category option, maybe toastr warning */
             $finance->save();
+            if($request->monthly){
+                Monthly::create([
+                    'finance_id' => $finance->id,
+                    'year' => date("Y"),
+                    'month' => date("m")
+                ]);
+            }
             if($bool){
                 return redirect()->route('spending');
             }
