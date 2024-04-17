@@ -107,8 +107,10 @@
                 </div>
             @endforeach
         </div>
+        
+    
     @else
-    <h1>No family members found.</h1>
+    <h1>This is a bug, report me to the devs.</h1>
     @endif
 </div>
 @endsection
