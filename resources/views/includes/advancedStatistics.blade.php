@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div>
-    @if($familyMembers->count() == 1)
+    @if(!auth()->user()->family)
 
         @php
             $totalIncome = 0;
