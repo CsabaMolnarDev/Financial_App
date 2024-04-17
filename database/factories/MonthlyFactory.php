@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Category;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Monthly>
  */
-class CategoryFactory extends Factory
+class MonthlyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +16,8 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $array = ['Freetime', 'Hobby', 'Food', 'Sport'];
         return [
-            'name' => $array[rand(0,3)]
+            //
         ];
     }
 }

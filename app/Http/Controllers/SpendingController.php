@@ -41,6 +41,7 @@ class SpendingController extends Controller
             'currencySymbol' => $currencySymbol
         ]);
     }
+
     public function addCategory(Request $request)
     {
         $request->validate([
@@ -56,6 +57,7 @@ class SpendingController extends Controller
         toastr()->success($category->name . ' has been added to the categories successfully');
         return back();
     }
+    
     public function create(){
         $user = Auth::user();
         $availableCategories = Category::where('owner_id',0)->orWhere('owner_id', $user->id)->get();
