@@ -8,9 +8,9 @@
         </div>
     </div>
     <div class="container d-flex align-items-center justify-content-center">
-        <div class="row">
-            <div class="col-3">
-                <div class="card">
+        <div class="row gy-3">
+            <div class="col-md-3">
+                <div class="card h-100 text-light bg-dark">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/globe.png">
@@ -22,8 +22,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="card">
+            <div class="col-md-3">
+                <div class="card h-100 text-light bg-dark">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/pin.png">
@@ -36,8 +36,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="card">
+            <div class="col-md-3">
+                <div class="card h-100 text-light bg-dark">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/calendar.png">
@@ -50,14 +50,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="card">
+            <div class="col-md-3">
+                <div class="card h-100 text-light bg-dark">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/family.png">
                         </div>
                         <div class="row">
-                            <h4 class="card-title">Family support</h4>
+                            <h4 class="card-title">Family system</h4>
                             <p class="card-text">You can create a group with your family, and you can manage the finances
                                 together. //Clink link to get started with the family support</p>
                         </div>

@@ -23,7 +23,7 @@
                                 <div class="modal fade" id="changeFullnameModal"
                                     tabindex="-1"aria-labelledby="changeFullnameModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changeFullnameModalLabel">Change Fullname</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -55,7 +55,7 @@
                                 <div class="modal fade" id="changeUsernameModal"
                                     tabindex="-1"aria-labelledby="changeUsernameModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changeUsernameModalLabel">Change Username</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -90,7 +90,7 @@
                                 <div class="modal fade" id="changeEmailModal" tabindex="-1"
                                     aria-labelledby="changeEmailModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changeEmailModalLabel">Change Email</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -127,7 +127,7 @@
                                 <div class="modal fade" id="changePhoneNumberModal"
                                     tabindex="-1"aria-labelledby="changePhoneNumberModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-dark text-light">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="changePhoneNumberModalLabel">Change phone
                                                     number</h5>
@@ -225,7 +225,7 @@
                                             <div>
                                                 <input oninput="checkIfUserExists(this.value);" type="search"
                                                     name="familymember" id="familymember" required>
-                                                <button type="submit" class="btn btn-primary">Add family member</button>
+                                                <button type="submit" id="addFamilyMemberBTN" class="btn btn-primary">Add family member</button>
                                                 <div id="responseText"></div>
                                             </div>
                                         </form>
@@ -310,9 +310,11 @@
                     if (data.status === "failed") {
                         $('#responseText').removeClass('text-success').addClass('text-danger').html(data
                             .message);
+                            $('#addFamilyMemberBTN').prop('disabled', true)
                     } else if (data.status === "failed2") {
                         $('#responseText').removeClass('text-success').addClass('text-danger').html(data
                             .message);
+                            $('#addFamilyMemberBTN').prop('disabled', true)
                     } else {
                         // If the user exists, you may choose not to display any message
                         $('#responseText').removeClass('text-danger').removeClass('text-success').html('');

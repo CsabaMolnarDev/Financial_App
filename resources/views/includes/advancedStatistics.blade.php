@@ -1,0 +1,114 @@
+@extends('layouts.app')
+@section('content')
+<div>
+    @if($familyMembers->count() == 1)
+
+        @php
+            $totalIncome = 0;
+            $totalSpending = 0;
+            $currentMonth = date('m'); 
+        @endphp
+
+        @foreach ($incomes as $income)
+            @if (substr($income->time, 5, 2) == $currentMonth) 
+                @php
+                    $totalIncome += $income->price;
+                @endphp
+            @endif
+        @endforeach
+
+        @foreach ($spendings as $spend)
+            @if (substr($spend->time, 5, 2) == $currentMonth) 
+                @php
+                    $totalSpending += $spend->price;
+                @endphp
+            @endif
+        @endforeach
+
+        @php
+            $availableBalance = $totalIncome - $totalSpending;
+        @endphp
+
+        <h1>Available Balance: {{ $availableBalance }} {{ $currencySymbol }}</h1>
+        </div>
+        <div class="specialcard-container">
+        @php
+            $currentYear = date('Y');
+            $monthsToShow = [$currentMonth - 2, $currentMonth - 1, $currentMonth];
+            $monthsLabels = [
+                date('F', mktime(0, 0, 0, $currentMonth - 2, 1, $currentYear)), // Two months ago
+                date('F', mktime(0, 0, 0, $currentMonth - 1, 1, $currentYear)), // One month ago
+                date('F', mktime(0, 0, 0, $currentMonth, 1, $currentYear)) // Current month
+            ];
+        @endphp
+        @for ($i = 0; $i < 3; $i++)
+            <div class="specialcard">
+                <div class="specialcard-body">
+                    <h5 class="specialcard-title">{{ $monthsLabels[$i] }}</h5>
+                    @php
+                        $totalIncome = 0;
+                        $totalSpending = 0;
+                    @endphp
+                    @foreach ($incomes as $income)
+                        @if (date('m', strtotime($income->time)) == $monthsToShow[$i] && date('Y', strtotime($income->time)) == $currentYear)
+                            @php
+                                $totalIncome += $income->price;
+                            @endphp
+                        @endif
+                    @endforeach
+
+                    @foreach ($spendings as $spend)
+                        @if (date('m', strtotime($spend->time)) == $monthsToShow[$i] && date('Y', strtotime($spend->time)) == $currentYear)
+                            @php
+                                $totalSpending += $spend->price;
+                            @endphp
+                        @endif
+                    @endforeach
+                    <p class="specialcard-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
+                    <p class="specialcard-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
+                </div>
+            </div>
+        @endfor
+    </div>
+    @elseif ($familyMembers->count() > 1)
+        <h1>Available Balance: {{ $available_balance }} {{ $currencySymbol }}</h1>
+        @php
+                $currentMonth = date('m');
+        @endphp
+        <div class="specialcard-container">
+            @php
+                $currentYear = date('Y');
+                $monthsToShow = [$currentMonth - 2, $currentMonth - 1, $currentMonth];
+                $monthsLabels = [
+                    date('F', mktime(0, 0, 0, $currentMonth - 2, 1, $currentYear)), // Two months ago
+                    date('F', mktime(0, 0, 0, $currentMonth - 1, 1, $currentYear)), // One month ago
+                    date('F', mktime(0, 0, 0, $currentMonth, 1, $currentYear)) // Current month
+                ];
+            @endphp
+            @foreach ($monthsToShow as $index => $month)
+                <div class="specialcard">
+                    <div class="specialcard-body">
+                        <h5 class="specialcard-title">{{ $monthsLabels[$index] }}</h5>
+                        @foreach ($familyMembers as $member)
+                            @php
+                        
+                        $userFinances = \App\Models\Finance::where('user_id', $member->id)
+                                ->whereMonth('time', $month)
+                                ->whereYear('time', $currentYear)
+                                ->get();
+                                $totalIncome = $userFinances->where('type', 'Income')->sum('price');
+                                $totalSpending = $userFinances->where('type', 'Spending')->sum('price');
+                            @endphp
+                            <p class="specialcard-text">Family member: {{ $member->username }}</p>
+                            <p class="specialcard-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
+                            <p class="specialcard-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @else
+    <h1>No family members found.</h1>
+    @endif
+</div>
+@endsection

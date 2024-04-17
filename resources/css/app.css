@@ -157,7 +157,6 @@ html {
 }
 
 /* Apexcharts */
-
 .apexcharts-menu {
     background: #332D2D !important;
     color: #FBFBFB !important;
@@ -165,4 +164,52 @@ html {
 
 .apexcharts-menu-item:hover {
     background: #332D2D !important;
+}
+
+/* Home page */
+.grid-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+}
+
+.grid-item {
+    grid-row: 1;
+}
+
+
+
+
+
+
+
+
+
+
+.specialcard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+}
+
+.specialcard {
+    width: 150px; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+}
+
+.specialcard-body {
+    padding: 10px;
+}
+
+.specialcard-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.specialcard-text {
+    font-size: 14px;
 }

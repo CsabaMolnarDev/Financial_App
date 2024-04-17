@@ -26,6 +26,9 @@
     {{-- Jquerry table --}}
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
     <script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    {{-- Phone mask using: https://intl-tel-input.com --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@21.1.1/build/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@21.1.1/build/js/intlTelInput.min.js"></script>
 </head>
 
 <body
@@ -92,6 +95,13 @@ background-image: url('../storage/pictures/home.jpg');
                                     onclick="window.location=' {{ url('/income') }} '">Incomes</button>
                                 <button id="menuBtn" class="btn btn-outline-danger" type="submit"
                                     onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
+                                {{-- Advanced statistics --}}
+                                @if (auth()->user()->finances()->where('type', 'spending')->exists() &&
+                                        auth()->user()->finances()->where('type', 'income')->exists())
+                                    <button id="menuBtn" class="btn btn-outline-secondary" type="submit"
+                                        onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
+                                        statistics</button>
+                                @endif
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
                                 {{-- Under construction --}}
