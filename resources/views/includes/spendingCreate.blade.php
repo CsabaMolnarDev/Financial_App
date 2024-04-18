@@ -41,7 +41,12 @@
                         </div>
                         <div class="mb-3 text-center">
                             <button type="submit" class="btn btn-danger w-75">Add new</button>
-                            <input type="checkbox" name="monthly" id="monthly">
+                            <div class="row">
+                                <div class="col-5"></div>
+                                <div class="col"><p>Monthly?</p></div>
+                                <div class="col"><input type="checkbox" name="monthly" id="monthly"></div>
+                                <div class="col-5"></div>
+                            </div>
                         </div>
                     </form>
                     <form action="{{ route('addCategory') }}" method="POST">
