@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div>
-    @if(!auth()->user()->family)
+    @if(!auth()->user()->family || auth()->user()->family && $familyMembers->count() == 1)
 
         @php
             $totalIncome = 0;
@@ -29,7 +29,7 @@
             $availableBalance = $totalIncome - $totalSpending;
         @endphp
 
-        <h1>Available Balance: {{ $availableBalance }} {{ $currencySymbol }}</h1>
+        <h1 class="available-balance">Available Balance: {{ $availableBalance }} {{ $currencySymbol }}</h1>
         </div>
         <div class="specialcard-container">
         @php
@@ -65,13 +65,14 @@
                         @endif
                     @endforeach
                     <p class="specialcard-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
+                    <hr>
                     <p class="specialcard-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
                 </div>
             </div>
         @endfor
     </div>
     @elseif ($familyMembers->count() > 1)
-        <h1>Available Balance: {{ $available_balance }} {{ $currencySymbol }}</h1>
+        <h1 class="available-balance">Available Balance: {{ $available_balance }} {{ $currencySymbol }}</h1>
         @php
                 $currentMonth = date('m');
         @endphp

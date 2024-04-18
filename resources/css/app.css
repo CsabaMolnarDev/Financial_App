@@ -184,12 +184,17 @@ html {
 
 
 
-
-
+/* advancedStatistics page */
+.available-balance
+{
+    text-align: center;
+}
 .specialcard-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px; 
+    justify-content: center;
+
 }
 
 .specialcard {
@@ -198,6 +203,7 @@ html {
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    text-align: center;
 
 }
 
@@ -212,4 +218,10 @@ html {
 
 .specialcard-text {
     font-size: 14px;
+}
+
+
+/* documentation page */
+.docu-image {
+    border: 5px solid red;
 }
