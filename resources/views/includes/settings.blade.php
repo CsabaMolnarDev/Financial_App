@@ -318,6 +318,7 @@
                     } else {
                         // If the user exists, you may choose not to display any message
                         $('#responseText').removeClass('text-danger').removeClass('text-success').html('');
+                        $('#addFamilyMemberBTN').prop('disabled', false);
                     }
                 },
                 error: function(xhr, status, error) {

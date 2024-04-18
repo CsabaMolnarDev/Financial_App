@@ -190,6 +190,10 @@ class SettingsController extends Controller
                 'message' => 'User is already in your family',
             ]);    
         }
+
+        return response()->json([
+            'status' => 'success',
+        ]);
        
     }
 
