@@ -65,6 +65,7 @@
                         @endif
                     @endforeach
                     <p class="specialcard-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
+                    <hr>
                     <p class="specialcard-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
                 </div>
             </div>

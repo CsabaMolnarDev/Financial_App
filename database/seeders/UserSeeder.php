@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'fullname' => 'Molnár Csaba',
             'username' => 'Frontend deeloper',
             'phone' => '+36 00 000 0001',
-            'picture' => 'pic1',
+            //'picture' => 'pic1',
             'email' => 'frontenddeeloper@dev.com',
             'roles_id' => 1,
             
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'fullname' => 'Láng Ricsi',
             'username' => 'Ideamaker/backend developer',
             'phone' => '+36 00 000 0002',
-            'picture' => 'pic2',
+            //'picture' => 'pic2',
             'email' => 'ideamakerdeveloper@dev.com',
             'roles_id' => 1,
            
