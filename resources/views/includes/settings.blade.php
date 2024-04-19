@@ -171,15 +171,6 @@
                                     <button type="submit" class="btn btn-primary">Change currency</button>
                                 </form>
                             </div>
-                            {{-- CSV --}}
-                            <div class="col-6">
-                                <p class="card-text">Download spendings in csv:</p>
-                                <button id="downloadButton" type="submit" class="btn btn-primary">Download</button>
-                                {{-- https://www.npmjs.com/package/json-to-csv-export --}}
-                            </div>
-                        </div>
-                        {{-- 4th row --}}
-                        <div class="row" id="settingsRow">
                             {{-- Notification --}}
                             <div class="col-6">
                                 <p class="card-text">Notification:</p>
@@ -192,12 +183,8 @@
                                     <input type="hidden" id="timezone" name="timezone">
                                 </form>
                             </div>
-                            {{-- Change theme --}}
-                            <div class="col-6">
-                                <p>Change theme</p>
-                            </div>
                         </div>
-                        {{-- 5th row --}}
+                        {{-- 4th row --}}
                         <div class="row" id="settingsRow">
                             {{-- Change langage area --}}
                             <div class="col-6">
@@ -225,7 +212,8 @@
                                             <div>
                                                 <input oninput="checkIfUserExists(this.value);" type="search"
                                                     name="familymember" id="familymember" required>
-                                                <button type="submit" id="addFamilyMemberBTN" class="btn btn-primary">Add family member</button>
+                                                <button type="submit" id="addFamilyMemberBTN"
+                                                    class="btn btn-primary">Add family member</button>
                                                 <div id="responseText"></div>
                                             </div>
                                         </form>
@@ -250,18 +238,18 @@
                                 {{-- We list out the family members --}}
                             </div>
                         </div>
-                        {{-- 6th row --}}
+                        {{-- 5th row --}}
                         <div class="row" id="settingsRow">
-                            {{-- Empty --}}
-                            <div class="col-6">
-                                <p>Something...</p>
-                            </div>
                             {{-- Deactivate account --}}
                             <div class="col-6">
                                 <br>
                                 <form action="" method="post">
                                     <button type="submit" class="btn btn-primary">Deactivate account</button>
                                 </form>
+                            </div>
+                            {{-- Empty --}}
+                            <div class="col-6">
+                                {{-- ... --}}
                             </div>
                         </div>
                     </div>
@@ -310,11 +298,11 @@
                     if (data.status === "failed") {
                         $('#responseText').removeClass('text-success').addClass('text-danger').html(data
                             .message);
-                            $('#addFamilyMemberBTN').prop('disabled', true)
+                        $('#addFamilyMemberBTN').prop('disabled', true)
                     } else if (data.status === "failed2") {
                         $('#responseText').removeClass('text-success').addClass('text-danger').html(data
                             .message);
-                            $('#addFamilyMemberBTN').prop('disabled', true)
+                        $('#addFamilyMemberBTN').prop('disabled', true)
                     } else {
                         // If the user exists, you may choose not to display any message
                         $('#responseText').removeClass('text-danger').removeClass('text-success').html('');

@@ -116,24 +116,6 @@ html {
     text-decoration: none;
 }
 
-/* About us page */
-.aboutPic {
-    height: 10vh;
-    width: 10vh;
-}
-
-.aboutTittle {
-    font-size: 2vh;
-    font-family: "Arial Black", Gadget, sans-serif;
-}
-
-.aboutFont {
-    font-size: 1.7vh;
-    font-family: "Arial", Gadget, sans-serif;
-}
-
-/* income page */
-
 /* spending page */
 
 #financeCard {
@@ -166,39 +148,21 @@ html {
     background: #332D2D !important;
 }
 
-/* Home page */
-.grid-container {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-gap: 10px;
-}
-
-.grid-item {
-    grid-row: 1;
-}
-
-
-
-
-
-
-
-
 /* advancedStatistics page */
-.available-balance
-{
+.available-balance {
     text-align: center;
 }
+
 .specialcard-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; 
+    gap: 10px;
     justify-content: center;
 
 }
 
 .specialcard {
-    width: 150px; 
+    width: 150px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
