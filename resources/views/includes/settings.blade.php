@@ -17,7 +17,7 @@
                             {{-- Fullname area --}}
                             <div class="col-6">
                                 <p class="card-text">Full name: <i>{{ $user->fullname }}</i></p>
-                                <button type="button" class="btn btn-primary"
+                                <button type="button" class="btn btn-outline-primary"
                                     data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change Fullname</button>
                                 <!-- Fullname Modal -->
                                 <div class="modal fade" id="changeFullnameModal"
@@ -38,7 +38,8 @@
                                                             name="newFullname" required>
                                                     </div>
                                                     <div>
-                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                        <button type="submit" class="btn btn-outline-primary">Save
+                                                            Changes</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -49,7 +50,7 @@
                             {{-- Username area --}}
                             <div class="col-6">
                                 <p class="card-text">Name: <i>{{ $user->username }}</i> </p>
-                                <button type="button" class="btn btn-primary"
+                                <button type="button" class="btn btn-outline-primary"
                                     data-bs-toggle="modal"data-bs-target="#changeUsernameModal">Change Username</button>
                                 <!-- Username Modal -->
                                 <div class="modal fade" id="changeUsernameModal"
@@ -70,7 +71,8 @@
                                                             name="newUsername" required>
                                                     </div>
                                                     <div>
-                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                        <button type="submit" class="btn btn-outline-primary">Save
+                                                            Changes</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -84,7 +86,7 @@
                             {{-- Email area --}}
                             <div class="col-6">
                                 <p class="card-text">Email:<i>{{ $user->email }}</i> </p>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                                     data-bs-target="#changeEmailModal">Change Email</button>
                                 <!-- Email Modal -->
                                 <div class="modal fade" id="changeEmailModal" tabindex="-1"
@@ -104,7 +106,8 @@
                                                         <input type="email" class="form-control" id="newEmail"
                                                             name="newEmail" required>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    <button type="submit" class="btn btn-outline-primary">Save
+                                                        Changes</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -120,7 +123,7 @@
                                     <p class="card-text">Phone number: <i>Not set</i></p>
                                 @endif
 
-                                <button type="button" class="btn btn-primary"
+                                <button type="button" class="btn btn-outline-primary"
                                     data-bs-toggle="modal"data-bs-target="#changePhoneNumberModal">Change phone
                                     number</button>
                                 <!-- Phone Modal -->
@@ -143,7 +146,7 @@
                                                             name="newPhone" required>
                                                     </div>
                                                     <div>
-                                                        <button type="submit" class="btn btn-primary">Save
+                                                        <button type="submit" class="btn btn-outline-primary">Save
                                                             Changes</button>
                                                     </div>
                                                 </form>
@@ -168,7 +171,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <button type="submit" class="btn btn-primary">Change currency</button>
+                                    <button type="submit" class="btn btn-outline-primary">Change currency</button>
                                 </form>
                             </div>
                             {{-- Notification --}}
@@ -178,7 +181,8 @@
                                     @csrf
                                     <input type="checkbox" id="notification" name="notification">
                                     <label for="notification"> I want to get notified</label><br>
-                                    <button id="enableNotificationBtn" type="submit" class="btn btn-primary">Enable
+                                    <button id="enableNotificationBtn" type="submit"
+                                        class="btn btn-outline-primary">Enable
                                         notification</button>
                                     <input type="hidden" id="timezone" name="timezone">
                                 </form>
@@ -213,7 +217,7 @@
                                                 <input oninput="checkIfUserExists(this.value);" type="search"
                                                     name="familymember" id="familymember" required>
                                                 <button type="submit" id="addFamilyMemberBTN"
-                                                    class="btn btn-primary">Add family member</button>
+                                                    class="btn btn-outline-primary">Add family member</button>
                                                 <div id="responseText"></div>
                                             </div>
                                         </form>
@@ -244,7 +248,7 @@
                             <div class="col-6">
                                 <br>
                                 <form action="" method="post">
-                                    <button type="submit" class="btn btn-primary">Deactivate account</button>
+                                    <button type="submit" class="btn btn-outline-primary">Deactivate account</button>
                                 </form>
                             </div>
                             {{-- Empty --}}
