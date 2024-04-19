@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6 text-center" id="financeButton">
-                <button class="btn btn-outline-warning" onclick="window.location=' {{ url('/incomeCreate') }} '">Add new
+                <button class="btn btn-outline-success" onclick="window.location=' {{ url('/incomeCreate') }} '">Add new
                     income</button>
             </div>
             <div class="col-3"></div>

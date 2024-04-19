@@ -40,10 +40,12 @@
                             </select>
                         </div>
                         <div class="mb-3 text-center">
-                            <button type="submit" class="btn btn-danger w-75">Add new</button>
+                            <button type="submit" class="btn btn-outline-success w-75">Add new</button>
                             <div class="row">
                                 <div class="col-5"></div>
-                                <div class="col"><p>Monthly?</p></div>
+                                <div class="col">
+                                    <p>Monthly?</p>
+                                </div>
                                 <div class="col"><input type="checkbox" name="monthly" id="monthly"></div>
                                 <div class="col-5"></div>
                             </div>
@@ -54,7 +56,7 @@
                         <div class="mb-3 text-center" id="newCategoryForm" style="display: none;">
                             <input type="text" id="newCategoryInput" name="new_category"
                                 placeholder="Enter new category">
-                            <button id="addCategoryBtn" type="submit" class="btn btn-outline-danger">Add Category</button>
+                            <button id="addCategoryBtn" type="submit" class="btn btn-outline-success">Add Category</button>
                         </div>
                     </form>
                 </div>

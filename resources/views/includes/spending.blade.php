@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6 text-center" id="financeButton">
-                <button class="btn btn-outline-warning" onclick="window.location=' {{ url('/spendingCreate') }} '">Add new
+                <button class="btn btn-outline-success" onclick="window.location=' {{ url('/spendingCreate') }} '">Add new
                     spending</button>
             </div>
             <div class="col-3"></div>
@@ -89,7 +89,6 @@
         </div>
     @endif
     <script>
-
         /* Functions: */
         //user associated finances php array to json string
         var financesData = @json($finances);
@@ -246,7 +245,7 @@
             },
             /* Theme */
             /* theme: {
-                mode:'light',              
+                mode:'light',
             }, */
             /* toolbar */
             chart: {
@@ -318,77 +317,77 @@
         chart.render();
         /* JQUERRY Table */
         $(document).ready(function() {
-        // Initialize DataTable
-        var table = $('#spendingTable').DataTable({
-            scrollY: 400, // Makes the table scrollable
-            search: {
-                caseInsensitive: false // Sets the search to be case-sensitive
-            }
-        });
-
-        // Event handler for double-clicking on table cells for editing
-        $('#spendingTable tbody').on('dblclick', 'td:not(:last-child)', function() {
-            var cell = $(this);
-            var oldValue = cell.text();
-            cell.html('<input type="text" class="form-control" value="' + oldValue + '">');
-            cell.find('input').focus();
-        });
-
-        // Event handler for detecting Enter key press while editing cells
-        $('#spendingTable tbody').on('keydown', 'input', function(event) {
-            var cell = $(this).closest('td');
-            var keyCode = event.keyCode || event.which;
-            if (keyCode === 13) { // Enter key pressed
-                saveCellEdit(cell); // Call function to save cell edit
-            }
-        });
-
-        // Event handler for detecting blur event on input fields (cell editing finished)
-        $('#spendingTable tbody').on('blur', 'input', function() {
-            var cell = $(this).closest('td');
-            saveCellEdit(cell); // Call function to save cell edit
-        });
-
-        // Function to save edited cell data
-        function saveCellEdit(cell) {
-            var newValue = cell.find('input').val(); // Get new value from input field
-            cell.text(newValue); // Update cell text with new value
-
-            // Get row data and cell index for sending to server
-            var rowData = table.row(cell.closest('tr')).data();
-            var rowId = rowData.id;
-            var columnIndex = cell.index();
-
-            // Send edited data to server via AJAX
-            sendEditData(rowId, columnIndex, newValue);
-        }
-
-        // Function to send edited data to server via AJAX
-        function sendEditData(rowId, columnIndex, newValue) {
-            $.ajax({
-                url: '/editSpendingValue', // Replace with your route URL
-                method: 'POST',
-                data: {
-                    id: rowId,
-                    column: columnIndex,
-                    value: newValue,
-                    '_token': '{{ csrf_token() }}',
-                },
-                success: function(response) {
-                    console.log(response);
-                    // Handle success response from server if needed
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    // Handle error response from server if needed
+            // Initialize DataTable
+            var table = $('#spendingTable').DataTable({
+                scrollY: 400, // Makes the table scrollable
+                search: {
+                    caseInsensitive: false // Sets the search to be case-sensitive
                 }
             });
-        }
 
-        // Event handler to prevent button click event from propagating
-        $('#spendingTable tbody').on('click', 'button', function(event) {
-            event.stopPropagation();
+            // Event handler for double-clicking on table cells for editing
+            $('#spendingTable tbody').on('dblclick', 'td:not(:last-child)', function() {
+                var cell = $(this);
+                var oldValue = cell.text();
+                cell.html('<input type="text" class="form-control" value="' + oldValue + '">');
+                cell.find('input').focus();
+            });
+
+            // Event handler for detecting Enter key press while editing cells
+            $('#spendingTable tbody').on('keydown', 'input', function(event) {
+                var cell = $(this).closest('td');
+                var keyCode = event.keyCode || event.which;
+                if (keyCode === 13) { // Enter key pressed
+                    saveCellEdit(cell); // Call function to save cell edit
+                }
+            });
+
+            // Event handler for detecting blur event on input fields (cell editing finished)
+            $('#spendingTable tbody').on('blur', 'input', function() {
+                var cell = $(this).closest('td');
+                saveCellEdit(cell); // Call function to save cell edit
+            });
+
+            // Function to save edited cell data
+            function saveCellEdit(cell) {
+                var newValue = cell.find('input').val(); // Get new value from input field
+                cell.text(newValue); // Update cell text with new value
+
+                // Get row data and cell index for sending to server
+                var rowData = table.row(cell.closest('tr')).data();
+                var rowId = rowData.id;
+                var columnIndex = cell.index();
+
+                // Send edited data to server via AJAX
+                sendEditData(rowId, columnIndex, newValue);
+            }
+
+            // Function to send edited data to server via AJAX
+            function sendEditData(rowId, columnIndex, newValue) {
+                $.ajax({
+                    url: '/editSpendingValue', // Replace with your route URL
+                    method: 'POST',
+                    data: {
+                        id: rowId,
+                        column: columnIndex,
+                        value: newValue,
+                        '_token': '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        // Handle success response from server if needed
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        // Handle error response from server if needed
+                    }
+                });
+            }
+
+            // Event handler to prevent button click event from propagating
+            $('#spendingTable tbody').on('click', 'button', function(event) {
+                event.stopPropagation();
+            });
         });
-    });
     </script>
 @endsection
