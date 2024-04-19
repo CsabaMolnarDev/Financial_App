@@ -4,7 +4,7 @@
         <div class="row mb-3">
             <div class="col-3"></div>
             <div class="col-6">
-                <div class="card bg-dark text-light">
+                <div class="card bg-dark text-light" style="border: 1px solid lightgray">
                     <div class="card-body">
                         @if (!auth()->user()->family || (auth()->user()->family && $familyMembers->count() == 1))
                             @php
@@ -75,9 +75,9 @@
                             @endphp
                         @endif
                     @endforeach
-                    <p class="specialcard-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
+                    <p class="specialcard-text">Total Income:<br>{{ $totalIncome }} {{ $currencySymbol }}</p>
                     <hr>
-                    <p class="specialcard-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
+                    <p class="specialcard-text">Total Spending:<br>{{ $totalSpending }} {{ $currencySymbol }}</p>
                 </div>
             </div>
         @endfor
@@ -98,7 +98,7 @@
             ];
         @endphp
         @foreach ($monthsToShow as $index => $month)
-            <div class="specialcard">
+            <div class="specialcard h-130">
                 <div class="specialcard-body">
                     <h5 class="specialcard-title">{{ $monthsLabels[$index] }}</h5>
                     @foreach ($familyMembers as $member)
@@ -111,9 +111,10 @@
                             $totalIncome = $userFinances->where('type', 'Income')->sum('price');
                             $totalSpending = $userFinances->where('type', 'Spending')->sum('price');
                         @endphp
-                        <p class="specialcard-text">Family member: {{ $member->username }}</p>
-                        <p class="specialcard-text">Total Income: {{ $totalIncome }} {{ $currencySymbol }}</p>
-                        <p class="specialcard-text">Total Spending: {{ $totalSpending }} {{ $currencySymbol }}</p>
+                        <p class="specialcard-text">Family member:<br>{{ $member->username }}</p>
+                        <p class="specialcard-text">Total Income:<br>{{ $totalIncome }} {{ $currencySymbol }}</p>
+                        <p class="specialcard-text">Total Spending:<br>{{ $totalSpending }} {{ $currencySymbol }}</p>
+                        <hr>
                     @endforeach
                 </div>
             </div>

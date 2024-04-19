@@ -140,12 +140,12 @@ html {
 
 /* Apexcharts */
 .apexcharts-menu {
-    background: #332D2D !important;
+    background: #212529 !important;
     color: #FBFBFB !important;
 }
 
 .apexcharts-menu-item:hover {
-    background: #332D2D !important;
+    background: #212529 !important;
 }
 
 /* advancedStatistics page */
@@ -163,7 +163,7 @@ html {
 
 .specialcard {
     width: 150px;
-    border: 1px solid #1e1e1e;
+    border: 1px solid lightgray;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
