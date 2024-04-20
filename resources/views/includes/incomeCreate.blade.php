@@ -40,16 +40,17 @@
                                     @endforeach
                                     <option value="add_category">Add new Category</option>
                                 </select>
+                                <div class="mb-3">
+                                    <br>
+                                    <div class="col">
+                                        <input type="checkbox" name="monthly" id="monthly" class="form-check-input">
+                                        <label for="monthly" class="form-check-label">Monthly Income</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mb-3 text-center">
-                                <button type="submit" class="btn btn-outline-success form-control mb-3">Add new</button>
+                                <button id="add_new_btn" type="submit" class="btn btn-outline-success form-control mb-3">Add new</button>
                                 <div class="row">
-                                    <div class="col-5"></div>
-                                    <div class="col">
-                                        <p>Monthly?</p>
-                                    </div>
-                                    <div class="col"><input type="checkbox" name="monthly" id="monthly"></div>
-                                    <div class="col-5"></div>
                                 </div>
                             </div>
                         </form>
@@ -62,7 +63,7 @@
                                     Category</button>
                             </div>
                         </form>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div class="col-2"></div>
@@ -71,12 +72,16 @@
 
     <script>
         document.body.style.backgroundImage = "url('../storage/pictures/incomeCreate.jpg')";
+        
         document.getElementById('category_id').addEventListener('change', function() {
             var newCategoryForm = document.getElementById('newCategoryForm');
+            var addNewBtn = document.getElementById('add_new_btn'); 
             if (this.value === 'add_category') {
                 newCategoryForm.style.display = 'block';
+                addNewBtn.disabled = true; 
             } else {
                 newCategoryForm.style.display = 'none';
+                addNewBtn.disabled = false; 
             }
         });
     </script>
