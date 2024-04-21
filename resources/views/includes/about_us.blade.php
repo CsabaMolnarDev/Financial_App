@@ -39,7 +39,6 @@
                         <ul>
                             <p></p>
                             <li>24/7 on email: laravelmybeloved@gmail.com</li>
-                            <li>UTC 9:00-16:00 on phone: +36 70 665 7777</li>
                         </ul>
                     </div>
                 </div>

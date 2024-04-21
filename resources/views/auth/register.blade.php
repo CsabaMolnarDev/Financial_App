@@ -4,14 +4,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card bg-dark text-light">
-                    <div class="card-header text-info" id="RegFormTittle">{{ __('Register') }}</div>
+                    <div class="card-header text" id="RegFormTittle">{{ __('Register') }}</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="row mb-3">
                                 <label for="fullname"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Fullname') }}</label>
-                                <div class="col-md-6 text-dark">
+                                <div class="col-md-6">
                                     <input id="fullname" type="text"
                                         class="form-control @error('fullname') is-invalid @enderror" name="fullname"
                                         value="{{ old('fullname') }}" required autocomplete="fullname" autofocus>
