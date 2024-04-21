@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form action="{{ route('addCategory') }}" method="POST">
+                        <form action="{{ route('addIncomeCategory') }}" method="POST">
                             @csrf
                             <div class="mb-3 text-center" id="newCategoryForm" style="display: none;">
                                 <input class="form-control mb-3" type="text" id="newCategoryInput" name="new_category"

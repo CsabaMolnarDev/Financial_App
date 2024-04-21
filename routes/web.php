@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function (){
 Route::post('/calculate-entropy', [RegisterController::class, 'calculateEntropy'])->name('caculate-entropy');
 /* Add category route */
 Route::post('/add-category', [SpendingController::class, 'addCategory'])->name('addCategory');
-Route::post('/add-IncomeCategory', [IncomeController::class, 'addIncomeCategory'])->name('addIncomeCategory');
+Route::post('/add-IncomeCategory', [IncomeController::class, 'addCategory'])->name('addIncomeCategory');
 /* This is the about us route */
 Route::get('/about_us', [AboutUsController::class, 'index'])->name('about_us');
 
