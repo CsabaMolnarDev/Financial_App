@@ -10,7 +10,7 @@
     <div class="container d-flex align-items-center justify-content-center">
         <div class="row gy-3">
             <div class="col-md-3">
-                <div class="card h-100 text-light bg-dark">
+                <div class="card h-100 text-light bg-dark homeDiv">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/globe.png">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card h-100 text-light bg-dark">
+                <div class="card h-100 text-light bg-dark homeDiv">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/pin.png">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card h-100 text-light bg-dark">
+                <div class="card h-100 text-light bg-dark homeDiv">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/calendar.png">
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card h-100 text-light bg-dark">
+                <div class="card h-100 text-light bg-dark homeDiv">
                     <div class="card-body">
                         <div class="row">
                             <img src="../storage/icons/family.png">
@@ -66,4 +66,17 @@
             </div>
         </div>
     </div>
+    {{-- <script>
+        UNDERWORK
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                console.log(entry);
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+    </script> --}}
 @endsection
