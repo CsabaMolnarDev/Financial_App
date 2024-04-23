@@ -154,7 +154,13 @@
                         $('#responseText').removeClass('text-danger text-success')
                         $('#responseText').html(data.message);
                         $('#responseText').addClass('text-danger');
+                        $('#logButton').prop('disabled', true); 
 
+                    }
+                    else if (data.status == "success")
+                    {
+                        $('#responseText').removeClass('text-danger').html('');
+                        $('#logButton').prop('disabled', false); 
                     }
                 },
                 error: function(xhr, status, error) {
@@ -179,7 +185,13 @@
                         $('#responseTextEmail').removeClass('text-danger text-success')
                         $('#responseTextEmail').html(data.message);
                         $('#responseTextEmail').addClass('text-danger');
+                        $('#logButton').prop('disabled', true); 
 
+                    }
+                    else if (data.status == "success")
+                    {
+                        $('#responseTextEmail').removeClass('text-danger').html('');
+                        $('#logButton').prop('disabled', false); 
                     }
                 },
                 error: function(xhr, status, error) {
