@@ -54,7 +54,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'fullname' => ['required', 'string', 'max:255', 'min:5'],
-            'username' => ['required', 'string', 'max:255','min:5'],
+            'username' => ['required', 'string', 'max:255','min:5', 'unique:users'],
             'currency_id' => ['required',],
             'phone' => ['max:18'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -126,6 +126,9 @@ class RegisterController extends Controller
                 'message' => 'Username is already taken',
             ]);
         }
+        return response()->json([
+            'status' => 'success',
+        ]);
 
     }
 
@@ -141,6 +144,9 @@ class RegisterController extends Controller
                 'message' => 'Email is already taken',
             ]);
         }
+        return response()->json([
+            'status' => 'success',
+        ]);
 
     }
 
