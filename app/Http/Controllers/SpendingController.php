@@ -33,11 +33,13 @@ class SpendingController extends Controller
         $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
         $categoryIdys = $finances->pluck('category_id')->unique();
         $categories = Category::whereIn('id', $categoryIdys)->pluck('name', 'id');
+        $categories2 = Category::where('type', 'spending')->get();
         $user = auth()->user();
         $currencySymbol = $user->currency->symbol;
         return view('includes.spending', [
             'finances' => $finances,
             'categories' => $categories,
+            'categories2' => $categories2,
             'currencySymbol' => $currencySymbol
         ]);
     }

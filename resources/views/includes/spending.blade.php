@@ -69,10 +69,11 @@
                             <tbody>
                                 @foreach ($finances as $item)
                                     <tr>
-                                        <td>{{ $item->time }}</td>
-                                        <td>{{ $item->category_id }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->price }}</td>
+                                        {{-- @dd($categories[$item->category_id]) --}}
+                                        <td id="date">{{ $item->time }}</td>
+                                        <td id="category_id">{{ $categories[$item->category_id] }}</td>
+                                        <td id="name">{{ $item->name }}</td>
+                                        <td id="price">{{ $item->price }}</td>
                                         <td>
                                             <form action="{{ route('deleteFinance', ['id' => $item->id]) }}" method="GET">
                                                 @csrf
@@ -326,11 +327,31 @@
             });
 
             // Event handler for double-clicking on table cells for editing
-            $('#spendingTable tbody').on('dblclick', 'td:not(:last-child)', function() {
+            $('#spendingTable tbody').on('dblclick', 'td:not(:last-child)', function(obj) {
                 var cell = $(this);
+                //console.log(obj.target.id);
                 var oldValue = cell.text();
-                cell.html('<input type="text" class="form-control" value="' + oldValue + '">');
-                cell.find('input').focus();
+                if(obj.target.id=="name"){
+                    cell.html('<input type="text" class="form-control" value="' + oldValue + '">');
+                    cell.find('input').focus();
+                }
+                else if(obj.target.id=="price"){
+                    cell.html('<input type="number" class="form-control" value="' + oldValue + '">');
+                    cell.find('input').focus();
+                }
+                
+                else if(obj.target.id == "category_id"){
+                    cell.html('<select class="form-control">'+
+                            '@for ($i=0;$i<count($categories2);$i++)'+
+                            '<option value="{{$categories2[$i]->id}}">{{$categories2[$i]->name}}</option>'+
+                            '@endfor'+
+                            '</select>');
+                    cell.find('select').focus();
+                }
+                else if(obj.target.id == "date"){
+                    cell.html('<input type="date" class="form-control" value="' + oldValue + '">');
+                    cell.find('input').focus();
+                }
             });
 
             // Event handler for detecting Enter key press while editing cells
@@ -341,11 +362,22 @@
                     saveCellEdit(cell); // Call function to save cell edit
                 }
             });
+            $('#spendingTable tbody').on('keydown', 'select', function(event) {
+                var cell = $(this).closest('td');
+                var keyCode = event.keyCode || event.which;
+                if (keyCode === 13) { // Enter key pressed
+                    saveEditedCell(cell); // Call function to save cell edit
+                }
+            });
 
             // Event handler for detecting blur event on input fields (cell editing finished)
             $('#spendingTable tbody').on('blur', 'input', function() {
                 var cell = $(this).closest('td');
                 saveCellEdit(cell); // Call function to save cell edit
+            });
+            $('#spendingTable tbody').on('blur', 'select', function() {
+                var cell = $(this).closest('td');
+                saveEditedCell(cell); // Call function to save cell edit
             });
 
             // Function to save edited cell data
@@ -361,6 +393,21 @@
                 // Send edited data to server via AJAX
                 sendEditData(rowId, columnIndex, newValue);
             }
+            function saveEditedCell(cell) {
+                var newValue = cell.find('select').val(); // Get new value from input field
+                var categories = {!! json_encode($categories2->toArray()) !!};
+                //console.log(categories[newValue-1].name);
+                cell.text(categories[newValue-1].name); // Update cell text with new value
+
+                // Get row data and cell index for sending to server
+                var rowData = table.row(cell.closest('tr')).data();
+                var rowId = rowData.id;
+                var columnIndex = cell.index();
+
+                // Send edited data to server via AJAX
+                sendEditData(rowId, columnIndex, newValue);
+            }
+
 
             // Function to send edited data to server via AJAX
             function sendEditData(rowId, columnIndex, newValue) {

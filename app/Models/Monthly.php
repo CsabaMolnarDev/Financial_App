@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Monthly extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     public function finance() : HasOne{
         return $this->hasOne(Finance::class);

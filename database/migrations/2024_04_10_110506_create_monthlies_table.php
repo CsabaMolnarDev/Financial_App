@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer("year");
             $table->integer("month");
             $table->timestamps();
-            $table->softDeletes();
             $table->foreign('finance_id')->references('id')->on('finances');
         });
     }
