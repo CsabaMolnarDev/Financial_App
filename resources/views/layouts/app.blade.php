@@ -98,7 +98,7 @@ background-image: url('../storage/pictures/home.jpg');
                                 {{-- Advanced statistics --}}
                                 @if (auth()->user()->finances()->where('type', 'spending')->exists() &&
                                         auth()->user()->finances()->where('type', 'income')->exists())
-                                    <button id="menuBtn" class="btn btn-outline-secondary" type="submit"
+                                    <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                         onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
                                         statistics</button>
                                 @endif

@@ -163,7 +163,7 @@
                                 <p class="card-text">Current currency type: </p>
                                 <form action="{{ route('changeCurrency') }}" method="POST">
                                     @csrf
-                                    <select name="newCurrency" id="currency">
+                                    <select class="form-control mb-2" name="newCurrency" id="currency">
                                         <option value="" disabled selected>{{ $user->currency->name }}</option>
                                         @foreach ($currencies as $currency)
                                             <option value="{{ $currency->id }}">{{ $currency->name }} -
@@ -191,8 +191,12 @@
                         {{-- 4th row --}}
                         <div class="row" id="settingsRow">
                             {{-- Change langage area --}}
+                            {{-- Deactivate account --}}
                             <div class="col-6">
-                                <p>Change language</p>
+                                <br>
+                                <form action="" method="post">
+                                    <button type="submit" class="btn btn-outline-primary">Deactivate account</button>
+                                </form>
                             </div>
                             {{-- Family system area --}}
                             {{-- Add family member(s) --}}
@@ -201,21 +205,23 @@
                                 @if (!$user->family_id)
                                     <form action="{{ route('createFamily') }}" method="POST">
                                         @csrf
-                                        <p>Create family <button type="submit" id="createFamily">+</button></p>
+                                        <p>Create family <button class="btn btn-outline-primary" type="submit"
+                                                id="createFamily">+</button></p>
                                     </form>
                                     {{-- If they have we show the delete option --}}
                                 @else
                                     @if ($user->family->creator_id === $user->id)
                                         <form action="{{ route('deleteFamily') }}" method="POST">
                                             @csrf
-                                            <p>Delete family <button type="submit" id="deleteFamily">-</button></p>
+                                            <p>Delete family <button class="btn btn-outline-primary" type="submit"
+                                                    id="deleteFamily">-</button></p>
                                         </form>
                                         <form action="{{ route('addFamilyMember') }}" method="POST"
                                             id="addfamilymemberinput">
                                             @csrf
                                             <div>
-                                                <input oninput="checkIfUserExists(this.value);" type="search"
-                                                    name="familymember" id="familymember" required>
+                                                <input class="form-control mb-2" oninput="checkIfUserExists(this.value);"
+                                                    type="search" name="familymember" id="familymember" required>
                                                 <button type="submit" id="addFamilyMemberBTN"
                                                     class="btn btn-outline-primary">Add family member</button>
                                                 <div id="responseText"></div>
@@ -240,20 +246,6 @@
                                     @endif
                                 @endif
                                 {{-- We list out the family members --}}
-                            </div>
-                        </div>
-                        {{-- 5th row --}}
-                        <div class="row" id="settingsRow">
-                            {{-- Deactivate account --}}
-                            <div class="col-6">
-                                <br>
-                                <form action="" method="post">
-                                    <button type="submit" class="btn btn-outline-primary">Deactivate account</button>
-                                </form>
-                            </div>
-                            {{-- Empty --}}
-                            <div class="col-6">
-                                {{-- ... --}}
                             </div>
                         </div>
                     </div>
