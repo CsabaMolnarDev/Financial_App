@@ -42,6 +42,14 @@
         </div>
 
     </div>
+    {{-- @switch()
+        @case()
+            
+            @break
+    
+        @default
+            
+    @endswitch --}}
     <div class="specialcard-container">
         @php
             $currentYear = date('Y');
@@ -82,6 +90,75 @@
             </div>
         @endfor
     </div>
+    <form id="selectForm" action="{{ route('handleForm') }} " method="POST">
+    @csrf
+    <label for="options">Select an option : </label>
+    <select name="options" id="options"  onchange="submitForm()" >
+        <option value="" selected disabled>Choose one</option>
+        <option value="summary">Summary</option>
+        <option value="Spending Categories">Spending Categories</option>
+        <option value="Income Categories">Income Categories</option>
+    </select>
+    </form>
+    <div id="spendingDiv" style="display: none;">
+        <form id="spendingCategoryDropdown" action="{{ route('handleForm') }}  " method="POST">
+        @csrf
+        <label for="spendingOptions">Select a category : </label>
+        <select name="spendingOptions" id="spendingOptions" onchange="submitSpendingCategoryForm()">
+            <option value="" selected disabled>Choose one</option>
+            @foreach ($spendingCategories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach   
+        </select>
+        </form>
+    </div>
+    <div id="incomeDiv" style="display: none;">
+        <form id="incomeCategoryDropdown" action=" {{ route('handleForm') }} " method="POST">
+        @csrf
+        <label for="incomeOptions">Select a category : </label>
+        <select name="incomeOptions" id="incomeOptions" onchange="submitIncomeCategoryForm()">
+            <option value="" selected disabled>Choose one</option>
+                @foreach ($incomeCategories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+        </select>
+        </form>
+    </div>
+  
+    <script>
+        //submitting for without button
+        function submitForm() {
+            var selectElement = document.getElementById('options');
+            var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+            if(selectedOption === "summary")
+            {
+                document.getElementById('selectForm').submit();
+            }
+        } 
+        function submitSpendingCategoryForm() {
+            document.getElementById('handleForm').submit();
+        }
+        function submitIncomeCategoryForm() {
+            document.getElementById('handleForm').submit();
+        }
+        function showForm(){
+            var selectElement = document.getElementById('options');
+            var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+            document.getElementById('spendingDiv').style.display = "none";
+            document.getElementById('incomeDiv').style.display = "none";
+
+            if (selectedOption === "Spending Categories") {
+                document.getElementById('spendingDiv').style.display = "block";
+            }
+            else if (selectedOption === "Income Categories")
+            {
+                document.getElementById('incomeDiv').style.display = "block";
+            }
+        }
+            document.getElementById('options').addEventListener('change', showForm);
+       
+    </script>
+
 @elseif ($familyMembers->count() > 1)
     <h1 class="available-balance">Available Balance: {{ $available_balance }} {{ $currencySymbol }}</h1>
     @php

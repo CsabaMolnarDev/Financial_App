@@ -63,7 +63,10 @@ Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCr
 /* This is the spending route */
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 
-Route::get('/advancedStatistics', [AdvancedStatisticsController::class, 'index'])->name('advancedStatistics')->middleware('auth');;
+Route::get('/advancedStatistics', [AdvancedStatisticsController::class, 'index'])->name('advancedStatistics')->middleware('auth');
+Route::post('/formHandling', [AdvancedStatisticsController::class, 'handleForm'])->name('handleForm');
+Route::post('/handleSpendingForm', [AdvancedStatisticsController::class, 'handleSpendingForm'])->name('handleSpendingForm');
+Route::post('/handleIncomeForm', [AdvancedStatisticsController::class, 'handleIncomeForm'])->name('handleIncomeForm');
 /* This is the spending create */
 Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
 /* Edit finance */
