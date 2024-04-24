@@ -125,7 +125,7 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-4 text-center">
-                                    <a href="{{ route('login') }}">I have account? Log in!</a>
+                                    <a href="{{ route('login') }}">I already have an account. Log in!</a>
                                 </div>
                                 <div class="col-4">
                                 </div>
@@ -154,13 +154,11 @@
                         $('#responseText').removeClass('text-danger text-success')
                         $('#responseText').html(data.message);
                         $('#responseText').addClass('text-danger');
-                        $('#logButton').prop('disabled', true); 
+                        $('#logButton').prop('disabled', true);
 
-                    }
-                    else if (data.status == "success")
-                    {
+                    } else if (data.status == "success") {
                         $('#responseText').removeClass('text-danger').html('');
-                        $('#logButton').prop('disabled', false); 
+                        $('#logButton').prop('disabled', false);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -185,13 +183,11 @@
                         $('#responseTextEmail').removeClass('text-danger text-success')
                         $('#responseTextEmail').html(data.message);
                         $('#responseTextEmail').addClass('text-danger');
-                        $('#logButton').prop('disabled', true); 
+                        $('#logButton').prop('disabled', true);
 
-                    }
-                    else if (data.status == "success")
-                    {
+                    } else if (data.status == "success") {
                         $('#responseTextEmail').removeClass('text-danger').html('');
-                        $('#logButton').prop('disabled', false); 
+                        $('#logButton').prop('disabled', false);
                     }
                 },
                 error: function(xhr, status, error) {
