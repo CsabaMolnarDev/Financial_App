@@ -39,11 +39,17 @@
             <i id="right" class="fa-solid fa-angle-right"></i>
         </div>
     </div>
-    <div id="homeStatisticsContainer" class="container d-flex align-items-center justify-content-center">
+    <div id="homeStatisticsContainer" class="container">
         <div class="row">
-            <h3 class="text-warning">Some content will come here later</h3>
-            <h3 class="text-info">Total user count: {{ $usersCount }}</h3>
-            <h3 class="text-warning">Statistics...</h3>
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="card bg-dark text-light">
+                    <h3>Total user count: {{ $usersCount }}</h3>
+                    <h3>Some content will come here later</h3>
+                    <h3>Statistics...</h3>
+                </div>
+            </div>
+            <div class="col-1"></div>
         </div>
     </div>
     <script>
