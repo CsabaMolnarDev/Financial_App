@@ -11,6 +11,7 @@
 
     <title>Finances</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -98,7 +99,7 @@ background-image: url('../storage/pictures/home.jpg');
                                 {{-- Advanced statistics --}}
                                 @if (auth()->user()->finances()->where('type', 'spending')->exists() &&
                                         auth()->user()->finances()->where('type', 'income')->exists())
-                                    <button id="menuBtn" class="btn btn-outline-secondary" type="submit"
+                                    <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                         onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
                                         statistics</button>
                                 @endif
