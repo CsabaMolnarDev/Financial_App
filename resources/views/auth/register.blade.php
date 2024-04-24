@@ -42,8 +42,8 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Phone (optional)') }}</label>
                                 <div class="col-md-6">
                                     <input id="phone" type="text"
-                                        class="form-control inputPhone @error('phone') is-invalid @enderror" name="phone"
-                                        value="{{ old('phone') }}" autofocus>
+                                        class="form-control text-dark inputPhone @error('phone') is-invalid @enderror"
+                                        name="phone" value="{{ old('phone') }}" autofocus>
 
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">

@@ -45,8 +45,16 @@ html {
 }
 
 /* register page */
-.inputPhone {
-    width: 45.5vh !important;
+.iti__dial-code {
+    color: black !important;
+}
+
+.iti__country-name {
+    color: black !important;
+}
+
+.iti {
+    width: 100% !important;
 }
 
 #registerButton {
