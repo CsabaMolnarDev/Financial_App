@@ -45,6 +45,10 @@ html {
 }
 
 /* register page */
+.inputPhone {
+    width: 45.5vh !important;
+}
+
 #registerButton {
     display: flex;
     flex-direction: column;

@@ -42,7 +42,7 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Phone (optional)') }}</label>
                                 <div class="col-md-6">
                                     <input id="phone" type="text"
-                                        class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                        class="form-control inputPhone @error('phone') is-invalid @enderror" name="phone"
                                         value="{{ old('phone') }}" autofocus>
 
                                     @error('phone')
@@ -244,6 +244,14 @@
         /* Phone num input field masking  */
         const input = document.querySelector("#phone");
         window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: callback => {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("us"));
+            },
+            strictMode: true,
             utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@21.1.1/build/js/utils.js",
         });
     </script>
