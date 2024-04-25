@@ -45,6 +45,18 @@ html {
 }
 
 /* register page */
+.iti__dial-code {
+    color: black !important;
+}
+
+.iti__country-name {
+    color: black !important;
+}
+
+.iti {
+    width: 100% !important;
+}
+
 #registerButton {
     display: flex;
     flex-direction: column;

@@ -42,8 +42,8 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Phone (optional)') }}</label>
                                 <div class="col-md-6">
                                     <input id="phone" type="text"
-                                        class="form-control @error('phone') is-invalid @enderror" name="phone"
-                                        value="{{ old('phone') }}" autofocus>
+                                        class="form-control text-dark inputPhone @error('phone') is-invalid @enderror"
+                                        name="phone" value="{{ old('phone') }}" autofocus>
 
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">
@@ -125,7 +125,7 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-4 text-center">
-                                    <a href="{{ route('login') }}">I have account? Log in!</a>
+                                    <a href="{{ route('login') }}">I already have an account. Log in!</a>
                                 </div>
                                 <div class="col-4">
                                 </div>
@@ -154,13 +154,11 @@
                         $('#responseText').removeClass('text-danger text-success')
                         $('#responseText').html(data.message);
                         $('#responseText').addClass('text-danger');
-                        $('#logButton').prop('disabled', true); 
+                        $('#logButton').prop('disabled', true);
 
-                    }
-                    else if (data.status == "success")
-                    {
+                    } else if (data.status == "success") {
                         $('#responseText').removeClass('text-danger').html('');
-                        $('#logButton').prop('disabled', false); 
+                        $('#logButton').prop('disabled', false);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -185,13 +183,11 @@
                         $('#responseTextEmail').removeClass('text-danger text-success')
                         $('#responseTextEmail').html(data.message);
                         $('#responseTextEmail').addClass('text-danger');
-                        $('#logButton').prop('disabled', true); 
+                        $('#logButton').prop('disabled', true);
 
-                    }
-                    else if (data.status == "success")
-                    {
+                    } else if (data.status == "success") {
                         $('#responseTextEmail').removeClass('text-danger').html('');
-                        $('#logButton').prop('disabled', false); 
+                        $('#logButton').prop('disabled', false);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -248,6 +244,14 @@
         /* Phone num input field masking  */
         const input = document.querySelector("#phone");
         window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: callback => {
+                fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("us"));
+            },
+            strictMode: true,
             utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@21.1.1/build/js/utils.js",
         });
     </script>
