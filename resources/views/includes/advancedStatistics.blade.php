@@ -135,12 +135,12 @@
                             @endphp
                         @endif
                     @endforeach
-                    @if ($totalIncomeForCategory !== null && $totalIncomeForCategory !== 'N/A')
+                    @if ($totalIncomeForCategory !== null )
                         <p class="specialcard-text">Total Income for <u><strong>{{ $selected_category->name }}</strong></u>:<br>{{ $totalIncome }} {{ $currencySymbol }}</p>
                     
                     @endif
 
-                    @if ($totalSpendingForCategory !== null && $totalSpendingForCategory !== 'N/A')
+                    @if ($totalSpendingForCategory !== null )
                         <p class="specialcard-text">Total Spending for <u><strong>{{ $selected_category->name }}</strong></u>:<br>{{ $totalSpending }} {{ $currencySymbol }}</p>
                     @endif
                     
