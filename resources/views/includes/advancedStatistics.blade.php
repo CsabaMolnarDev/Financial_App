@@ -42,14 +42,7 @@
         </div>
 
     </div>
-    {{-- @switch()
-        @case()
-            
-            @break
-    
-        @default
-            
-    @endswitch --}}
+
     <div class="specialcard-container">
         @php
             $currentYear = date('Y');
@@ -90,73 +83,78 @@
             </div>
         @endfor
     </div>
-    <form id="selectForm" action="{{ route('handleForm') }} " method="POST">
-    @csrf
-    <label for="options">Select an option : </label>
-    <select name="options" id="options"  onchange="submitForm()" >
-        <option value="" selected disabled>Choose one</option>
-        <option value="summary">Summary</option>
-        <option value="Spending Categories">Spending Categories</option>
-        <option value="Income Categories">Income Categories</option>
-    </select>
-    </form>
-    <div id="spendingDiv" style="display: none;">
-        <form id="spendingCategoryDropdown" action="{{ route('handleForm') }}  " method="POST">
+
+    <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
         @csrf
-        <label for="spendingOptions">Select a category : </label>
-        <select name="spendingOptions" id="spendingOptions" onchange="submitSpendingCategoryForm()">
+        <label for="options">Select an option : </label>
+        <select name="options" id="options" onchange="submitForm()">
             <option value="" selected disabled>Choose one</option>
-            @foreach ($spendingCategories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach   
-        </select>
-        </form>
-    </div>
-    <div id="incomeDiv" style="display: none;">
-        <form id="incomeCategoryDropdown" action=" {{ route('handleForm') }} " method="POST">
-        @csrf
-        <label for="incomeOptions">Select a category : </label>
-        <select name="incomeOptions" id="incomeOptions" onchange="submitIncomeCategoryForm()">
-            <option value="" selected disabled>Choose one</option>
+            <optgroup label="Spending categories">
+                @foreach ($spendingCategories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </optgroup>
+            <optgroup label="Income categories">
                 @foreach ($incomeCategories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
+            </optgroup>
         </select>
-        </form>
+    </form>
+    @if(isset($selected_category))
+    <div class="specialcard-container">
+        @php
+            $currentYear = date('Y');
+            $monthsToShow = [$currentMonth - 2, $currentMonth - 1, $currentMonth];
+            $monthsLabels = [
+                date('F', mktime(0, 0, 0, $currentMonth - 2, 1, $currentYear)), // Two months ago
+                date('F', mktime(0, 0, 0, $currentMonth - 1, 1, $currentYear)), // One month ago
+                date('F', mktime(0, 0, 0, $currentMonth, 1, $currentYear)), // Current month
+            ];
+        @endphp
+        @for ($i = 0; $i < 3; $i++)
+            <div class="specialcard bg-dark text-light">
+                <div class="specialcard-body">
+                    <h5 class="specialcard-title">{{ $monthsLabels[$i] }}</h5>
+                    @php
+                        $totalIncome = 0;
+                        $totalSpending = 0;
+                    @endphp
+                    @foreach ($filteredIncomes as $income)
+                        @if (date('m', strtotime($income->time)) == $monthsToShow[$i] && date('Y', strtotime($income->time)) == $currentYear)
+                            @php
+                                $totalIncome += $income->price;
+                            @endphp
+                        @endif
+                    @endforeach
+    
+                    @foreach ($filteredSpendings as $spend)
+                        @if (date('m', strtotime($spend->time)) == $monthsToShow[$i] && date('Y', strtotime($spend->time)) == $currentYear)
+                            @php
+                                $totalSpending += $spend->price;
+                            @endphp
+                        @endif
+                    @endforeach
+                    @if ($totalIncomeForCategory !== null && $totalIncomeForCategory !== 'N/A')
+                        <p class="specialcard-text">Total Income for <u><strong>{{ $selected_category->name }}</strong></u>:<br>{{ $totalIncome }} {{ $currencySymbol }}</p>
+                    
+                    @endif
+
+                    @if ($totalSpendingForCategory !== null && $totalSpendingForCategory !== 'N/A')
+                        <p class="specialcard-text">Total Spending for <u><strong>{{ $selected_category->name }}</strong></u>:<br>{{ $totalSpending }} {{ $currencySymbol }}</p>
+                    @endif
+                    
+                </div>
+            </div>
+        @endfor
     </div>
+@endif
+
   
     <script>
-        //submitting for without button
         function submitForm() {
-            var selectElement = document.getElementById('options');
-            var selectedOption = selectElement.options[selectElement.selectedIndex].value;
-            if(selectedOption === "summary")
-            {
-                document.getElementById('selectForm').submit();
-            }
-        } 
-        function submitSpendingCategoryForm() {
-            document.getElementById('handleForm').submit();
+            document.getElementById('selectForm').submit();
         }
-        function submitIncomeCategoryForm() {
-            document.getElementById('handleForm').submit();
-        }
-        function showForm(){
-            var selectElement = document.getElementById('options');
-            var selectedOption = selectElement.options[selectElement.selectedIndex].value;
-            document.getElementById('spendingDiv').style.display = "none";
-            document.getElementById('incomeDiv').style.display = "none";
-
-            if (selectedOption === "Spending Categories") {
-                document.getElementById('spendingDiv').style.display = "block";
-            }
-            else if (selectedOption === "Income Categories")
-            {
-                document.getElementById('incomeDiv').style.display = "block";
-            }
-        }
-            document.getElementById('options').addEventListener('change', showForm);
-       
     </script>
 
 @elseif ($familyMembers->count() > 1)

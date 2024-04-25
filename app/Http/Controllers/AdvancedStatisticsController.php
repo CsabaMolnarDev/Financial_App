@@ -73,7 +73,7 @@ class AdvancedStatisticsController extends Controller
             $query->where('categories.owner_id', '=', 0)
                 ->orWhere('categories.owner_id', '=', $userId);
         })
-        ->where('finances.user_id', '=', $userId) // Filter by user_id in finances table
+        ->where('finances.user_id', '=', $userId) 
         ->select('categories.*')
         ->distinct()
         ->get();
@@ -93,31 +93,43 @@ class AdvancedStatisticsController extends Controller
 
 
     public function handleForm(Request $request)
-{
+    {
     $selectedOption = $request->input('options');
+    if ($selectedOption != "summary") {
+        $categoryId = $selectedOption;
+        $category = Category::find($categoryId);
+        $indexData = $this->index();
 
-    switch ($selectedOption) {
-        case 'summary':
-           dd("summárum");
-            // Logic for summary
-            return view('includes.advancedStatistics', [
-                // Add your data here
-            ]);
-        
-        case 'Spending Categories':
-            $selectedCategory = $request->input('spendingOptions');
-            // Logic for handling spending category
-            dd($selectedCategory);
-            break;
+        // Filter incomes and spendings by selected category
+        $filteredIncomes = $indexData['incomes']->where('category_id', $categoryId);
+        $filteredSpendings = $indexData['spendings']->where('category_id', $categoryId);
 
-        case 'Income Categories':
-            $selectedCategory = $request->input('incomeOptions');
-            // Logic for handling income category
-            dd($selectedCategory);
-            break;
+        // Calculate total income and total spending for the selected category based on its type, if the selected category is spending then the totalIncomeForCategory will return null 
+        $totalIncomeForCategory = $category->type === 'income' ? $filteredIncomes->sum('price') : null;
+        $totalSpendingForCategory = $category->type === 'spending' ? $filteredSpendings->sum('price') : null;
 
-        default:
-            return "error";
+        // Pass filtered incomes and spendings to the view
+        return view('includes.advancedStatistics', [
+            'incomes' => $indexData['incomes'],
+            'spendings' => $indexData['spendings'],
+            'currencySymbol' => $indexData['currencySymbol'],
+            'familyMembers' => $indexData['familyMembers'],
+            'total_income' => $indexData['total_income'],
+            'total_spending' => $indexData['total_spending'],
+            'available_balance' => $indexData['available_balance'],
+            'spendingCategories' => $indexData['spendingCategories'],
+            'incomeCategories' => $indexData['incomeCategories'],
+            'selected_category' => $category,
+            'totalIncomeForCategory' => $totalIncomeForCategory,
+            'totalSpendingForCategory' => $totalSpendingForCategory,
+            'filteredIncomes' => $filteredIncomes, 
+            'filteredSpendings' => $filteredSpendings, 
+        ]);
+    } else {
+        return "error";
     }
 }
+
+
+
 }
