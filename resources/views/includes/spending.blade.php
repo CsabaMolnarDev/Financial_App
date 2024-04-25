@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6 text-center" id="financeButton">
-                <button class="btn btn-outline-success" onclick="window.location=' {{ url('/spendingCreate') }} '">Add new
+                <button class="btn btn-success" onclick="window.location=' {{ url('/spendingCreate') }} '">Add new
                     spending</button>
             </div>
             <div class="col-3"></div>
@@ -345,11 +345,10 @@
                 var cell = $(this);
                 //console.log(obj.target.id);
                 var oldValue = cell.text();
-                if(obj.target.id=="name"){
+                if (obj.target.id == "name") {
                     cell.html('<input type="text" class="form-control" value="' + oldValue + '">');
                     cell.find('input').focus();
-                }
-                else if(obj.target.id=="price"){
+                } else if (obj.target.id == "price") {
                     cell.html('<input type="number" class="form-control" value="' + oldValue + '">');
                     cell.find('input').focus();
                 }
@@ -361,8 +360,7 @@
                             '@endfor'+
                             '</select>');
                     cell.find('select').focus();
-                }
-                else if(obj.target.id == "date"){
+                } else if (obj.target.id == "date") {
                     cell.html('<input type="date" class="form-control" value="' + oldValue + '">');
                     cell.find('input').focus();
                 }
@@ -409,6 +407,7 @@
                 // Send edited data to server via AJAX
                 sendEditData(rowId, columnIndex, newValue);
             }
+
             function saveEditedCell(cell) {
                 var newValue = cell.find('select').val(); // Get new value from input field
                 var categories = {!! json_encode( $categories->toArray()) !!};
