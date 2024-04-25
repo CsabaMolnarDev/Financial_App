@@ -63,6 +63,7 @@
                                     <th scope="col">Category</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Price</th>
+                                    <th scope="col">Monthly</th>
                                     <th scope="col">Delete</th>
                                 </tr>
                             </thead>
@@ -71,9 +72,22 @@
                                     <tr>
                                         {{-- @dd($categories[$item->category_id]) --}}
                                         <td id="date">{{ $item->time }}</td>
-                                        <td id="category_id">{{ $categories[$item->category_id] }}</td>
+                                        <td id="category">{{ $item->category->name }}</td>
                                         <td id="name">{{ $item->name }}</td>
                                         <td id="price">{{ $item->price }}</td>
+                                        <td>
+                                            @if ($item->monthly)
+                                            <form id="monthlyForm{{$item->id}}" action="{{ route('deleteMonthly', ['id' => $item->id]) }}" method="GET">
+                                                @csrf
+                                                <input type="checkbox" name="monthly" id="monthly" checked onchange="submitForm({{$item->id}})">
+                                            </form>
+                                            @else
+                                                <form id="monthlyForm{{$item->id}}" action="{{route('createMonthly', ['id' => $item->id])}}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="checkbox" name="monthly" id="monthly" onchange="submitForm({{$item->id}})">
+                                                </form>
+                                            @endif
+                                        </td>
                                         <td>
                                             <form action="{{ route('deleteFinance', ['id' => $item->id]) }}" method="GET">
                                                 @csrf
@@ -340,10 +354,10 @@
                     cell.find('input').focus();
                 }
                 
-                else if(obj.target.id == "category_id"){
+                else if(obj.target.id == "category"){
                     cell.html('<select class="form-control">'+
-                            '@for ($i=0;$i<count($categories2);$i++)'+
-                            '<option value="{{$categories2[$i]->id}}">{{$categories2[$i]->name}}</option>'+
+                            '@for ($i=0;$i<count( $categories);$i++)'+
+                            '<option value="{{$i}}" id="{{ $categories[$i]->id}}">{{ $categories[$i]->name}}</option>'+
                             '@endfor'+
                             '</select>');
                     cell.find('select').focus();
@@ -373,7 +387,9 @@
             // Event handler for detecting blur event on input fields (cell editing finished)
             $('#spendingTable tbody').on('blur', 'input', function() {
                 var cell = $(this).closest('td');
-                saveCellEdit(cell); // Call function to save cell edit
+                if(cell.prevObject[0].type!="checkbox"){
+                    saveCellEdit(cell); // Call function to save cell edit
+                }
             });
             $('#spendingTable tbody').on('blur', 'select', function() {
                 var cell = $(this).closest('td');
@@ -395,9 +411,9 @@
             }
             function saveEditedCell(cell) {
                 var newValue = cell.find('select').val(); // Get new value from input field
-                var categories = {!! json_encode($categories2->toArray()) !!};
-                //console.log(categories[newValue-1].name);
-                cell.text(categories[newValue-1].name); // Update cell text with new value
+                var categories = {!! json_encode( $categories->toArray()) !!};
+                //console.log(categories[newValue]);
+                cell.text(categories[newValue].name); // Update cell text with new value
 
                 // Get row data and cell index for sending to server
                 var rowData = table.row(cell.closest('tr')).data();
@@ -430,11 +446,17 @@
                     }
                 });
             }
-
+            
+            
             // Event handler to prevent button click event from propagating
             $('#spendingTable tbody').on('click', 'button', function(event) {
                 event.stopPropagation();
             });
         });
+        function submitForm(id) {
+            var asd = 'monthlyForm'+id;
+            console.log(asd);
+            document.getElementById(asd).submit();
+        }
     </script>
 @endsection

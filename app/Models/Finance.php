@@ -10,18 +10,20 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Finance extends Model
 {
+    //Ha van xy_id akkor belongs to mert a másik tábla ezen keresztül birtokolja
+    //Pl.:A birtoklásomat egy poló íránt úgy jelzem hogy bele írom a nevem (user_id) onnan tudom hogy az enyém (nem én a polóé)
     use HasFactory;
     public function users() : BelongsTo{
         return $this->belongsTo(User::class);
     }
-    public function category() : HasOne{
-        return $this->hasOne(Category::class);
+    public function category() : BelongsTo{
+        return $this->belongsTo(Category::class);
     }
-    public function currency() : HasOne{
-        return $this->hasOne(Currency::class);
+    public function currency() : BelongsTo{
+        return $this->belongsTo(Currency::class,'currency_id','id');
     }
-    public function monthly() : BelongsTo{
-        return $this->belongsTo(Monthly::class);
+    public function monthly() : HasOne{
+        return $this->hasOne(Monthly::class,'finance_id','id');
     }
     protected $fillable = [
         'type',

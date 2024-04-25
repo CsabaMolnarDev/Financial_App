@@ -5,6 +5,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Finance;
+use App\Models\Monthly;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
@@ -30,17 +31,22 @@ class SpendingController extends Controller
     public function index()
     {
         $userId = Auth::id();
+        $user = Auth::user();
         $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
-        $categoryIdys = $finances->pluck('category_id')->unique();
-        $categories = Category::whereIn('id', $categoryIdys)->pluck('name', 'id');
-        $categories2 = Category::where('type', 'spending')->get();
+        $categories = Category::where(function($query) use ($user) {
+            $query->where('owner_id', 0)
+                  ->where('type', 'spending');
+        })
+        ->orWhere(function($query) use ($user) {
+            $query->where('owner_id', $user->id)
+                  ->where('type', 'spending');
+        })->get();
         $user = auth()->user();
         $currencySymbol = $user->currency->symbol;
         return view('includes.spending', [
             'finances' => $finances,
             'categories' => $categories,
-            'categories2' => $categories2,
-            'currencySymbol' => $currencySymbol
+            'currencySymbol' => $currencySymbol,
         ]);
     }
 

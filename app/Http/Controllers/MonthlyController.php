@@ -27,9 +27,14 @@ class MonthlyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMonthlyRequest $request)
+    public function store($id)
     {
-        //
+        Monthly::create([
+            'finance_id' => $id,
+                    'year' => date("Y"),
+                    'month' => date("m")
+        ]);
+        return back(); 
     }
 
     /**
@@ -61,6 +66,11 @@ class MonthlyController extends Controller
      */
     public function destroy(Monthly $monthly)
     {
-        //
+    }
+    public function deleteMonthly($id)
+    {
+        $deleteFinanceById = Monthly::where('finance_id', '=', $id)->delete();
+        //toastr()->success("Monthly record deleted successfully");
+        return back(); 
     }
 }
