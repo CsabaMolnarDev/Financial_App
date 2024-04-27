@@ -173,28 +173,140 @@
             ];
         @endphp
         @foreach ($monthsToShow as $index => $month)
-            <div class="specialcard h-130">
-                <div class="specialcard-body">
-                    <h5 class="specialcard-title">{{ $monthsLabels[$index] }}</h5>
-                    @foreach ($familyMembers as $member)
-                        @php
-
-                            $userFinances = \App\Models\Finance::where('user_id', $member->id)
+        <div class="specialcard h-130">
+            <div class="specialcard-body">
+                <h5 class="specialcard-title">{{ $monthsLabels[$index] }}</h5>
+                @foreach ($familyMembers as $member)
+                    @php
+                        $memberCurrencySymbol = $familyCurrencySymbols[$member->id];
+                    @endphp
+                    @php
+                        $userFinances = \App\Models\Finance::where('user_id', $member->id)
+                            ->whereMonth('time', $month)
+                            ->whereYear('time', $currentYear)
+                            ->get();
+                        $totalIncome = $userFinances->where('type', 'Income')->sum('price');
+                        $totalSpending = $userFinances->where('type', 'Spending')->sum('price');
+                    @endphp
+                    <p class="specialcard-text">Family member:<br>{{ $member->username }}</p>
+                    <p class="specialcard-text">Total Income:<br>{{ $totalIncome }} {{ $memberCurrencySymbol }}</p>
+                    <p class="specialcard-text">Total Spending:<br>{{ $totalSpending }} {{ $memberCurrencySymbol }}</p>
+                    <hr>
+                @endforeach
+            </div>
+        </div>
+        @endforeach
+    </div>
+        {{-- <button  type="submit" class="btn btn-success advanced_detailsBTN" >More details</button> --}}
+        <div id="advanced_details" class="hidden">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">My Account
+                            <hr>
+                            @php
+                                $userFinances = \App\Models\Finance::where('user_id', auth()->user()->id)
                                 ->whereMonth('time', $month)
                                 ->whereYear('time', $currentYear)
                                 ->get();
-                            $totalIncome = $userFinances->where('type', 'Income')->sum('price');
-                            $totalSpending = $userFinances->where('type', 'Spending')->sum('price');
-                        @endphp
-                        <p class="specialcard-text">Family member:<br>{{ $member->username }}</p>
-                        <p class="specialcard-text">Total Income:<br>{{ $totalIncome }} {{ $currencySymbol }}</p>
-                        <p class="specialcard-text">Total Spending:<br>{{ $totalSpending }} {{ $currencySymbol }}</p>
-                        <hr>
-                    @endforeach
+                                $totalIncomeForAuth = $userFinances->where('type', 'Income')->sum('price');
+                                $totalSpendingForAuth = $userFinances->where('type', 'Spending')->sum('price');
+                            @endphp
+                            <div class="card-text"><p>My Income for this month: {{ $totalIncomeForAuth }} {{ $currencySymbol }}</p>
+                                @foreach ($incomeCategoriesForAuthUserMonthly as $category)
+                                <li>{{ $category->name }} -
+                                    @php
+                                        $totalIncomeForCategoryAuth = \App\Models\Finance::where('user_id', auth()->user()->id)->where('category_id', $category->id)->sum('price');
+                                    @endphp
+                                    {{ $totalIncomeForCategoryAuth }} {{ $currencySymbol }}
+                                </li>
+                            @endforeach</div>
+                            <hr>
+                            <p>My Spending for this month: {{ $totalSpendingForAuth }}  {{ $currencySymbol }}</p>
+                            @foreach ($spendingCategoriesForAuthUserMonthly as $category)
+                                <li>{{ $category->name }} -
+                                    @php
+                                        $totalSpendingForCategoryAuth = \App\Models\Finance::where('user_id', auth()->user()->id)->where('category_id', $category->id)->sum('price');
+                                    @endphp
+                                    {{ $totalSpendingForCategoryAuth }} {{ $currencySymbol }}
+                                </li>
+                            @endforeach</div>
+                            <div class="card-text">
+                                <form id="familymemberForm" action="{{ route('handleFamilyForm') }}" method="POST">
+                                    @csrf
+                                    <label for="familymember">Select a family member: </label>
+                                    <select name="familymember" id="familymember" onchange="submitForm()">
+                                        <option value="" selected disabled>Choose</option>
+                                        <optgroup label="Family members">
+                                        @foreach ($familyMembers as $member)
+                                            @if ($member->username != auth()->user()->username)
+                                                <option value="{{ $member->id }}">{{ $member->username }}</option>
+                                            @endif 
+                                            
+                                        @endforeach
+                                    </select>
+                                </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        @endforeach
-    </div>
+            @if (isset($selectedFamilyMemberId) && isset($memberIncome) && isset($incomeCategoriesForChoosenUserMonthly) && isset($memberSpending) && isset($spendingCategoriesForChoosenUserMonthly))
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">@if (isset($selectedFamilyMemberId))
+                            @php
+                                $username = \App\Models\User::where('id', '=', $selectedFamilyMemberId)->value('username');
+                            @endphp
+                        User: <u>{{ $username }}</u>
+                        @endif 
+                                @if(isset($memberIncome))
+                                <p>Member Income for this month: {{ $memberIncome }} {{ $familyMemberCurrencySymbol }}</p>
+                                @endif 
+                                @if (isset($incomeCategoriesForChoosenUserMonthly))
+                                    @foreach ($incomeCategoriesForChoosenUserMonthly as $category)
+                                        <li>{{ $category->name }} -
+                                            @php
+                                                $totalIncomeForCategory = \App\Models\Finance::where('user_id', $selectedFamilyMemberId)->where('category_id', $category->id)->sum('price');
+                                            @endphp
+                                            {{ $totalIncomeForCategory }} {{ $familyMemberCurrencySymbol }}
+                                        </li>
+        
+                                    @endforeach
+                                @endif
+                                
+                                <hr>
+                                @if(isset($memberSpending))
+                                <p>Member Spending for this month: {{ $memberSpending }} {{ $familyMemberCurrencySymbol }}</p>
+                                @endif
+                                @if (isset($spendingCategoriesForChoosenUserMonthly))
+                                    @foreach ($spendingCategoriesForChoosenUserMonthly as $category)
+                                        <li>{{ $category->name }} -
+                                            @php
+                                                $totalSpendingForCategory = \App\Models\Finance::where('user_id', $selectedFamilyMemberId)->where('category_id', $category->id)->sum('price');
+                                            @endphp
+                                            {{ $totalSpendingForCategory }} {{ $familyMemberCurrencySymbol }}
+                                        </li>
+        
+                                    @endforeach
+                                @endif
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            @endif
+            
+        </div>
+    
+    <script> 
+        function submitForm() {
+            document.getElementById('familymemberForm').submit();
+        }
+
+    </script>
+
 @else
     <h1>This is a bug, report me to the devs.</h1>
     @endif

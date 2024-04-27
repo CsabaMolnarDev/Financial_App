@@ -9,13 +9,20 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Finance;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Carbon\Carbon;
 
 
 class AdvancedStatisticsController extends Controller
 {
+    protected $incomeCategoriesForAuthUserMonthly;
+    protected $spendingCategoriesForAuthUserMonthly;
     public function index()
     {
-   
+    
+        
+        $currentDate = Carbon::now();
+        $currentMonth = $currentDate->month;
+        $currentYear = $currentDate->year;
         $userId = Auth::id();
         $incomes = Finance::where('type','Income')->where('user_id', $userId)->get();
         $spendings = Finance::where('type','Spending')->where('user_id', $userId)->get();
@@ -25,6 +32,10 @@ class AdvancedStatisticsController extends Controller
                      ->whereNotNull('family_id') 
                      ->get();
 
+        $familyCurrencySymbols = [];
+        foreach ($familyMembers as $member) {
+            $familyCurrencySymbols[$member->id] = $member->currency->symbol;
+        }
         $totalIncome = 0;
         $totalSpending = 0;
         foreach($familyMembers as $member)
@@ -77,6 +88,35 @@ class AdvancedStatisticsController extends Controller
         ->select('categories.*')
         ->distinct()
         ->get();
+
+
+
+        $this->incomeCategoriesForAuthUserMonthly = Category::join('finances', 'categories.id', '=', 'finances.category_id')
+        ->where('categories.type', '=', 'income')
+        ->where(function ($query) use ($userId) {
+            $query->where('categories.owner_id', '=', 0)
+                ->orWhere('categories.owner_id', '=', $userId);
+        })
+        ->where('finances.user_id', '=', $userId)
+        ->whereMonth('finances.time', '=', $currentMonth)
+        ->whereYear('finances.time', '=', $currentYear)
+        ->select('categories.*')
+        ->distinct()
+        ->get();
+
+        $this->spendingCategoriesForAuthUserMonthly = Category::join('finances', 'categories.id', '=', 'finances.category_id')
+        ->where('categories.type', '=', 'spending')
+        ->where(function ($query) use ($userId) {
+            $query->where('categories.owner_id', '=', 0)
+                ->orWhere('categories.owner_id', '=', $userId);
+        })
+        ->where('finances.user_id', '=', $userId)
+        ->whereMonth('finances.time', '=', $currentMonth)
+        ->whereYear('finances.time', '=', $currentYear)
+        ->select('categories.*')
+        ->distinct()
+        ->get();
+
    
         return view('includes.advancedStatistics', [
             'incomes' => $incomes,
@@ -87,49 +127,122 @@ class AdvancedStatisticsController extends Controller
             'total_spending' => $totalSpending,
             'available_balance' => $totalIncome - $totalSpending,
             'spendingCategories' => $spendingCategoriesWithFinance,
-            'incomeCategories' => $incomeCategoriesWithFinance
+            'incomeCategories' => $incomeCategoriesWithFinance,
+            'familyCurrencySymbols' => $familyCurrencySymbols,
+            'incomeCategoriesForAuthUserMonthly' => $this->incomeCategoriesForAuthUserMonthly,
+            'spendingCategoriesForAuthUserMonthly' => $this->spendingCategoriesForAuthUserMonthly,
+
         ]);
     }
 
 
     public function handleForm(Request $request)
     {
-    $selectedOption = $request->input('options');
-    if ($selectedOption != "summary") {
-        $categoryId = $selectedOption;
-        $category = Category::find($categoryId);
-        $indexData = $this->index();
+        $selectedOption = $request->input('options');
+        if ($selectedOption != "summary") {
+            $categoryId = $selectedOption;
+            $category = Category::find($categoryId);
+            $indexData = $this->index();
 
-        // Filter incomes and spendings by selected category
-        $filteredIncomes = $indexData['incomes']->where('category_id', $categoryId);
-        $filteredSpendings = $indexData['spendings']->where('category_id', $categoryId);
+            // Filter incomes and spendings by selected category
+            $filteredIncomes = $indexData['incomes']->where('category_id', $categoryId);
+            $filteredSpendings = $indexData['spendings']->where('category_id', $categoryId);
 
-        // Calculate total income and total spending for the selected category based on its type, if the selected category is spending then the totalIncomeForCategory will return null 
-        $totalIncomeForCategory = $category->type === 'income' ? $filteredIncomes->sum('price') : null;
-        $totalSpendingForCategory = $category->type === 'spending' ? $filteredSpendings->sum('price') : null;
+            // Calculate total income and total spending for the selected category based on its type, if the selected category is spending then the totalIncomeForCategory will return null 
+            $totalIncomeForCategory = $category->type === 'income' ? $filteredIncomes->sum('price') : null;
+            $totalSpendingForCategory = $category->type === 'spending' ? $filteredSpendings->sum('price') : null;
 
-        // Pass filtered incomes and spendings to the view
-        return view('includes.advancedStatistics', [
-            'incomes' => $indexData['incomes'],
-            'spendings' => $indexData['spendings'],
-            'currencySymbol' => $indexData['currencySymbol'],
-            'familyMembers' => $indexData['familyMembers'],
-            'total_income' => $indexData['total_income'],
-            'total_spending' => $indexData['total_spending'],
-            'available_balance' => $indexData['available_balance'],
-            'spendingCategories' => $indexData['spendingCategories'],
-            'incomeCategories' => $indexData['incomeCategories'],
-            'selected_category' => $category,
-            'totalIncomeForCategory' => $totalIncomeForCategory,
-            'totalSpendingForCategory' => $totalSpendingForCategory,
-            'filteredIncomes' => $filteredIncomes, 
-            'filteredSpendings' => $filteredSpendings, 
-        ]);
-    } else {
-        return "error";
+            // Pass filtered incomes and spendings to the view
+            return view('includes.advancedStatistics', [
+                'incomes' => $indexData['incomes'],
+                'spendings' => $indexData['spendings'],
+                'currencySymbol' => $indexData['currencySymbol'],
+                'familyMembers' => $indexData['familyMembers'],
+                'total_income' => $indexData['total_income'],
+                'total_spending' => $indexData['total_spending'],
+                'available_balance' => $indexData['available_balance'],
+                'spendingCategories' => $indexData['spendingCategories'],
+                'incomeCategories' => $indexData['incomeCategories'],
+                'selected_category' => $category,
+                'totalIncomeForCategory' => $totalIncomeForCategory,
+                'totalSpendingForCategory' => $totalSpendingForCategory,
+                'filteredIncomes' => $filteredIncomes, 
+                'filteredSpendings' => $filteredSpendings, 
+                ]);
+        } 
     }
-}
+    function handleFamilyForm(Request $request)
+    {
+        $currentDate = Carbon::now();
+        $currentMonth = $currentDate->month;
+        $currentYear = $currentDate->year;
 
 
+        $authUserId = auth()->user()->id;
+        $selectedFamilyMember = $request->input('familymember');
+        $familymember = User::find($selectedFamilyMember); 
+        $indexData = $this->index();
+        $memberIncome = Finance::where('user_id', $selectedFamilyMember)->where('type', 'Income')->whereMonth('time', $currentMonth)->whereYear('time', $currentYear)->sum('price');
+        $memberSpending = Finance::where('user_id', $selectedFamilyMember)->where('type', 'Spending')->whereMonth('time', $currentMonth)->whereYear('time', $currentYear)->sum('price');
+        $familyMemberCurrencySymbol = $familymember->currency->symbol;
+        $selectedFamilyMemberId = $familymember->id;
+
+       
+        $incomeCategoriesForAuthUserMonthly = $this->incomeCategoriesForAuthUserMonthly;
+        $spendingCategoriesForAuthUserMonthly = $this->spendingCategoriesForAuthUserMonthly;
+        
+
+
+        $incomeCategoriesForChoosenUserMonthly = Category::join('finances', 'categories.id', '=', 'finances.category_id')
+                ->where('categories.type', '=', 'income')
+                ->where(function ($query) use ($selectedFamilyMemberId) {
+                    $query->where('categories.owner_id', '=', 0)
+                        ->orWhere('categories.owner_id', '=', $selectedFamilyMemberId);
+                })
+                ->where('finances.user_id', '=', $selectedFamilyMemberId) 
+                ->whereMonth('finances.time', '=', $currentMonth) 
+                ->whereYear('finances.time', '=', $currentYear)   
+                ->select('categories.*')
+                ->distinct()
+                ->get();
+
+        $spendingCategoriesForChoosenUserMonthly = Category::join('finances', 'categories.id', '=', 'finances.category_id')
+                ->where('categories.type', '=', 'spending')
+                ->where(function ($query) use ($selectedFamilyMemberId) {
+                    $query->where('categories.owner_id', '=', 0)
+                        ->orWhere('categories.owner_id', '=', $selectedFamilyMemberId);
+                })
+                ->where('finances.user_id', '=', $selectedFamilyMemberId) 
+                ->whereMonth('finances.time', '=', $currentMonth) 
+                ->whereYear('finances.time', '=', $currentYear) 
+                ->select('categories.*')
+                ->distinct()
+                ->get();
+
+
+
+
+        
+            return view('includes.advancedStatistics', [
+                'selectedFamilyMemberId' => $selectedFamilyMemberId,
+                'memberIncome' => $memberIncome,
+                'memberSpending' => $memberSpending,
+                'familyMemberCurrencySymbol' => $familyMemberCurrencySymbol,
+                'incomeCategoriesForChoosenUserMonthly' => $incomeCategoriesForChoosenUserMonthly,
+                'spendingCategoriesForChoosenUserMonthly' => $spendingCategoriesForChoosenUserMonthly,
+                'incomeCategoriesForAuthUserMonthly' => $incomeCategoriesForAuthUserMonthly,
+                'spendingCategoriesForAuthUserMonthly' => $spendingCategoriesForAuthUserMonthly,
+                'incomes' => $indexData['incomes'],
+                'spendings' => $indexData['spendings'],
+                'currencySymbol' => $indexData['currencySymbol'],
+                'familyMembers' => $indexData['familyMembers'],
+                'total_income' => $indexData['total_income'],
+                'total_spending' => $indexData['total_spending'],
+                'available_balance' => $indexData['available_balance'],
+                'spendingCategories' => $indexData['spendingCategories'],
+                'incomeCategories' => $indexData['incomeCategories'],
+                'familyCurrencySymbols' => $indexData['familyCurrencySymbols'],
+            ]);
+    }
 
 }
