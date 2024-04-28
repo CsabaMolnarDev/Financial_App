@@ -188,7 +188,7 @@
                         $totalIncome = $userFinances->where('type', 'Income')->sum('price');
                         $totalSpending = $userFinances->where('type', 'Spending')->sum('price');
                     @endphp
-                    <p class="specialcard-text">Family member:<br>{{ $member->username }}</p>
+                    <p class="specialcard-text">Family member:<br>@if($member->username == auth()->user()->username) <u> My account </u>  @else<u>{{ $member->username }}</u>@endif</p>
                     <p class="specialcard-text">Total Income:<br>{{ $totalIncome }} {{ $memberCurrencySymbol }}</p>
                     <p class="specialcard-text">Total Spending:<br>{{ $totalSpending }} {{ $memberCurrencySymbol }}</p>
                     <hr>
