@@ -36,6 +36,11 @@ class FinanceController extends Controller
     public function store(StoreFinanceRequest $request)
     {
         $bool = str_contains(url()->previous(), 'spending');
+        if($request->category_id == null)
+        {
+            toastr()->warning("Please choose a category");
+            return back();
+        }
 
         $finance = Finance::create([
             'user_id'=> auth()->user()->id,
