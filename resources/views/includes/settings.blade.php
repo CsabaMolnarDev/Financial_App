@@ -194,7 +194,8 @@
                             {{-- Deactivate account --}}
                             <div class="col-6">
                                 <br>
-                                <form action="" method="post">
+                                <form action="{{ route('softDeleteAccount') }}" method="POST">
+                                    @csrf
                                     <button type="submit" class="btn btn-outline-primary">Deactivate account</button>
                                 </form>
                             </div>

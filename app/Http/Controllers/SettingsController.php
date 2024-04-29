@@ -245,4 +245,12 @@ class SettingsController extends Controller
         toastr()->success("You left the family successfully");
         return back();
     }
+
+    public function softDeleteAccount()
+    {
+        $user = auth()->user();
+        toastr()->success("You deactivated your account successfully");
+        $user->delete();
+        return redirect()->route('home');
+    }
 }

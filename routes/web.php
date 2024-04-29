@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SpendingController;
 use App\Http\Controllers\AdvancedStatisticsController;
+use App\Http\Controllers\RestoreAccountController;
 
 
 /*
@@ -86,6 +87,8 @@ Route::post('/changeCurrency', [SettingsController::class, 'changeCurrency'])->n
 Route::post('/enableNotification', [SettingsController::class, 'enableNotification'])->name('enableNotification');
 /* Change Phone */
 Route::post('/changePhone', [SettingsController::class, 'changePhone'])->name('changePhone');
+/* Deactivate accoutn */
+Route::post('/deactivateAccount', [SettingsController::class, 'softDeleteAccount'])->name('softDeleteAccount');
 /* Family system */
 Route::post('/createFamily', [SettingsController::class, 'createFamily'])->name('createFamily');
 Route::post('/deleteFamily', [SettingsController::class, 'deleteFamily'])->name('deleteFamily');
@@ -106,6 +109,12 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+//Restore deactivated account
+Route::get('/restore-account', [RestoreAccountController::class, 'restoreAccountIndex'])->name('restoreAccountIndex');
+Route::post('/checkIfUserDisabled', [RestoreAccountController::class, 'checkIfUserDisabled'])->name('checkIfUserDisabled');
+Route::post('/reactivateAccount', [RestoreAccountController::class, 'reactivateAccount'])->name('reactivateAccount');
+
 
 Route::get('/deleteMonthly/{id}', [MonthlyController::class, 'deleteMonthly'])->name('deleteMonthly');
 Route::post('/createMonthly/{id}', [MonthlyController::class, 'store'])->name('createMonthly');

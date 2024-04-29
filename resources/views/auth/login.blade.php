@@ -64,8 +64,10 @@
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">Forgot password?</a>
                                     @endif
+                                    <a href="{{ route('restoreAccountIndex') }}">Restore deactivated account!</a>
                                 </div>
                                 <div class="col-4">
+                        
                                 </div>
                             </div>
                     </div>
