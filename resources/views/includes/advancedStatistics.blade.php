@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+{{-- TODO:
+    fix if-else bcs it causes frontend problems
+    put things normaly into a container-row-col structure
+    make things responsive
+    --}}
     <div class="container">
         <div class="row mb-3">
             <div class="col-3"></div>
