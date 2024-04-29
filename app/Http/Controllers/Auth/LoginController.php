@@ -54,69 +54,52 @@ class LoginController extends Controller
             // Redirect to the invitation acceptance route with the token
             return redirect()->route('family.acceptInvitation', ['token' => $token]);
         }
-        $userId = Auth::id();
-        $finances = Finance::where('user_id', $userId)->get();
-        foreach ($finances as $key => $value) {
-            $monthlymain = Monthly::where('finance_id',$value->id)->get();
-            if(count($monthlymain)!=0){
-                //dd($monthlymain);
-                $monthly = $monthlymain[0];
+        
+        foreach (auth()->user()->finances as $key => $value) {
+            $monthly = $value->monthly;
+            //dd($monthly);
+            if($monthly!=null){
                 //dd($monthly);
-                if ($monthly->year!=date('Y')) {
-                    $years = $monthly->year-date(('Y'));
-                    if ($years!=1) {
-                        $times=12*$years+(12-$monthly->month)+date('m');
-                        for ($i=0; $i < $times; $i++) { 
-                            $finance=Finance::create([
-                                'user_id'=> auth()->user()->id,
-                                'type' => $value->type,
-                                'name'=> $value->name,
-                                'price' => $value->price,
-                                'time' => date("Y/m/d") .'-' . date("H:i:s"),
-                                'category_id'=> $value->category_id,
-                                'currency_id' =>$value->currency_id,
-                            ]);
-                            $finance->save();
-                        }
-                        $monthly->year = date('Y');
-                        $monthly->month = date('m');
+                if($monthly->month!=date('m')||$monthly->year!=date('Y')){
+                    $years=date('Y')-$monthly->year;
+                    $times=0;
+                    if($years >1){
+                        $times=12*($years-1)+(12-$monthly->month)+date('m');
+                    }
+                    else if($years==1){
+                        $times=12-$monthly->month+date('m');
                     }
                     else{
-                        $times=(12-$monthly->month)+date('m');
-                        for ($i=0; $i < $times; $i++) { 
-                            $finance=Finance::create([
-                                'user_id'=> auth()->user()->id,
-                                'type' => $value->type,
-                                'name'=> $value->name,
-                                'price' => $value->price,
-                                'time' => date("Y/m/d") .'-' . date("H:i:s"),
-                                'category_id'=> $value->category_id,
-                                'currency_id' =>$value->currency_id,
-                            ]);
-                            $finance->save();
-                        }
-                        $monthly->year = date('Y');
-                        $monthly->month = date('m');
+                        $times=date('m')-$monthly->month;
                     }
-                }
-                else{
-                    $times=date('m')-$monthly->month;
-                        for ($i=0; $i < $times; $i++) { 
-                            $finance=Finance::create([
-                                'user_id'=> auth()->user()->id,
-                                'type' => $value->type,
-                                'name'=> $value->name,
-                                'price' => $value->price,
-                                'time' => date("Y/m/d") .'-' . date("H:i:s"),
-                                'category_id'=> $value->category_id,
-                                'currency_id' =>$value->currency_id,
-                            ]);
-                            $finance->save();
+                    for ($i=0; $i < $times; $i++) { 
+                        $monthly->month++;
+                        if($monthly->month>12){
+                            $monthly->month=1;
+                            $monthly->year++;
                         }
-                        $monthly->year = date('Y');
-                        $monthly->month = date('m');
+                        if($monthly->month>9){
+                            $date=$monthly->year.'-'.$monthly->month.'-'.date("d");
+                        }
+                        else{
+                            $date=$monthly->year.'-'.'0'.$monthly->month.'-'.date("d");
+                        }
+                        $date=date('Y/m/d',strtotime($date));
+                        $finance=Finance::create([
+                            'user_id'=> auth()->user()->id,
+                            'type' => $value->type,
+                            'name'=> $value->name,
+                            'price' => $value->price,
+                            'time' => $date,
+                            'category_id'=> $value->category_id,
+                            'currency_id' =>$value->currency_id,
+                        ]);
+                        $finance->save();
+                    }
+                    $monthly->year = date('Y');
+                    $monthly->month = date('m');
+                    $monthly->save();
                 }
-                $monthly->save();
             }
         }
         // Default redirect if no invitation token is present

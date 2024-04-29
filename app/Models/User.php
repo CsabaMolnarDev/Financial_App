@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,8 +27,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Currency::class);
     }
-    public function family() : HasOne{
-        return $this->hasOne(Family::class, 'id', 'family_id');
+    public function family() : BelongsTo{
+        return $this->belongsTo(Family::class, 'family_id','id');
     }
 
 

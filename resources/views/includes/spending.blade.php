@@ -108,20 +108,18 @@
         //user associated finances php array to json string
         var financesData = @json($finances);
         //user associated categories php array to json string
-        var categoriesData = {!! json_encode($categories) !!};
         var categoryPrices = {};
-        /* iterates over each finance record, retrieves the category name, calculates the price */
-        financesData.forEach(function(finance) {
-            var categoryId = finance.category_id;
-            var categoryName = categoriesData[categoryId];
-            var price = finance.price;
-            /* checks if the category has been already added */
-            if (!categoryPrices[categoryName]) {
-                categoryPrices[categoryName] = price;
-            } else {
-                categoryPrices[categoryName] += price;
-            }
-        });
+        for (let i = 0; i < financesData.length; i++) {
+            const element = financesData[i];  
+                var categoryName = element.category.name;
+                var price = element.price;
+                /* checks if the category has been already added */
+                if (!categoryPrices[categoryName]) {
+                    categoryPrices[categoryName] = price;
+                } else {
+                    categoryPrices[categoryName] += price;
+                }
+        };
         /* passing the data to the apexcharts */
         /* The date inside the graphs */
         var seriesData = [];
@@ -146,12 +144,9 @@
         document.getElementById('sum').innerHTML = sum;
         document.getElementById('avarage').innerHTML = avarage;
         /* console.log(sum/prices.length); */
-        var financesData = @json($finances);
-        var categoriesData = {!! json_encode($categories) !!};
         var monthlyCategoryPrices = {};
         financesData.forEach(function(finance) {
-            var categoryId = finance.category_id;
-            var categoryName = categoriesData[categoryId];
+            var categoryName = finance.category.name;
             var dateParts = finance.time.split('-'); // Split the date string into parts
             var year = parseInt(dateParts[0]); // Get year
             var month = parseInt(dateParts[1]); // Get month
@@ -320,7 +315,12 @@
                 labels: {
                     show: true,
                     formatter: function(value) {
-                        return value + ' ' + '{{ $currencySymbol }}';
+                        if(value!=null){
+                            return value + ' ' + '{{ $currencySymbol }}';
+                        }
+                        else{
+                            return '0 ' + '{{ $currencySymbol }}';
+                        }
                     }
                 }
             },
