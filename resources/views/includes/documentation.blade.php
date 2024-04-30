@@ -29,7 +29,19 @@
                         </div>
                         <div class="row mt-3">
                             <div id="spendings" style="display: none;">
-                                
+                                <h3>Manage spendings</h3>
+                                <ul>
+                                    <li>On the <u>Spendings page</u> click on the button</li>
+                                </ul>
+                                <img class="docu-image"
+                                    src="{{ asset('storage/documentation_pictures/Manage spending/AddNewSpending.png') }}"
+                                    alt="Add new spending">
+                                <ul>
+                                    <li>Fill in the necessary field, and then submit </li>
+                                </ul>
+                                <img class="docu-image"
+                                    src="{{ asset('storage/documentation_pictures/Manage spending/Fill_inCard.png') }}"
+                                    alt="Fill in every input field">
                             </div>
 
                             <div id="incomes" style="display: none;">

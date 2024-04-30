@@ -33,8 +33,7 @@ class AdvancedStatisticsController extends Controller
                      ->whereNotNull('family_id') 
                      ->get();
 
-        $spendingsWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg();
-        $incomesWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg();
+       
         
         
         $familyCurrencySymbols = [];
@@ -56,6 +55,13 @@ class AdvancedStatisticsController extends Controller
             $totalSpending += $memberSpending;
             
         }
+
+        //avarage income, spending with the same currency
+        $result = $this->AvarageWithTheSameCurrency();
+        $spendingsAverage = $result['spendingsWithTheSameCurrency'];
+        $incomesAverage = $result['incomesWithTheSameCurrency'];
+
+
         //dropdowns
         //spending categories
         //mysql equivalent
@@ -136,8 +142,8 @@ class AdvancedStatisticsController extends Controller
             'familyCurrencySymbols' => $familyCurrencySymbols,
             'incomeCategoriesForAuthUserMonthly' => $this->incomeCategoriesForAuthUserMonthly,
             'spendingCategoriesForAuthUserMonthly' => $this->spendingCategoriesForAuthUserMonthly,
-            'spendingsWithTheSameCurrency' =>round($spendingsWithTheSameCurrency, 3),
-            'incomesWithTheSameCurrency' => round($incomesWithTheSameCurrency, 3)
+            'spendingsAverage' => $spendingsAverage,
+            'incomesAverage' => $incomesAverage
 
         ]);
     }
@@ -160,8 +166,11 @@ class AdvancedStatisticsController extends Controller
             $totalSpendingForCategory = $category->type === 'spending' ? $filteredSpendings->sum('price') : null;
 
 
-            $spendingsWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg();
-            $incomesWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg();
+            //avarage income, spending with the same currency
+            $result = $this->AvarageWithTheSameCurrency();
+            $spendingsAverage = $result['spendingsWithTheSameCurrency'];
+            $incomesAverage = $result['incomesWithTheSameCurrency'];
+
 
             // Pass filtered incomes and spendings to the view
             return view('includes.advancedStatistics', [
@@ -179,8 +188,8 @@ class AdvancedStatisticsController extends Controller
                 'totalSpendingForCategory' => $totalSpendingForCategory,
                 'filteredIncomes' => $filteredIncomes, 
                 'filteredSpendings' => $filteredSpendings,
-                'spendingsWithTheSameCurrency' =>round($spendingsWithTheSameCurrency, 3),
-                'incomesWithTheSameCurrency' => round($incomesWithTheSameCurrency, 3)
+                'spendingsAverage' => $spendingsAverage,
+                'incomesAverage' => $incomesAverage
                 ]);
         } 
     }
@@ -235,11 +244,11 @@ class AdvancedStatisticsController extends Controller
                 ->distinct()
                 ->get();
 
-                //avarage spending, income in your country
-                $spendingsWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg();
-                $incomesWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg();
 
-
+                //avarage income, spending with the same currency
+                $result = $this->AvarageWithTheSameCurrency();
+                $spendingsAverage = $result['spendingsWithTheSameCurrency'];
+                $incomesAverage = $result['incomesWithTheSameCurrency'];
         
             return view('includes.advancedStatistics', [
                 'selectedFamilyMemberId' => $selectedFamilyMemberId,
@@ -250,8 +259,6 @@ class AdvancedStatisticsController extends Controller
                 'spendingCategoriesForChoosenUserMonthly' => $spendingCategoriesForChoosenUserMonthly,
                 'incomeCategoriesForAuthUserMonthly' => $incomeCategoriesForAuthUserMonthly,
                 'spendingCategoriesForAuthUserMonthly' => $spendingCategoriesForAuthUserMonthly,
-                'spendingsWithTheSameCurrency' =>round($spendingsWithTheSameCurrency, 3),
-                'incomesWithTheSameCurrency' => round($incomesWithTheSameCurrency, 3),
                 'incomes' => $indexData['incomes'],
                 'spendings' => $indexData['spendings'],
                 'currencySymbol' => $indexData['currencySymbol'],
@@ -262,7 +269,20 @@ class AdvancedStatisticsController extends Controller
                 'spendingCategories' => $indexData['spendingCategories'],
                 'incomeCategories' => $indexData['incomeCategories'],
                 'familyCurrencySymbols' => $indexData['familyCurrencySymbols'],
+                'spendingsAverage' => $spendingsAverage,
+                'incomesAverage' => $incomesAverage
             ]);
+    }
+
+    function AvarageWithTheSameCurrency()
+    {
+        $spendingsWithTheSameCurrency = round(Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg(), 3);
+        $incomesWithTheSameCurrency = round(Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg(), 3);
+
+        return [
+            'spendingsWithTheSameCurrency' => $spendingsWithTheSameCurrency,
+            'incomesWithTheSameCurrency' => $incomesWithTheSameCurrency
+        ];
     }
 
 }
