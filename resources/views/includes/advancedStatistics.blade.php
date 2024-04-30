@@ -139,7 +139,7 @@ FIX  $incomesWithTheSameCurrency
                         <h5 class="specialcard-title">{{ $monthsLabels[$index] }}</h5>
                         @foreach ($familyMembers as $member)
                             @php
-                                $memberCurrencySymbol = "$"; /* $familyCurrencySymbols[$member->id] */
+                                $memberCurrencySymbol = $familyCurrencySymbols[$member->id];
                                 /* DOEST WORK NEEDS FIXING */
                             @endphp
                             @php

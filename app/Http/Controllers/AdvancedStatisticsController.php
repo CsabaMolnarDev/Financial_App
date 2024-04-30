@@ -33,10 +33,6 @@ class AdvancedStatisticsController extends Controller
                      ->whereNotNull('family_id')
                      ->get();
 
-        $this->$spendingsWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg();
-        $this->$incomesWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg();
-
-
         $spendingsWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg();
         $incomesWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg();
 
