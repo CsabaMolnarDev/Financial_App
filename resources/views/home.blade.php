@@ -12,7 +12,12 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             {{-- Use apexcharts --}}
-                            <h1>Apexcharts comes here (pie diagram)</h1>
+                            @if (auth()->user()->finances()->where('type', 'Income')->exists())
+                            <div id="income"></div>
+                            
+                            @else
+                            <p>You have not added income yet</p>
+                            @endif
                         </div>
                         <div class="row">
                             <button class="btn btn-outline-info" type="submit"
@@ -29,7 +34,13 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             {{-- Use apexcharts --}}
-                            <h1>Apexcharts comes here (pie diagram)</h1>
+                            @if (auth()->user()->finances()->where('type', 'Spending')->exists())
+                            <div id="spending"></div>
+                            
+                            @else
+                            <p>You have not added spending yet</p>
+                            @endif
+                            
                         </div>
                         <div class="row">
                             <button class="btn btn-outline-info" type="submit"
@@ -92,7 +103,59 @@
         </div>
     </div>
     <script>
-        /* apexcharts pie */
+                /* Functions: */
+            // Fetch the category prices data from PHP
+            var spendingCategoryPrices = @json($spendingCategoryPrices);
+
+        /* Graphs: */
+        /* Pie graph */
+        var options = {
+            chart: {
+                type: 'pie',
+                width: 400,
+                height: 400,
+                /* Fontcolor */
+                foreColor: '#FBFBFB',
+            },
+            // Other options...
+            labels: Object.keys(spendingCategoryPrices),
+            series: Object.values(spendingCategoryPrices),
+            // Other options...
+        };
+
+        /* render apexcharts */
+        var chart = new ApexCharts(document.querySelector('#spending'), options);
+        chart.render();
+
+
+
+        /* Functions: */
+        // Fetch the category prices data from PHP
+         var incomeCategoryPrices = @json($incomeCategoryPrices);
+
+        /* Graphs: */
+        /* Pie graph */
+        var options = {
+            chart: {
+                type: 'pie',
+                width: 400,
+                height: 400,
+                /* Fontcolor */
+                foreColor: '#FBFBFB',
+            },
+            // Other options...
+            labels: Object.keys(incomeCategoryPrices),
+            series: Object.values(incomeCategoryPrices),
+            // Other options...
+        };
+
+        /* render apexcharts */
+        var chart = new ApexCharts(document.querySelector('#income'), options);
+        chart.render();
+
+
+
+        //calendar
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {

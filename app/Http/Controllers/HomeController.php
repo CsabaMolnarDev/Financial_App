@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
 use App\Models\Currency;
+use App\Models\Category;
+use App\Models\Finance;
+use Carbon\Carbon;
 
 
 class HomeController extends Controller
@@ -30,8 +33,18 @@ class HomeController extends Controller
     {
         $result = $this->ListCurrencies();
         $currencies = $result['currencies'];
+        $spendingFunc = $this->spendingGraphData();
+        $spendingCategoryPrices = $spendingFunc['categoryPrices'];
+
+
+        $incomeFunc = $this->incomeGraphData();
+        $incomeCategoryPrices = $incomeFunc['categoryPrices'];
+        
         return view('home', [
             'currencies' => $currencies,
+            'incomeCategoryPrices' => $incomeCategoryPrices,
+            'spendingCategoryPrices' => $spendingCategoryPrices
+
         ]);
     }
 
@@ -39,6 +52,10 @@ class HomeController extends Controller
     {
         $result = $this->ListCurrencies();
         $currencies = $result['currencies'];
+        $spendingFunc = $this->spendingGraphData();
+        $spendingCategoryPrices = $spendingFunc['categoryPrices'];
+        $incomeFunc = $this->incomeGraphData();
+        $incomeCategoryPrices = $incomeFunc['categoryPrices'];
 
 
         $from = Currency::find($request->currency_id)->code;
@@ -50,7 +67,10 @@ class HomeController extends Controller
             'exchangeRate' => round($exchangeRate, 2),
             'toSymbol' => $toSymbol,
             'fromSymbol' => $fromSymbol,
-            'currencies' => $currencies
+            'currencies' => $currencies,
+            //graphicon data
+            'incomeCategoryPrices' => $incomeCategoryPrices,
+            'spendingCategoryPrices' => $spendingCategoryPrices
         ]);
     }
  
@@ -63,6 +83,66 @@ class HomeController extends Controller
         return [
             'currencies' => $currencies,
         ];
+    }
+
+    public function spendingGraphData()
+    {
+            // Get the current month and year
+        $currentMonth = Carbon::now()->format('m');
+        $currentYear = Carbon::now()->format('Y');
+
+        // Query to get finances data for the current month
+        $spendingFinances = Finance::where('type', 'Spending')
+            ->whereMonth('time', '=', $currentMonth)
+            ->whereYear('time', '=', $currentYear)
+            ->where('user_id', auth()->user()->id)
+            ->get();
+
+        // Organize the finances data by category
+        $categoryPrices = [];
+        foreach ($spendingFinances as $finance) {
+            $categoryName = $finance->name; // Assuming category name is stored in the 'name' column
+            $price = $finance->price;
+            if (!isset($categoryPrices[$categoryName])) {
+                $categoryPrices[$categoryName] = $price;
+            } else {
+                $categoryPrices[$categoryName] += $price;
+            }
+        }
+
+        return [
+            'categoryPrices' => $categoryPrices
+        ];
+    }
+
+    public function incomeGraphData()
+    {
+            // Get the current month and year
+            $currentMonth = Carbon::now()->format('m');
+            $currentYear = Carbon::now()->format('Y');
+    
+            // Query to get finances data for the current month
+            $spendingFinances = Finance::where('type', 'Income')
+                ->whereMonth('time', '=', $currentMonth)
+                ->whereYear('time', '=', $currentYear)
+                ->where('user_id', auth()->user()->id)
+                ->get();
+    
+            // Organize the finances data by category
+            $categoryPrices = [];
+            foreach ($spendingFinances as $finance) {
+                $categoryName = $finance->name; // Assuming category name is stored in the 'name' column
+                $price = $finance->price;
+                if (!isset($categoryPrices[$categoryName])) {
+                    $categoryPrices[$categoryName] = $price;
+                } else {
+                    $categoryPrices[$categoryName] += $price;
+                }
+            }
+    
+            return [
+                'categoryPrices' => $categoryPrices
+            ];
     }
 
 }
