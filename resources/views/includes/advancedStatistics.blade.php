@@ -14,10 +14,10 @@ FIX SELECT BY CATEGORY
                 <div class="card bg-dark text-light text-center" style="border: 1px solid lightgray">
                     <div class="card-body">
                         <div class="row">
-                            <p>Avarge income in your country: {{ $incomesWithTheSameCurrency }} {{ $currencySymbol }}</p>
+                            <p>Avarge income in your country: {{ $incomesAverage }} {{ $currencySymbol }}</p>
                         </div>
                         <div class="row mt-3">
-                            <p>Avarage spending in your country: {{ $spendingsWithTheSameCurrency }} {{ $currencySymbol }}
+                            <p>Avarage spending in your country: {{ $spendingsAverage }} {{ $currencySymbol }}
                             </p>
                         </div>
                     </div>

@@ -33,6 +33,7 @@ Auth::routes();
 
 /* This is the home route */
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/calculate', [HomeController::class, 'calculate'])->name('calculate');
 
 /* This is the check for username*/
 Route::post('/checkUsernameTaken', [RegisterController::class, 'checkNameIsTaken'])->name('username.check');

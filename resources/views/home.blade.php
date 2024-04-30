@@ -55,6 +55,42 @@
             <div class="col-2"></div>
         </div>
     </div>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('calculate') }}" method="POST">
+                            @csrf
+                            <label for="currency_id" id="symbol">1 {{ isset($fromSymbol) ? $fromSymbol : '' }}</label>
+                            <select id="currency" class="form-control" type="text" name="currency_id" value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                @foreach ($currencies as $currency)
+                                    <option value="{{ $currency->id }}">{{ $currency->name }} -
+                                    {{ $currency->symbol }}</option>
+                                 @endforeach
+                            </select>
+                            <label for="currency_id2" id="result">{{ isset($exchangeRate) ? $exchangeRate . ' ' . $toSymbol : '' }}</label>
+                            <select id="currency2" class="form-control" type="text" name="currency_id2" value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                @foreach ($currencies as $currency)
+                                    <option value="{{ $currency->id }}">{{ $currency->name }} -
+                                    {{ $currency->symbol }}</option>
+                                 @endforeach
+                            </select>
+                            <button class="btn btn-outline-success form-control" type="submit">Calculate</button>
+                        </form>
+                       
+   
+          
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
     <script>
         /* apexcharts pie */
         document.addEventListener('DOMContentLoaded', function() {

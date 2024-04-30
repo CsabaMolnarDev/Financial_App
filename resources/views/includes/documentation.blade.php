@@ -45,7 +45,19 @@
                             </div>
 
                             <div id="incomes" style="display: none;">
-                                Income Content
+                                <h3>Manage incomes</h3>
+                                <ul>
+                                    <li>On the <u>Incomes page</u> click on the button</li>
+                                </ul>
+                                <img class="docu-image"
+                                    src="{{ asset('storage/documentation_pictures/Manage income/AddNewIncome.png') }}"
+                                    alt="Add new income">
+                                <ul>
+                                    <li>Fill in the necessary field, and then submit </li>
+                                </ul>
+                                <img class="docu-image"
+                                    src="{{ asset('storage/documentation_pictures/Manage income/Fill_inCard.png') }}"
+                                    alt="Fill in every input field">
                             </div>
 
                             <div id="family" style="display: none;">
