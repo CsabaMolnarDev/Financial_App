@@ -1,12 +1,6 @@
 {{-- TODO:
 
-FIX family currency
-
-FIX $incomeCategoriesForAuthUserMonthly
-
-FIX  $spendingsWithTheSameCurrency
-
-FIX  $incomesWithTheSameCurrency
+FIX SELECT BY CATEGORY
 --}}
 
 
@@ -325,7 +319,6 @@ FIX  $incomesWithTheSameCurrency
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-
                                 @php
                                     $username = \App\Models\User::where('id', '=', $selectedFamilyMemberId)->value(
                                         'username',
@@ -333,12 +326,8 @@ FIX  $incomesWithTheSameCurrency
                                 @endphp
                                 User:
                                 <u>{{ $username }}</u>
-
-
                                 <p>Member Income for this month: {{ $memberIncome }} {{ $familyMemberCurrencySymbol }}
                                 </p>
-
-
                                 @foreach ($incomeCategoriesForChoosenUserMonthly as $category)
                                     <li>{{ $category->name }} -
                                         @php
@@ -352,15 +341,10 @@ FIX  $incomesWithTheSameCurrency
                                         {{ $totalIncomeForCategory }} {{ $familyMemberCurrencySymbol }}
                                     </li>
                                 @endforeach
-
-
                                 <hr>
-
                                 <p>Member Spending for this month: {{ $memberSpending }}
                                     {{ $familyMemberCurrencySymbol }}
                                 </p>
-
-
                                 @foreach ($spendingCategoriesForChoosenUserMonthly as $category)
                                     <li>{{ $category->name }} -
                                         @php
@@ -374,7 +358,12 @@ FIX  $incomesWithTheSameCurrency
                                         {{ $totalSpendingForCategory }} {{ $familyMemberCurrencySymbol }}
                                     </li>
                                 @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
+        </div>
     @endif
     {{-- Scripts --}}
     <script>
