@@ -252,7 +252,6 @@ FIX  $incomesWithTheSameCurrency
     @endif
     {{-- SELECT FAMILY MEMBER IF USER HAS FAMILY MEMBERS --}}
     @if ($familyMembers->count() > 1)
-        <button type="submit" class="btn btn-success advanced_detailsBTN">More details</button>
         <div id="advanced_details" class="hidden">
             <div class="container">
                 <div class="card bg-dark text-light">
