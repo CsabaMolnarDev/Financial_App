@@ -71,10 +71,10 @@
                                 @foreach ($finances as $item)
                                     <tr>
                                         {{-- @dd($categories[$item->category_id]) --}}
-                                        <td id="date">{{ $item->time }}</td>
-                                        <td id="category">{{ $item->category->name }}</td>
-                                        <td id="name">{{ $item->name }}</td>
-                                        <td id="price">{{ $item->price }}</td>
+                                        <td id="date" item_id="{{$item->id}}">{{ $item->time }}</td>
+                                        <td id="category_id" item_id="{{$item->id}}">{{ $item->category->name }}</td>
+                                        <td id="name" item_id="{{$item->id}}">{{ $item->name }}</td>
+                                        <td id="price" item_id="{{$item->id}}">{{ $item->price }}</td>
                                         <td>
                                             @if ($item->monthly)
                                             <form id="monthlyForm{{$item->id}}" action="{{ route('deleteMonthly', ['id' => $item->id]) }}" method="GET">
@@ -89,10 +89,12 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if(!$item->monthly)
                                             <form action="{{ route('deleteFinance', ['id' => $item->id]) }}" method="GET">
                                                 @csrf
                                                 <button class="btn btn-danger" type="submit">Delete</button>
                                             </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -345,23 +347,24 @@
                 var cell = $(this);
                 //console.log(obj.target.id);
                 var oldValue = cell.text();
+                console.log(obj.target)
                 if (obj.target.id == "name") {
-                    cell.html('<input type="text" class="form-control" value="' + oldValue + '">');
+                    cell.html('<input type="text" class="form-control" value="' + oldValue + '" item_id="'+obj.target.item_id+'">');
                     cell.find('input').focus();
                 } else if (obj.target.id == "price") {
-                    cell.html('<input type="number" class="form-control" value="' + oldValue + '">');
+                    cell.html('<input type="number" class="form-control" value="' + oldValue + '" item_id="'+obj.target.item_id+'">');
                     cell.find('input').focus();
                 }
                 
-                else if(obj.target.id == "category"){
-                    cell.html('<select class="form-control">'+
+                else if(obj.target.id == "category_id"){
+                    cell.html('<select class="form-control" item_id="'+obj.target.item_id+'">'+
                             '@for ($i=0;$i<count( $categories);$i++)'+
                             '<option value="{{$i}}" id="{{ $categories[$i]->id}}">{{ $categories[$i]->name}}</option>'+
                             '@endfor'+
                             '</select>');
                     cell.find('select').focus();
                 } else if (obj.target.id == "date") {
-                    cell.html('<input type="date" class="form-control" value="' + oldValue + '">');
+                    cell.html('<input type="date" class="form-control" value="' + oldValue + '" item_id="'+obj.target.item_id+'">');
                     cell.find('input').focus();
                 }
             });
@@ -370,6 +373,8 @@
             $('#spendingTable tbody').on('keydown', 'input', function(event) {
                 var cell = $(this).closest('td');
                 var keyCode = event.keyCode || event.which;
+                console.log(cell)
+                console.log(cell[0].attributes.item_id.value)
                 if (keyCode === 13) { // Enter key pressed
                     saveCellEdit(cell); // Call function to save cell edit
                 }
@@ -401,9 +406,9 @@
 
                 // Get row data and cell index for sending to server
                 var rowData = table.row(cell.closest('tr')).data();
-                var rowId = rowData.id;
-                var columnIndex = cell.index();
-
+                var rowId = cell[0].attributes.item_id.value;
+                var columnIndex = cell[0].attributes.id.value;
+                console.log(rowData);
                 // Send edited data to server via AJAX
                 sendEditData(rowId, columnIndex, newValue);
             }
@@ -416,11 +421,12 @@
 
                 // Get row data and cell index for sending to server
                 var rowData = table.row(cell.closest('tr')).data();
-                var rowId = rowData.id;
-                var columnIndex = cell.index();
-
+                var rowId = cell[0].attributes.item_id.value;
+                console.log(financesData[0].id)
+                var columnIndex = cell[0].attributes.id.value;
+                console.log(categories[newValue].id);
                 // Send edited data to server via AJAX
-                sendEditData(rowId, columnIndex, newValue);
+                 sendEditData(rowId, columnIndex, categories[newValue].id);
             }
 
 
@@ -430,17 +436,17 @@
                     url: '/editSpendingValue', // Replace with your route URL
                     method: 'POST',
                     data: {
-                        id: rowId,
-                        column: columnIndex,
-                        value: newValue,
+                        "row": rowId,
+                        "column": columnIndex,
+                        "value": newValue,
                         '_token': '{{ csrf_token() }}',
                     },
                     success: function(response) {
-                        console.log(response);
+                        console.log({response});
                         // Handle success response from server if needed
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        console.error({xhr, status, error});
                         // Handle error response from server if needed
                     }
                 });
