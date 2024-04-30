@@ -27,15 +27,22 @@ class IncomeController extends Controller
     public function index()
     {
         $userId = Auth::id();
+        $user = Auth::user();
         $finances = Finance::where('type','Income')->where('user_id', $userId)->get();
-        $categoryIdys = $finances->pluck('category_id')->unique();
-        $categories = Category::whereIn('id', $categoryIdys)->pluck('name', 'id');
+        $categories = Category::where(function($query) use ($user) {
+            $query->where('owner_id', 0)
+                  ->where('type', 'income');
+        })
+        ->orWhere(function($query) use ($user) {
+            $query->where('owner_id', $user->id)
+                  ->where('type', 'income');
+        })->get();
         $user = auth()->user();
         $currencySymbol = $user->currency->symbol;
         return view('includes.income', [
             'finances' => $finances,
             'categories' => $categories,
-            'currencySymbol' => $currencySymbol
+            'currencySymbol' => $currencySymbol,
         ]);
     }
     public function addCategory(Request $request)
@@ -71,18 +78,23 @@ class IncomeController extends Controller
             'currency' => $user->currency->symbol]);
     }
 
-    public function editSpendingValue(Request $request)
+    public function editIncomeValue(Request $request)
     {
-        dd($request);
-        $id = $request->input('id');
-        $column = $request->input('column');
-        $value = $request->input('value');
+        $request->validate([
+            'row' => 'required',
+            'column' => 'required',
+            'value' => 'required',
+        ]);
 
-      /*   $finance = Finance::findOrFail($id);
+        $id = $request->row;
+        $column = $request->column;
+        $value = $request->value;
+
+        $finance = Finance::findOrFail($id);
         $finance->$column = $value;
         $finance->save();
 
-        return response()->json(['success' => true]); */
+        return response()->json(['success' => true]); 
     }
 
     public function deleteFinance($id)

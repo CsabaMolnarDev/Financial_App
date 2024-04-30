@@ -85,16 +85,21 @@ class SpendingController extends Controller
 
     public function editSpendingValue(Request $request)
     {
-        dd($request);
-        $id = $request->input('id');
-        $column = $request->input('column');
-        $value = $request->input('value');
+        $request->validate([
+            'row' => 'required',
+            'column' => 'required',
+            'value' => 'required',
+        ]);
 
-      /*   $finance = Finance::findOrFail($id);
+        $id = $request->row;
+        $column = $request->column;
+        $value = $request->value;
+
+        $finance = Finance::findOrFail($id);
         $finance->$column = $value;
         $finance->save();
 
-        return response()->json(['success' => true]); */
+        return response()->json(['success' => true]); 
     }
 
     public function deleteFinance($id)

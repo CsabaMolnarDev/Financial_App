@@ -61,6 +61,7 @@ Route::post('/finances', [FinanceController::class, 'store'])->name('finances.st
 Route::get('/income', [IncomeController::class, 'index'])->name('income');
 /* This is the income create */
 Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCreate');
+Route::post('/editIncomeValue', [IncomeController::class, 'editIncomeValue'])->name('editIncomeValue');
 /* This is the spending route */
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
 
