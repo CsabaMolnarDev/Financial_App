@@ -442,8 +442,11 @@
                         '_token': '{{ csrf_token() }}',
                     },
                     success: function(response) {
-                        console.log({response});
-                        // Handle success response from server if needed
+                        if(response.success) {
+                            if(response.refresh) {
+                                location.reload();
+                            }
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error({xhr, status, error});
