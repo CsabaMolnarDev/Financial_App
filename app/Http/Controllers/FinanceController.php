@@ -36,9 +36,9 @@ class FinanceController extends Controller
     public function store(StoreFinanceRequest $request)
     {
         $bool = str_contains(url()->previous(), 'spending');
-        if($request->category_id == null)
+        if($request->category_id == null ||$request->name == null ||$request->price == null)
         {
-            toastr()->warning("Please choose a category");
+            toastr()->warning("Please fill in each field");
             return back();
         }
 
@@ -51,7 +51,6 @@ class FinanceController extends Controller
             'category_id'=> $request->category_id,
             'currency_id' =>auth()->user()->currency_id
             ]);
-            /* TODO:prevent form submission, if the user selects the add new category option, maybe toastr warning */
             $finance->save();
             if($request->monthly){
                 Monthly::create([

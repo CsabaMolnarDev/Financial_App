@@ -15,6 +15,7 @@ use App\Models\FamilyInvitations;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FamilyInvitationMail;
+use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
 
 
 
@@ -88,9 +89,22 @@ class SettingsController extends Controller
         $request->validate([
             'newCurrency' => 'required|exists:currencies,id'
         ]);
+        $currencyFrom  = auth()->user()->currency->code;
+
         $user = auth()->user();
         $user->currency_id = $request->newCurrency;
-        $user->save();
+        $user->save(); 
+     
+        $currencyTo  = Currency::find($request->newCurrency)->code;
+        $exchangeRate = app(ExchangeRate::class)->exchangeRate($currencyFrom, $currencyTo);
+        $userFinances = Finance::where('user_id', $user->id)->get();
+       foreach ($userFinances as $finance) {
+            $finance->price = $finance->price * $exchangeRate; 
+            $finance->save();
+            
+        }  
+        //1.10086,
+
         toastr()->success("Currency changed successfully");
         return back();
     }
