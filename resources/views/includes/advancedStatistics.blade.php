@@ -11,6 +11,9 @@
             <div class="col-6">
                 <div class="card bg-dark text-light" style="border: 1px solid lightgray">
                     <div class="card-body">
+                        <p>Avarge income in your country: {{ $incomesWithTheSameCurrency }} {{ $currencySymbol }}</p>
+                        <br>
+                        <p>Avarage spending in your country: {{ $spendingsWithTheSameCurrency }} {{ $currencySymbol }}</p>
                         @if (!auth()->user()->family || (auth()->user()->family && $familyMembers->count() == 1))
                             @php
                                 $totalIncome = 0;
