@@ -91,9 +91,6 @@
         </div>
     </div>
     <script>
-        /* Background image */
-        document.body.style.backgroundImage = "url('../storage/pictures/about.jpg')";
-
         const wrapper = document.querySelector(".wrapper");
         const carousel = document.querySelector(".carousel");
         const firstCardWidth = carousel.querySelector(".card").offsetWidth;

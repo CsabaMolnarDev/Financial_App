@@ -233,7 +233,8 @@
                                                 <form action="{{ route('deleteFamilyMember', ['id' => $member->id]) }}"
                                                     method="GET">
                                                     @csrf
-                                                    <p>{{ $member->fullname }}: <button type="submit"
+                                                    <p class="mt-3">{{ $member->fullname }}: <button
+                                                            class="btn btn-outline-primary" type="submit"
                                                             id="deleteFamilyMember">-</button></p>
                                                 </form>
                                             @endif
