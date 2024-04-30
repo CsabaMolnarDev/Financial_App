@@ -29,18 +29,18 @@ class NotifyCommand extends Command
      */
     public function handle()
     {
-        
+
         //iterate over the users by chunks, its optimal for bigger user base
         \Log::info("NotifyCommand is running.");
         User::chunk(50, function ($users){
             foreach ($users as $user) {
                 $userTime = Carbon::now()->setTimezone($user->timezone);
-                
-                if($userTime->hour == 12){
+
+                if($userTime->hour == 18){
                     Mail::to($user->email)->send(new NotificationMail());
                 }
             }
-            
+
         });
     }
 }

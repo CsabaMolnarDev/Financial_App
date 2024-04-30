@@ -45,17 +45,24 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
-                <div class="card text-center text-light bg-dark">
-                    <div class="card-header">
-                        <h3>Calendar comes here</h3>
+                <div class="card text-light bg-dark">
+                    <div class="card-body">
+                        <div id="calendar">
+                        </div>
                     </div>
-                    <div class="card-body"></div>
                 </div>
             </div>
             <div class="col-2"></div>
         </div>
     </div>
     <script>
-        /* Apexcharts pie diagram script comes here */
+        /* apexcharts pie */
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            calendar.render();
+        });
     </script>
 @endsection

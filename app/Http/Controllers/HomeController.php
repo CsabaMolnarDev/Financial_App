@@ -25,8 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-        $usersCount = DB::table('users')->count();
-        return view('home',['usersCount'=>$usersCount]);
+        return view('home');
     }
 }

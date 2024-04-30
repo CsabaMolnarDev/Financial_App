@@ -18,18 +18,18 @@ class AdvancedStatisticsController extends Controller
     protected $spendingCategoriesForAuthUserMonthly;
     public function index()
     {
-    
-        
+
+
         $currentDate = Carbon::now();
         $currentMonth = $currentDate->month;
         $currentYear = $currentDate->year;
         $userId = Auth::id();
         $incomes = Finance::where('type','Income')->where('user_id', $userId)->get();
         $spendings = Finance::where('type','Spending')->where('user_id', $userId)->get();
-        
+
         $currencySymbol = auth()->user()->currency->symbol;
         $familyMembers = User::where('family_id', auth()->user()->family_id)
-                     ->whereNotNull('family_id') 
+                     ->whereNotNull('family_id')
                      ->get();
 
         $familyCurrencySymbols = [];
@@ -49,7 +49,7 @@ class AdvancedStatisticsController extends Controller
 
             $totalIncome += $memberIncome;
             $totalSpending += $memberSpending;
-            
+
         }
         //dropdowns
         //spending categories
@@ -84,7 +84,7 @@ class AdvancedStatisticsController extends Controller
             $query->where('categories.owner_id', '=', 0)
                 ->orWhere('categories.owner_id', '=', $userId);
         })
-        ->where('finances.user_id', '=', $userId) 
+        ->where('finances.user_id', '=', $userId)
         ->select('categories.*')
         ->distinct()
         ->get();
@@ -117,7 +117,7 @@ class AdvancedStatisticsController extends Controller
         ->distinct()
         ->get();
 
-   
+
         return view('includes.advancedStatistics', [
             'incomes' => $incomes,
             'spendings' => $spendings,
@@ -148,7 +148,7 @@ class AdvancedStatisticsController extends Controller
             $filteredIncomes = $indexData['incomes']->where('category_id', $categoryId);
             $filteredSpendings = $indexData['spendings']->where('category_id', $categoryId);
 
-            // Calculate total income and total spending for the selected category based on its type, if the selected category is spending then the totalIncomeForCategory will return null 
+            // Calculate total income and total spending for the selected category based on its type, if the selected category is spending then the totalIncomeForCategory will return null
             $totalIncomeForCategory = $category->type === 'income' ? $filteredIncomes->sum('price') : null;
             $totalSpendingForCategory = $category->type === 'spending' ? $filteredSpendings->sum('price') : null;
 
@@ -166,10 +166,10 @@ class AdvancedStatisticsController extends Controller
                 'selected_category' => $category,
                 'totalIncomeForCategory' => $totalIncomeForCategory,
                 'totalSpendingForCategory' => $totalSpendingForCategory,
-                'filteredIncomes' => $filteredIncomes, 
-                'filteredSpendings' => $filteredSpendings, 
+                'filteredIncomes' => $filteredIncomes,
+                'filteredSpendings' => $filteredSpendings,
                 ]);
-        } 
+        }
     }
     function handleFamilyForm(Request $request)
     {
@@ -180,17 +180,17 @@ class AdvancedStatisticsController extends Controller
 
         $authUserId = auth()->user()->id;
         $selectedFamilyMember = $request->input('familymember');
-        $familymember = User::find($selectedFamilyMember); 
+        $familymember = User::find($selectedFamilyMember);
         $indexData = $this->index();
         $memberIncome = Finance::where('user_id', $selectedFamilyMember)->where('type', 'Income')->whereMonth('time', $currentMonth)->whereYear('time', $currentYear)->sum('price');
         $memberSpending = Finance::where('user_id', $selectedFamilyMember)->where('type', 'Spending')->whereMonth('time', $currentMonth)->whereYear('time', $currentYear)->sum('price');
         $familyMemberCurrencySymbol = $familymember->currency->symbol;
         $selectedFamilyMemberId = $familymember->id;
 
-       
+
         $incomeCategoriesForAuthUserMonthly = $this->incomeCategoriesForAuthUserMonthly;
         $spendingCategoriesForAuthUserMonthly = $this->spendingCategoriesForAuthUserMonthly;
-        
+
 
 
         $incomeCategoriesForChoosenUserMonthly = Category::join('finances', 'categories.id', '=', 'finances.category_id')
@@ -199,9 +199,9 @@ class AdvancedStatisticsController extends Controller
                     $query->where('categories.owner_id', '=', 0)
                         ->orWhere('categories.owner_id', '=', $selectedFamilyMemberId);
                 })
-                ->where('finances.user_id', '=', $selectedFamilyMemberId) 
-                ->whereMonth('finances.time', '=', $currentMonth) 
-                ->whereYear('finances.time', '=', $currentYear)   
+                ->where('finances.user_id', '=', $selectedFamilyMemberId)
+                ->whereMonth('finances.time', '=', $currentMonth)
+                ->whereYear('finances.time', '=', $currentYear)
                 ->select('categories.*')
                 ->distinct()
                 ->get();
@@ -212,17 +212,18 @@ class AdvancedStatisticsController extends Controller
                     $query->where('categories.owner_id', '=', 0)
                         ->orWhere('categories.owner_id', '=', $selectedFamilyMemberId);
                 })
-                ->where('finances.user_id', '=', $selectedFamilyMemberId) 
-                ->whereMonth('finances.time', '=', $currentMonth) 
-                ->whereYear('finances.time', '=', $currentYear) 
+                ->where('finances.user_id', '=', $selectedFamilyMemberId)
+                ->whereMonth('finances.time', '=', $currentMonth)
+                ->whereYear('finances.time', '=', $currentYear)
                 ->select('categories.*')
                 ->distinct()
                 ->get();
 
+                $spendingsWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg();
+                $incomesWithTheSameCurrency = Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg();
 
 
 
-        
             return view('includes.advancedStatistics', [
                 'selectedFamilyMemberId' => $selectedFamilyMemberId,
                 'memberIncome' => $memberIncome,
@@ -232,6 +233,8 @@ class AdvancedStatisticsController extends Controller
                 'spendingCategoriesForChoosenUserMonthly' => $spendingCategoriesForChoosenUserMonthly,
                 'incomeCategoriesForAuthUserMonthly' => $incomeCategoriesForAuthUserMonthly,
                 'spendingCategoriesForAuthUserMonthly' => $spendingCategoriesForAuthUserMonthly,
+                'spendingsWithTheSameCurrency' =>round($spendingsWithTheSameCurrency, 3),
+                'incomesWithTheSameCurrency' => round($incomesWithTheSameCurrency, 3),
                 'incomes' => $indexData['incomes'],
                 'spendings' => $indexData['spendings'],
                 'currencySymbol' => $indexData['currencySymbol'],
