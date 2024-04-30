@@ -29,7 +29,7 @@
                         </div>
                         <div class="row mt-3">
                             <div id="spendings" style="display: none;">
-                                Spending Content
+                                
                             </div>
 
                             <div id="incomes" style="display: none;">
