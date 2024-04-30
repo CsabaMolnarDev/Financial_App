@@ -99,7 +99,7 @@ class SpendingController extends Controller
         $finance->$column = $value;
         $finance->save();
 
-        return response()->json(['success' => true]); 
+        return response()->json(['success' => true, 'refresh' => true]); 
     }
 
     public function deleteFinance($id)
