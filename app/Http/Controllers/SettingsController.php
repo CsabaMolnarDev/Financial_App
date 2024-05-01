@@ -93,16 +93,16 @@ class SettingsController extends Controller
 
         $user = auth()->user();
         $user->currency_id = $request->newCurrency;
-        $user->save(); 
-     
+        $user->save();
+
         $currencyTo  = Currency::find($request->newCurrency)->code;
         $exchangeRate = app(ExchangeRate::class)->exchangeRate($currencyFrom, $currencyTo);
         $userFinances = Finance::where('user_id', $user->id)->get();
        foreach ($userFinances as $finance) {
-            $finance->price = $finance->price * $exchangeRate; 
+            $finance->price = $finance->price * $exchangeRate;
             $finance->save();
-            
-        }  
+
+        }
         //1.10086,
 
         toastr()->success("Currency changed successfully");
@@ -120,7 +120,7 @@ class SettingsController extends Controller
         toastr()->success('Notification settings updated successfully');
         return back();
 
-      
+
     }
     public function changePhone(Request $request)
     {
@@ -128,12 +128,12 @@ class SettingsController extends Controller
             'newPhone' => 'required|string|unique:users,phone'
         ]);
 
-        
+
             $phone = $request->newPhone;
             $numbers="";
             $firstchar=true;
             $request->newPhone=null;
-            for ($i=0; $i < strlen($phone); $i++) { 
+            for ($i=0; $i < strlen($phone); $i++) {
                 if(!$firstchar){
                     if(is_numeric($phone[$i])){
                         $numbers.=strval($phone[$i]);
@@ -159,13 +159,13 @@ class SettingsController extends Controller
 
     public function createFamily()
     {
-        
-        $user = auth()->user(); 
+
+        $user = auth()->user();
         //we can only have 1 family, so if you already have 1 you can't create
         if($user->family_id == null)
         {
             $userSplittedName = explode(" ", $user->fullname);
-        
+
             $family = new Family();
             $family->name = $userSplittedName[0];
             $family->creator_Id = $user->id;
@@ -178,7 +178,7 @@ class SettingsController extends Controller
         else {
             toastr()->warning('You already have family created');
             return back();
-        }  
+        }
     }
 
     public function checkIfUserExists(Request $request)
@@ -192,23 +192,23 @@ class SettingsController extends Controller
                 'message' => 'User not found',
             ]);
         }
-        
+
         $userFamilyId = auth()->user()->family_id;
         $inviteduser = User::where('username', $username)
                    ->where('family_id', $userFamilyId)
-                   ->whereNotNull('family_id') 
+                   ->whereNotNull('family_id')
                    ->first();
         if ($inviteduser) {
             return response()->json([
                 'status' => 'failed2',
                 'message' => 'User is already in your family',
-            ]);    
+            ]);
         }
 
         return response()->json([
             'status' => 'success',
         ]);
-       
+
     }
 
     public function deleteFamily()
@@ -217,7 +217,7 @@ class SettingsController extends Controller
         $userFamilyId = $user->family_id;
         $deleteFamily = Family::where('id', '=', $userFamilyId)->delete();
         $deleteFamilyMembers = User::where('family_id', '=', $userFamilyId)->update(['family_id' => null]);
-        
+
 
         toastr()->success("Family deleted");
         return back();
@@ -247,7 +247,8 @@ class SettingsController extends Controller
             'status' => 'pending',
             'sender_id' => $user->id
         ]);
-        Mail::to($joininguser->email)->send(new FamilyInvitationMail($invitation));
+        $username = auth()->user()->username;
+        Mail::to($joininguser->email)->send(new FamilyInvitationMail($invitation, $username));
         toastr()->success("Join request sent");
         return back();
     }
