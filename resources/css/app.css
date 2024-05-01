@@ -225,6 +225,12 @@ html {
 }
 
 /* homepage */
+.pie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .homeContainer {
     display: flex;
     align-items: center;
