@@ -68,35 +68,53 @@
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="card">
+                <div class="card text-light bg-dark">
+                    <div class="card-header">
+                        <h3 class="text-center">Exchange currency</h3>
+                    </div>
                     <div class="card-body">
                         <form action="{{ route('calculate') }}" method="POST">
                             @csrf
-                            <label for="currency_id" id="symbol">1 {{ isset($fromSymbol) ? $fromSymbol : '' }}</label>
-                            <select id="currency" class="form-control" type="text" name="currency_id"
-                                value="{{ old('currency') }}" required autocomplete="currency" autofocus>
-                                <option value="" disabled selected hidden>Please Choose...</option>
-                                @foreach ($currencies as $currency)
-                                    <option value="{{ $currency->id }}">{{ $currency->name }} -
-                                        {{ $currency->symbol }}</option>
-                                @endforeach
-                            </select>
-                            <label for="currency_id2"
-                                id="result">{{ isset($exchangeRate) ? $exchangeRate . ' ' . $toSymbol : '' }}</label>
-                            <select id="currency2" class="form-control" type="text" name="currency_id2"
-                                value="{{ old('currency') }}" required autocomplete="currency" autofocus>
-                                <option value="" disabled selected hidden>Please Choose...</option>
-                                @foreach ($currencies as $currency)
-                                    <option value="{{ $currency->id }}">{{ $currency->name }} -
-                                        {{ $currency->symbol }}</option>
-                                @endforeach
-                            </select>
-                            <button class="btn btn-outline-success form-control" type="submit">Calculate</button>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-1">
+                                    <label for="currency_id" id="symbol">1
+                                        {{ isset($fromSymbol) ? $fromSymbol : '' }}</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <select id="currency" class="form-control" type="text" name="currency_id"
+                                        value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+                                        <option value="" disabled selected hidden>Please Choose...</option>
+                                        @foreach ($currencies as $currency)
+                                            <option value="{{ $currency->id }}">{{ $currency->name }} -
+                                                {{ $currency->symbol }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="currency_id2"
+                                        id="result">{{ isset($exchangeRate) ? $exchangeRate . ' ' . $toSymbol : '' }}</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <select id="currency2" class="form-control" type="text" name="currency_id2"
+                                        value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+                                        <option value="" disabled selected hidden>Please Choose...</option>
+                                        @foreach ($currencies as $currency)
+                                            <option value="{{ $currency->id }}">{{ $currency->name }} -
+                                                {{ $currency->symbol }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-success form-control" type="submit">Calculate</button>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
                         </form>
-
-
-
-
                     </div>
                 </div>
             </div>
