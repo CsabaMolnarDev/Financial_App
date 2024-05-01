@@ -42,11 +42,15 @@ class HomeController extends Controller
         
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
         $familyIncomes = $familyIncomesCall['articles'];   
+
+        $familySpendingCall = $this->generateFamilySpendingArticles();
+        $familySpending = $familySpendingCall['articles2'];
         return view('home', [
             'currencies' => $currencies,
             'incomeCategoryPrices' => $incomeCategoryPrices,
             'spendingCategoryPrices' => $spendingCategoryPrices,
-            'familyIncomes' => $familyIncomes
+            'familyIncomes' => $familyIncomes,
+            'familySpending' => $familySpending
 
         ]);
     }
@@ -60,6 +64,12 @@ class HomeController extends Controller
         $incomeFunc = $this->incomeGraphData();
         $incomeCategoryPrices = $incomeFunc['categoryPrices'];
 
+        //family data
+        $familyIncomesCall = $this->generateFamilyIncomeArticles();
+        $familyIncomes = $familyIncomesCall['articles']; 
+        
+        $familySpendingCall = $this->generateFamilySpendingArticles();
+        $familySpending = $familySpendingCall['articles2'];  
 
         $from = Currency::find($request->currency_id)->code;
         $fromSymbol = Currency::find($request->currency_id)->symbol;
@@ -73,7 +83,10 @@ class HomeController extends Controller
             'currencies' => $currencies,
             //graphicon data
             'incomeCategoryPrices' => $incomeCategoryPrices,
-            'spendingCategoryPrices' => $spendingCategoryPrices
+            'spendingCategoryPrices' => $spendingCategoryPrices,
+            'familyIncomes' => $familyIncomes,
+            'familySpending' => $familySpending
+
         ]);
     }
  
@@ -172,6 +185,32 @@ class HomeController extends Controller
     
         return [
             'articles' => $articles
+        ];
+
+    }
+    public function generateFamilySpendingArticles()
+    {
+        
+        $users = User::whereNotNull('family_id')->get();
+        
+        $articles = [];
+        
+        foreach ($users as $user) {
+            $familySpending = $user->finances()
+                ->where('type', 'Spending')
+                ->whereMonth('time', now()->month)
+                ->whereYear('time', now()->year)
+                ->sum('price');
+            
+            $articles[] = [
+                'user_id' => $user->id,
+                'user_fullname' => $user->fullname,
+                'family_income' => $familySpending ,
+            ];
+        }
+    
+        return [
+            'articles2' => $articles
         ];
 
     }

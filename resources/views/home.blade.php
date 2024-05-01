@@ -7,13 +7,13 @@
             <div class="col-md-4">
                 <div class="card bg-dark text-light">
                     <div class="card-header text-center">
-                        <h3>Montly Income</h3>
+                        <h3>Monthly Income</h3>
                     </div>
                     <div class="card-body text-center">
-                        <div class="row" id="pie">
+                        <div class="row" id="income">
                             {{-- Use apexcharts --}}
-                            @if (auth()->user()->finances()->where('type', 'Income')->exists())
-                                <div id="income"></div>
+                            @if (auth()->user()->finances()->where('type', 'Income')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
+                                <div id="incomeChart"></div>
                             @else
                                 <p>You have not added income yet</p>
                             @endif
@@ -31,10 +31,10 @@
                         <h3>Montly Spending</h3>
                     </div>
                     <div class="card-body text-center">
-                        <div class="row" id="pie">
+                        <div class="row" id="spending">
                             {{-- Use apexcharts --}}
-                            @if (auth()->user()->finances()->where('type', 'Spending')->exists())
-                                <div id="spending"></div>
+                            @if (auth()->user()->finances()->where('type', 'Spending')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
+                                <div id="spendingChart"></div>
                             @else
                                 <p>You have not added spending yet</p>
                             @endif
@@ -50,47 +50,53 @@
             <div class="col-md-2"></div>
         </div>
     </div>
-    {{-- TODO: This container is made for Ricsi --}}
-    {{-- <div class="container mt-3">
+    
+  
+    <div class="container mt-3">
         <div class="row gy-3">
             <div class="col-md-2"></div>
-            <div class="col-md-4">
-                <div class="card bg-dark text-light">
-                    <div class="card-header text-center">
-                        <h3>// Tittle </h3>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="row" id="pie">
-                            // Use apexcharts
+            @if (auth()->user()->family && !empty($familyIncomes))
 
+         
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light">
+                        <div class="card-header text-center">
+                            <h3>Family Incomes</h3>
                         </div>
-                        <div class="row">
-                            // button
+                        <div class="card-body text-center">
+                            <div class="row" id="familyIncome">
+                                <div id="familyIncomeChart"></div>
+                            </div>
+                            <div class="row">
+                            {{--  button --}}
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-dark text-light">
-                    <div class="card-header text-center">
-                        <h3>// Tittle </h3>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="row" id="pie">
-                            // Use apexcharts
-
-                        </div>
-                        <div class="row">
-                            // button
-
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
+            
+            @if (auth()->user()->family && !empty($familySpending))
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light">
+                        <div class="card-header text-center">
+                            <h3>Family Spendings</h3>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row" id="familySpending">
+                                <div id="familySpendingChart"></div>
+                            </div>
+                            <div class="row">
+                                {{-- button --}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            @endif
             <div class="col-md-2"></div>
         </div>
-    </div> --}}
+    </div> 
     <div class="container mt-3">
         <div class="row gy-3">
             <div class="col-md-2"></div>
@@ -169,7 +175,7 @@
 
         /* Graphs: */
         /* Pie graph */
-        var options = {
+        var spendingOptions = {
             chart: {
                 type: 'pie',
                 width: 300,
@@ -210,10 +216,8 @@
         };
 
         /* render apexcharts */
-        var chart = new ApexCharts(document.querySelector('#spending'), options);
-        chart.render();
-
-
+        var spendingChart = new ApexCharts(document.querySelector('#spendingChart'), spendingOptions);
+        spendingChart.render();
 
         /* Functions: */
         // Fetch the category prices data from PHP
@@ -221,7 +225,7 @@
 
         /* Graphs: */
         /* Pie graph */
-        var options = {
+        var incomeOptions = {
             chart: {
                 type: 'pie',
                 width: 300,
@@ -262,18 +266,21 @@
         };
 
         /* render apexcharts */
-       /* Graphs: */
+        var incomeChart = new ApexCharts(document.querySelector('#incomeChart'), incomeOptions);
+        incomeChart.render();
+
+        /* Graphs: */
         /* Pie graph */
         var familyIncomes = @json($familyIncomes);
-        var labels = [];
-        var series = [];
+        var familyIncomeLabels = [];
+        var familyIncomeSeries = [];
 
         for (var i = 0; i < familyIncomes.length; i++) {
-            labels.push(familyIncomes[i].user_fullname);
-            series.push(familyIncomes[i].family_income);
+            familyIncomeLabels.push(familyIncomes[i].user_fullname);
+            familyIncomeSeries.push(familyIncomes[i].family_income);
         }
 
-        var options = {
+        var familyIncomeOptions = {
             chart: {
                 type: 'pie',
                 width: 400,
@@ -281,13 +288,41 @@
                 /* Fontcolor */
                 foreColor: '#FBFBFB',
             },
-            labels: labels,
-            series: series,
+            labels: familyIncomeLabels,
+            series: familyIncomeSeries,
             // Other options...
         };
 
-        var chart = new ApexCharts(document.querySelector('#familyIncome'), options);
-        chart.render();
+        var familyIncomeChart = new ApexCharts(document.querySelector('#familyIncomeChart'), familyIncomeOptions);
+        familyIncomeChart.render();
+
+
+
+        //familySpending
+        var familySpending = @json($familySpending);
+        var familySpendingLabels = [];
+        var familySpendingSeries = [];
+
+        for (var i = 0; i < familySpending.length; i++) {
+            familySpendingLabels.push(familySpending[i].user_fullname);
+            familySpendingSeries.push(familySpending[i].family_income);
+        }
+
+        var familySpendingOptions = {
+            chart: {
+                type: 'pie',
+                width: 400,
+                height: 400,
+                /* Fontcolor */
+                foreColor: '#FBFBFB',
+            },
+            labels: familySpendingLabels,
+            series: familySpendingSeries,
+            // Other options...
+        };
+
+        var familySpendingChart = new ApexCharts(document.querySelector('#familySpendingChart'), familySpendingOptions);
+        familySpendingChart.render();
 
         //calendar
         document.addEventListener('DOMContentLoaded', function() {
