@@ -131,8 +131,6 @@ html {
 /* spending page */
 
 #financeCard {
-    border: 3;
-    border-color: lightgray;
     margin-bottom: 2vh;
 }
 
@@ -175,7 +173,6 @@ html {
 
 .specialcard {
     width: 150px;
-    border: 1px solid lightgray;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -225,6 +222,12 @@ html {
 }
 
 /* homepage */
+.pie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .homeContainer {
     display: flex;
     align-items: center;

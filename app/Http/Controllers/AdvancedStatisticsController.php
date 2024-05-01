@@ -33,9 +33,9 @@ class AdvancedStatisticsController extends Controller
                      ->whereNotNull('family_id')
                      ->get();
 
-       
-        
-        
+
+
+
         $familyCurrencySymbols = [];
         foreach ($familyMembers as $member) {
             $familyCurrencySymbols[$member->id] = $member->currency->symbol;
@@ -249,7 +249,7 @@ class AdvancedStatisticsController extends Controller
                 $result = $this->AvarageWithTheSameCurrency();
                 $spendingsAverage = $result['spendingsWithTheSameCurrency'];
                 $incomesAverage = $result['incomesWithTheSameCurrency'];
-        
+
             return view('includes.advancedStatistics', [
                 'selectedFamilyMemberId' => $selectedFamilyMemberId,
                 'memberIncome' => $memberIncome,

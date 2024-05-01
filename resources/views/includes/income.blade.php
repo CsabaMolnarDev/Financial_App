@@ -8,18 +8,18 @@
     <div class="container">
         {{-- Add new button --}}
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6 text-center" id="financeButton">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 text-center" id="financeButton">
                 <button class="btn btn-success" onclick="window.location=' {{ url('/incomeCreate') }} '">Add new
                     income</button>
             </div>
-            <div class="col-3"></div>
+            <div class="col-lg-3"></div>
         </div>
         @if ($finances->isNotEmpty())
             <div class="card bg-dark " id="financeCard">
                 {{-- Header --}}
                 <div class="card-header">
-                    <div class="col-12 text-light">
+                    <div class="col-lg-12 text-light">
                         <h1>Incomes by categories</h1>
                     </div>
                 </div>
@@ -28,11 +28,11 @@
                     {{-- graphs --}}
                     <div class="row">
                         {{-- Pie --}}
-                        <div class="col-4">
+                        <div class="col-lg-4">
                             <div id="chart"></div>
                         </div>
                         {{-- Line --}}
-                        <div class="col-8">
+                        <div class="col-lg-8">
                             <div id ="monthlyByCategories"></div>
                         </div>
                     </div>
@@ -40,10 +40,10 @@
                 {{-- Footer --}}
                 <div class="card-footer text-light">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-lg-6">
                             <h1 id="avarage"></h1>
                         </div>
-                        <div class="col-6">
+                        <div class="col-lg-6">
                             <h1 id="sum"></h1>
                         </div>
                     </div>
@@ -71,29 +71,36 @@
                                 @foreach ($finances as $item)
                                     <tr>
                                         {{-- @dd($categories[$item->category_id]) --}}
-                                        <td id="date" item_id="{{$item->id}}">{{ $item->time }}</td>
-                                        <td id="category_id" item_id="{{$item->id}}">{{ $item->category->name }}</td>
-                                        <td id="name" item_id="{{$item->id}}">{{ $item->name }}</td>
-                                        <td id="price" item_id="{{$item->id}}">{{ $item->price }}</td>
+                                        <td id="date" item_id="{{ $item->id }}">{{ $item->time }}</td>
+                                        <td id="category_id" item_id="{{ $item->id }}">{{ $item->category->name }}</td>
+                                        <td id="name" item_id="{{ $item->id }}">{{ $item->name }}</td>
+                                        <td id="price" item_id="{{ $item->id }}">{{ $item->price }}</td>
                                         <td>
                                             @if ($item->monthly)
-                                            <form id="monthlyForm{{$item->id}}" action="{{ route('deleteMonthly', ['id' => $item->id]) }}" method="GET">
-                                                @csrf
-                                                <input type="checkbox" name="monthly" id="monthly" checked onchange="submitForm({{$item->id}})">
-                                            </form>
+                                                <form id="monthlyForm{{ $item->id }}"
+                                                    action="{{ route('deleteMonthly', ['id' => $item->id]) }}"
+                                                    method="GET">
+                                                    @csrf
+                                                    <input type="checkbox" name="monthly" id="monthly" checked
+                                                        onchange="submitForm({{ $item->id }})">
+                                                </form>
                                             @else
-                                                <form id="monthlyForm{{$item->id}}" action="{{route('createMonthly', ['id' => $item->id])}}" method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                <input type="checkbox" name="monthly" id="monthly" onchange="submitForm({{$item->id}})">
+                                                <form id="monthlyForm{{ $item->id }}"
+                                                    action="{{ route('createMonthly', ['id' => $item->id]) }}"
+                                                    method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="checkbox" name="monthly" id="monthly"
+                                                        onchange="submitForm({{ $item->id }})">
                                                 </form>
                                             @endif
                                         </td>
                                         <td>
-                                            @if(!$item->monthly)
-                                            <form action="{{ route('deleteFinance', ['id' => $item->id]) }}" method="GET">
-                                                @csrf
-                                                <button class="btn btn-danger" type="submit">Delete</button>
-                                            </form>
+                                            @if (!$item->monthly)
+                                                <form action="{{ route('deleteFinance', ['id' => $item->id]) }}"
+                                                    method="GET">
+                                                    @csrf
+                                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                                </form>
                                             @endif
                                         </td>
                                     </tr>
@@ -112,15 +119,15 @@
         //user associated categories php array to json string
         var categoryPrices = {};
         for (let i = 0; i < financesData.length; i++) {
-            const element = financesData[i];  
-                var categoryName = element.category.name;
-                var price = element.price;
-                /* checks if the category has been already added */
-                if (!categoryPrices[categoryName]) {
-                    categoryPrices[categoryName] = price;
-                } else {
-                    categoryPrices[categoryName] += price;
-                }
+            const element = financesData[i];
+            var categoryName = element.category.name;
+            var price = element.price;
+            /* checks if the category has been already added */
+            if (!categoryPrices[categoryName]) {
+                categoryPrices[categoryName] = price;
+            } else {
+                categoryPrices[categoryName] += price;
+            }
         };
         /* passing the data to the apexcharts */
         /* The date inside the graphs */
@@ -214,19 +221,14 @@
             },
             /* Categories list */
             legend: {
-                position: "right",
-                verticalAlign: "top",
-                containerMargin: {
-                    left: 35,
-                    right: 35,
-                }
+                show: false
             },
             labels: Object.keys(categoryPrices),
             series: Object.values(categoryPrices),
             /* Here we can adjust the setting to make it responsive */
             responsive: [{
                 // breakepoint in px.... when the window size goes under this, the graph changes
-                breakpoint: 1000,
+                breakpoint: 1200,
                 // options for the changed responsive graph
                 options: {
                     plotOptions: {
@@ -234,9 +236,11 @@
                             horizontal: false
                         }
                     },
-                    legend: {
-                        position: "top"
-                    }
+                    chart: {
+                        type: 'pie',
+                        width: 300,
+                        height: 300,
+                    },
                 }
             }]
         };
@@ -317,10 +321,9 @@
                 labels: {
                     show: true,
                     formatter: function(value) {
-                        if(value!=null){
+                        if (value != null) {
                             return value + ' ' + '{{ $currencySymbol }}';
-                        }
-                        else{
+                        } else {
                             return '0 ' + '{{ $currencySymbol }}';
                         }
                     }
@@ -349,22 +352,23 @@
                 var oldValue = cell.text();
                 console.log(obj.target)
                 if (obj.target.id == "name") {
-                    cell.html('<input type="text" class="form-control" value="' + oldValue + '" item_id="'+obj.target.item_id+'">');
+                    cell.html('<input type="text" class="form-control" value="' + oldValue + '" item_id="' +
+                        obj.target.item_id + '">');
                     cell.find('input').focus();
                 } else if (obj.target.id == "price") {
-                    cell.html('<input type="number" class="form-control" value="' + oldValue + '" item_id="'+obj.target.item_id+'">');
+                    cell.html('<input type="number" class="form-control" value="' + oldValue +
+                        '" item_id="' + obj.target.item_id + '">');
                     cell.find('input').focus();
-                }
-                
-                else if(obj.target.id == "category_id"){
-                    cell.html('<select class="form-control" item_id="'+obj.target.item_id+'">'+
-                            '@for ($i=0;$i<count( $categories);$i++)'+
-                            '<option value="{{$i}}" id="{{ $categories[$i]->id}}">{{ $categories[$i]->name}}</option>'+
-                            '@endfor'+
-                            '</select>');
+                } else if (obj.target.id == "category_id") {
+                    cell.html('<select class="form-control" item_id="' + obj.target.item_id + '">' +
+                        '@for ($i = 0; $i < count($categories); $i++)' +
+                        '<option value="{{ $i }}" id="{{ $categories[$i]->id }}">{{ $categories[$i]->name }}</option>' +
+                        '@endfor' +
+                        '</select>');
                     cell.find('select').focus();
                 } else if (obj.target.id == "date") {
-                    cell.html('<input type="date" class="form-control" value="' + oldValue + '" item_id="'+obj.target.item_id+'">');
+                    cell.html('<input type="date" class="form-control" value="' + oldValue + '" item_id="' +
+                        obj.target.item_id + '">');
                     cell.find('input').focus();
                 }
             });
@@ -390,7 +394,7 @@
             // Event handler for detecting blur event on input fields (cell editing finished)
             $('#incomeTable tbody').on('blur', 'input', function() {
                 var cell = $(this).closest('td');
-                if(cell.prevObject[0].type!="checkbox"){
+                if (cell.prevObject[0].type != "checkbox") {
                     saveCellEdit(cell); // Call function to save cell edit
                 }
             });
@@ -415,7 +419,7 @@
 
             function saveEditedCell(cell) {
                 var newValue = cell.find('select').val(); // Get new value from input field
-                var categories = {!! json_encode( $categories->toArray()) !!};
+                var categories = {!! json_encode($categories->toArray()) !!};
                 //console.log(categories[newValue]);
                 cell.text(categories[newValue].name); // Update cell text with new value
 
@@ -426,7 +430,7 @@
                 var columnIndex = cell[0].attributes.id.value;
                 console.log(categories[newValue].id);
                 // Send edited data to server via AJAX
-                 sendEditData(rowId, columnIndex, categories[newValue].id);
+                sendEditData(rowId, columnIndex, categories[newValue].id);
             }
 
 
@@ -442,27 +446,32 @@
                         '_token': '{{ csrf_token() }}',
                     },
                     success: function(response) {
-                        if(response.success) {
-                            if(response.refresh) {
+                        if (response.success) {
+                            if (response.refresh) {
                                 location.reload();
                             }
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error({xhr, status, error});
+                        console.error({
+                            xhr,
+                            status,
+                            error
+                        });
                         // Handle error response from server if needed
                     }
                 });
             }
-            
-            
+
+
             // Event handler to prevent button click event from propagating
             $('#incomeTable tbody').on('click', 'button', function(event) {
                 event.stopPropagation();
             });
         });
+
         function submitForm(id) {
-            var asd = 'monthlyForm'+id;
+            var asd = 'monthlyForm' + id;
             console.log(asd);
             document.getElementById(asd).submit();
         }

@@ -2,8 +2,8 @@
 @section('content')
     <div class="container text-center">
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
                 {{-- Card --}}
                 <div class="card bg-dark text-light">
                     {{-- Card tittle --}}
@@ -15,7 +15,7 @@
                         {{-- 1st row for names --}}
                         <div class="row" id="settingsRow">
                             {{-- Fullname area --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <p class="card-text">Full name: <i>{{ $user->fullname }}</i></p>
                                 <button type="button" class="btn btn-outline-primary"
                                     data-bs-toggle="modal"data-bs-target="#changeFullnameModal">Change Fullname</button>
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             {{-- Username area --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <p class="card-text">Name: <i>{{ $user->username }}</i> </p>
                                 <button type="button" class="btn btn-outline-primary"
                                     data-bs-toggle="modal"data-bs-target="#changeUsernameModal">Change Username</button>
@@ -84,7 +84,7 @@
                         {{-- 2nd row for Email and notification --}}
                         <div class="row" id="settingsRow">
                             {{-- Email area --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <p class="card-text">Email:<i>{{ $user->email }}</i> </p>
                                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                                     data-bs-target="#changeEmailModal">Change Email</button>
@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                             {{-- Phone area --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
 
                                 @if ($user->phone)
                                     <p class="card-text">Phone number: <i>{{ $user->phone }}</i></p>
@@ -159,7 +159,7 @@
                         {{-- 3rd row --}}
                         <div class="row" id="settingsRow">
                             {{-- Currency area --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <p class="card-text">Current currency type: </p>
                                 <form action="{{ route('changeCurrency') }}" method="POST">
                                     @csrf
@@ -175,7 +175,7 @@
                                 </form>
                             </div>
                             {{-- Notification --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <p class="card-text">Notification:</p>
                                 <form action="{{ route('enableNotification') }}" method="POST">
                                     @csrf
@@ -192,16 +192,17 @@
                         <div class="row" id="settingsRow">
                             {{-- Change langage area --}}
                             {{-- Deactivate account --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <br>
                                 <form action="{{ route('softDeleteAccount') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-outline-primary">Deactivate account</button>
+                                    <button type="submit" class="btn btn-outline-primary mb-3">Deactivate
+                                        account</button>
                                 </form>
                             </div>
                             {{-- Family system area --}}
                             {{-- Add family member(s) --}}
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 {{-- We only show this if user doesn't have family --}}
                                 @if (!$user->family_id)
                                     <form action="{{ route('createFamily') }}" method="POST">
@@ -253,7 +254,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3"></div>
+            <div class="col-md-3"></div>
         </div>
     </div>
 

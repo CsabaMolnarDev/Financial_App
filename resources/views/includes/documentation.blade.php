@@ -2,27 +2,27 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <div class="card bg-dark text-light">
                     <div class="card-header text-center">
                         <h3>Use the buttons for the user manual</h3>
                     </div>
                     <div class="card-body">
                         <div class="row text-center">
-                            <div class="col-3"><button id="spendingsBtn" class="btn btn-outline-info"
+                            <div class="col-md-3 mt-2"><button id="spendingsBtn" class="btn btn-outline-info"
                                     onclick="handleButtonClick('spendings')">Manage
                                     spendings</button>
                             </div>
-                            <div class="col-3"><button id="incomesBtn" class="btn btn-outline-info"
+                            <div class="col-md-3 mt-2"><button id="incomesBtn" class="btn btn-outline-info"
                                     onclick="handleButtonClick('incomes')">Manage
                                     incomes</button>
                             </div>
-                            <div class="col-3"><button id="familyBtn" class="btn btn-outline-info"
+                            <div class="col-md-3 mt-2"><button id="familyBtn" class="btn btn-outline-info"
                                     onclick="handleButtonClick('family')">Manage
                                     family</button>
                             </div>
-                            <div class="col-3"><button id="accountBtn" class="btn btn-outline-info"
+                            <div class="col-md-3 mt-2"><button id="accountBtn" class="btn btn-outline-info"
                                     onclick="handleButtonClick('account')">Manage
                                     account</button>
                             </div>

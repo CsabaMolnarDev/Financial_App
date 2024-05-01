@@ -16,9 +16,10 @@ class NotificationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $username;
+    public function __construct($username)
     {
-        //
+        $this->username = $username;
     }
 
     /**
@@ -38,6 +39,9 @@ class NotificationMail extends Mailable
     {
         return new Content(
             view: 'mails.notification',
+            with: [
+                'username' => $this->username
+            ],
         );
     }
 
