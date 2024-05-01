@@ -40,10 +40,13 @@ class HomeController extends Controller
         $incomeFunc = $this->incomeGraphData();
         $incomeCategoryPrices = $incomeFunc['categoryPrices'];
         
+        $familyIncomesCall = $this->generateFamilyIncomeArticles();
+        $familyIncomes = $familyIncomesCall['articles'];   
         return view('home', [
             'currencies' => $currencies,
             'incomeCategoryPrices' => $incomeCategoryPrices,
-            'spendingCategoryPrices' => $spendingCategoryPrices
+            'spendingCategoryPrices' => $spendingCategoryPrices,
+            'familyIncomes' => $familyIncomes
 
         ]);
     }
@@ -145,4 +148,31 @@ class HomeController extends Controller
             ];
     }
 
+
+    public function generateFamilyIncomeArticles()
+    {
+        
+        $users = User::whereNotNull('family_id')->get();
+        
+        $articles = [];
+        
+        foreach ($users as $user) {
+            $familyIncome = $user->finances()
+                ->where('type', 'Income')
+                ->whereMonth('time', now()->month)
+                ->whereYear('time', now()->year)
+                ->sum('price');
+            
+            $articles[] = [
+                'user_id' => $user->id,
+                'user_fullname' => $user->fullname,
+                'family_income' => $familyIncome,
+            ];
+        }
+    
+        return [
+            'articles' => $articles
+        ];
+
+    }
 }

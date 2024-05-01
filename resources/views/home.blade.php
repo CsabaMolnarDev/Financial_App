@@ -131,7 +131,7 @@
 
         /* Functions: */
         // Fetch the category prices data from PHP
-         var incomeCategoryPrices = @json($incomeCategoryPrices);
+        var incomeCategoryPrices = @json($incomeCategoryPrices);
 
         /* Graphs: */
         /* Pie graph */
@@ -150,9 +150,32 @@
         };
 
         /* render apexcharts */
-        var chart = new ApexCharts(document.querySelector('#income'), options);
-        chart.render();
+       /* Graphs: */
+        /* Pie graph */
+        var familyIncomes = @json($familyIncomes);
+        var labels = [];
+        var series = [];
 
+        for (var i = 0; i < familyIncomes.length; i++) {
+            labels.push(familyIncomes[i].user_fullname);
+            series.push(familyIncomes[i].family_income);
+        }
+
+        var options = {
+            chart: {
+                type: 'pie',
+                width: 400,
+                height: 400,
+                /* Fontcolor */
+                foreColor: '#FBFBFB',
+            },
+            labels: labels,
+            series: series,
+            // Other options...
+        };
+
+        var chart = new ApexCharts(document.querySelector('#familyIncome'), options);
+        chart.render();
 
 
         //calendar
