@@ -50,6 +50,47 @@
             <div class="col-md-2"></div>
         </div>
     </div>
+    {{-- TODO: This container is made for Ricsi --}}
+    {{-- <div class="container mt-3">
+        <div class="row gy-3">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <div class="card bg-dark text-light">
+                    <div class="card-header text-center">
+                        <h3>// Tittle </h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row" id="pie">
+                            // Use apexcharts
+
+                        </div>
+                        <div class="row">
+                            // button
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-dark text-light">
+                    <div class="card-header text-center">
+                        <h3>// Tittle </h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row" id="pie">
+                            // Use apexcharts
+
+                        </div>
+                        <div class="row">
+                            // button
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div> --}}
     <div class="container mt-3">
         <div class="row gy-3">
             <div class="col-md-2"></div>
