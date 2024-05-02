@@ -321,7 +321,7 @@
 
         for (var i = 0; i < familySpending.length; i++) {
             familySpendingLabels.push(familySpending[i].user_fullname);
-            familySpendingSeries.push(familySpending[i].family_income);
+            familySpendingSeries.push(familySpending[i].family_spending);
         }
 
         var familySpendingOptions = {
