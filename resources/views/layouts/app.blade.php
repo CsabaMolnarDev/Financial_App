@@ -98,13 +98,11 @@ background-image: url('../storage/pictures/home.jpg');
                                     onclick="window.location=' {{ url('/income') }} '">Incomes</button>
                                 <button id="menuBtn" class="btn btn-outline-danger" type="submit"
                                     onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
-                                {{-- Advanced statistics --}}
-                                @if (auth()->user()->finances()->where('type', 'spending')->exists() &&
-                                        auth()->user()->finances()->where('type', 'income')->exists())
-                                    <button id="menuBtn" class="btn btn-outline-info" type="submit"
-                                        onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
-                                        statistics</button>
-                                @endif
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit" {{-- Advanced statistics --}}
+                                    onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
+                                    statistics</button>
+                                {{--  @if (auth()->user()->finances()->where('type', 'spending')->exists() && auth()->user()->finances()->where('type', 'income')->exists())
+                                @endif --}}
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
                                 {{-- Under construction --}}

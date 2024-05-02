@@ -1,64 +1,55 @@
 @extends('layouts.app')
 @section('content')
-    {{-- calendar goes here, monthly inc montly sallery etc --}}
     <div class="container">
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-4">
-                <div class="card bg-dark text-light">
-                    <div class="card-header text-center">
-                        <h3>Monthly Income</h3>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="row" id="income">
-                            {{-- Use apexcharts --}}
-                            @if (auth()->user()->finances()->where('type', 'Income')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
+                @if (auth()->user()->finances()->where('type', 'Income')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
+                    <div class="card bg-dark text-light">
+                        <div class="card-header text-center">
+                            <h3>Incomes this month</h3>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row" id="income">
+                                {{-- Use apexcharts --}}
                                 <div id="incomeChart"></div>
-                            @else
-                                <p>You have not added income yet</p>
-                            @endif
-                        </div>
-                        <div class="row">
-                            <button class="btn btn-outline-info" type="submit"
-                                onclick="window.location=' {{ url('/income') }} '">Details</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/income') }} '">Details</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="col-md-4">
-                <div class="card bg-dark text-light">
-                    <div class="card-header text-center">
-                        <h3>Montly Spending</h3>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="row" id="spending">
-                            {{-- Use apexcharts --}}
-                            @if (auth()->user()->finances()->where('type', 'Spending')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
+                @if (auth()->user()->finances()->where('type', 'Spending')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
+                    <div class="card bg-dark text-light">
+                        <div class="card-header text-center">
+                            <h3>Spendings this month</h3>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="row" id="spending">
+                                {{-- Use apexcharts --}}
                                 <div id="spendingChart"></div>
-                            @else
-                                <p>You have not added spending yet</p>
-                            @endif
 
-                        </div>
-                        <div class="row">
-                            <button class="btn btn-outline-info" type="submit"
-                                onclick="window.location=' {{ url('/spending') }} '">Details</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/spending') }} '">Details</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="col-md-2"></div>
         </div>
     </div>
-    
-  
     <div class="container mt-3">
         <div class="row gy-3">
             <div class="col-md-2"></div>
-            @if (auth()->user()->family && !empty($familyIncomes))
-
-         
-                <div class="col-md-4">
+            <div class="col-md-4">
+                @if (auth()->user()->family && !empty($familyIncomes))
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Incomes</h3>
@@ -68,16 +59,15 @@
                                 <div id="familyIncomeChart"></div>
                             </div>
                             <div class="row">
-                            {{--  button --}}
-
+                                <button class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/advancedStatistics') }} '">Details</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endif
-            
-            @if (auth()->user()->family && !empty($familySpending))
-                <div class="col-md-4">
+                @endif
+            </div>
+            <div class="col-md-4">
+                @if (auth()->user()->family && !empty($familySpending))
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Spendings</h3>
@@ -87,16 +77,16 @@
                                 <div id="familySpendingChart"></div>
                             </div>
                             <div class="row">
-                                {{-- button --}}
-
+                                <button class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/advancedStatistics') }} '">Details</button>
                             </div>
                         </div>
                     </div>
-                </div> 
-            @endif
+                @endif
+            </div>
             <div class="col-md-2"></div>
         </div>
-    </div> 
+    </div>
     <div class="container mt-3">
         <div class="row gy-3">
             <div class="col-md-2"></div>
@@ -283,14 +273,40 @@
         var familyIncomeOptions = {
             chart: {
                 type: 'pie',
-                width: 400,
-                height: 400,
+                width: 300,
+                height: 300,
                 /* Fontcolor */
                 foreColor: '#FBFBFB',
+            },
+            dataLabels: {
+                enabled: true
+            },
+            stroke: {
+                width: 2,
+                colors: ["#fff"]
+            },
+            legend: {
+                show: false
             },
             labels: familyIncomeLabels,
             series: familyIncomeSeries,
             // Other options...
+            responsive: [{
+                // breakepoint in px.... when the window size goes under this, the graph changes
+                breakpoint: 1200,
+                // options for the changed responsive graph
+                options: {
+                    plotOptions: {
+                        chart: {
+                            horizontal: false
+                        }
+                    },
+                    chart: {
+                        width: 200,
+                        height: 200,
+                    },
+                }
+            }]
         };
 
         var familyIncomeChart = new ApexCharts(document.querySelector('#familyIncomeChart'), familyIncomeOptions);
@@ -311,14 +327,40 @@
         var familySpendingOptions = {
             chart: {
                 type: 'pie',
-                width: 400,
-                height: 400,
+                width: 300,
+                height: 300,
                 /* Fontcolor */
                 foreColor: '#FBFBFB',
+            },
+            dataLabels: {
+                enabled: true
+            },
+            stroke: {
+                width: 2,
+                colors: ["#fff"]
+            },
+            legend: {
+                show: false
             },
             labels: familySpendingLabels,
             series: familySpendingSeries,
             // Other options...
+            responsive: [{
+                // breakepoint in px.... when the window size goes under this, the graph changes
+                breakpoint: 1200,
+                // options for the changed responsive graph
+                options: {
+                    plotOptions: {
+                        chart: {
+                            horizontal: false
+                        }
+                    },
+                    chart: {
+                        width: 200,
+                        height: 200,
+                    },
+                }
+            }]
         };
 
         var familySpendingChart = new ApexCharts(document.querySelector('#familySpendingChart'), familySpendingOptions);

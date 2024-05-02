@@ -39,9 +39,9 @@ class HomeController extends Controller
 
         $incomeFunc = $this->incomeGraphData();
         $incomeCategoryPrices = $incomeFunc['categoryPrices'];
-        
+
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
-        $familyIncomes = $familyIncomesCall['articles'];   
+        $familyIncomes = $familyIncomesCall['articles'];
 
         $familySpendingCall = $this->generateFamilySpendingArticles();
         $familySpending = $familySpendingCall['articles2'];
@@ -66,16 +66,16 @@ class HomeController extends Controller
 
         //family data
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
-        $familyIncomes = $familyIncomesCall['articles']; 
-        
+        $familyIncomes = $familyIncomesCall['articles'];
+
         $familySpendingCall = $this->generateFamilySpendingArticles();
-        $familySpending = $familySpendingCall['articles2'];  
+        $familySpending = $familySpendingCall['articles2'];
 
         $from = Currency::find($request->currency_id)->code;
         $fromSymbol = Currency::find($request->currency_id)->symbol;
         $to = Currency::find($request->currency_id2)->code;
         $toSymbol = Currency::find($request->currency_id2)->symbol;
-       $exchangeRate = app(ExchangeRate::class)->exchangeRate($from, $to); 
+       $exchangeRate = app(ExchangeRate::class)->exchangeRate($from, $to);
         return view('home', [
             'exchangeRate' => round($exchangeRate, 2),
             'toSymbol' => $toSymbol,
@@ -89,7 +89,7 @@ class HomeController extends Controller
 
         ]);
     }
- 
+
 
 
 
@@ -136,14 +136,14 @@ class HomeController extends Controller
             // Get the current month and year
             $currentMonth = Carbon::now()->format('m');
             $currentYear = Carbon::now()->format('Y');
-    
+
             // Query to get finances data for the current month
             $spendingFinances = Finance::where('type', 'Income')
                 ->whereMonth('time', '=', $currentMonth)
                 ->whereYear('time', '=', $currentYear)
                 ->where('user_id', auth()->user()->id)
                 ->get();
-    
+
             // Organize the finances data by category
             $categoryPrices = [];
             foreach ($spendingFinances as $finance) {
@@ -155,7 +155,7 @@ class HomeController extends Controller
                     $categoryPrices[$categoryName] += $price;
                 }
             }
-    
+
             return [
                 'categoryPrices' => $categoryPrices
             ];
@@ -164,25 +164,25 @@ class HomeController extends Controller
 
     public function generateFamilyIncomeArticles()
     {
-        
+
         $users = User::whereNotNull('family_id')->get();
-        
+
         $articles = [];
-        
+
         foreach ($users as $user) {
             $familyIncome = $user->finances()
                 ->where('type', 'Income')
                 ->whereMonth('time', now()->month)
                 ->whereYear('time', now()->year)
                 ->sum('price');
-            
+
             $articles[] = [
                 'user_id' => $user->id,
                 'user_fullname' => $user->fullname,
                 'family_income' => $familyIncome,
             ];
         }
-    
+
         return [
             'articles' => $articles
         ];
@@ -190,25 +190,25 @@ class HomeController extends Controller
     }
     public function generateFamilySpendingArticles()
     {
-        
+
         $users = User::whereNotNull('family_id')->get();
-        
+
         $articles = [];
-        
+
         foreach ($users as $user) {
             $familySpending = $user->finances()
                 ->where('type', 'Spending')
                 ->whereMonth('time', now()->month)
                 ->whereYear('time', now()->year)
                 ->sum('price');
-            
+
             $articles[] = [
                 'user_id' => $user->id,
                 'user_fullname' => $user->fullname,
-                'family_income' => $familySpending ,
+                'family_spending' => $familySpending ,
             ];
         }
-    
+
         return [
             'articles2' => $articles
         ];
