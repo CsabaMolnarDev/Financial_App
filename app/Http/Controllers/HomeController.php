@@ -40,17 +40,29 @@ class HomeController extends Controller
         $incomeFunc = $this->incomeGraphData();
         $incomeCategoryPrices = $incomeFunc['categoryPrices'];
 
+    
+        $familyFunc = $this->getFamilyMembers();
+        $familymembers = $familyFunc['familymembers'];
+        
+
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
         $familyIncomes = $familyIncomesCall['articles'];
 
         $familySpendingCall = $this->generateFamilySpendingArticles();
         $familySpending = $familySpendingCall['articles2'];
+
+        $getfinances = $this->getFinances();
+        $userMonthlyFinances = $getfinances['monthlyIncomes'];
+
+
         return view('home', [
             'currencies' => $currencies,
             'incomeCategoryPrices' => $incomeCategoryPrices,
             'spendingCategoryPrices' => $spendingCategoryPrices,
             'familyIncomes' => $familyIncomes,
-            'familySpending' => $familySpending
+            'familySpending' => $familySpending,
+            'familymembers' => $familymembers,
+            'userMonthlyFinances' => $userMonthlyFinances
 
         ]);
     }
@@ -65,11 +77,18 @@ class HomeController extends Controller
         $incomeCategoryPrices = $incomeFunc['categoryPrices'];
 
         //family data
+          
+        $familyFunc = $this->getFamilyMembers();
+        $familymembers = $familyFunc['familymembers'];
+
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
         $familyIncomes = $familyIncomesCall['articles'];
 
         $familySpendingCall = $this->generateFamilySpendingArticles();
         $familySpending = $familySpendingCall['articles2'];
+
+        $getfinances = $this->getFinances();
+        $userMonthlyFinances = $getfinances['monthlyIncomes'];
 
         $from = Currency::find($request->currency_id)->code;
         $fromSymbol = Currency::find($request->currency_id)->symbol;
@@ -85,7 +104,10 @@ class HomeController extends Controller
             'incomeCategoryPrices' => $incomeCategoryPrices,
             'spendingCategoryPrices' => $spendingCategoryPrices,
             'familyIncomes' => $familyIncomes,
-            'familySpending' => $familySpending
+            'familySpending' => $familySpending,
+            'familymembers' => $familymembers,
+            //calendar
+            'userMonthlyFinances' => $userMonthlyFinances
 
         ]);
     }
@@ -163,13 +185,14 @@ class HomeController extends Controller
 
 
     public function generateFamilyIncomeArticles()
-    {
+    {       
+        $familyFunc = $this->getFamilyMembers();
+        $familymembers = $familyFunc['familymembers'];
 
-        $users = User::whereNotNull('family_id')->get();
 
         $articles = [];
 
-        foreach ($users as $user) {
+        foreach ($familymembers as $user) {
             $familyIncome = $user->finances()
                 ->where('type', 'Income')
                 ->whereMonth('time', now()->month)
@@ -191,11 +214,12 @@ class HomeController extends Controller
     public function generateFamilySpendingArticles()
     {
 
-        $users = User::whereNotNull('family_id')->get();
+        $familyFunc = $this->getFamilyMembers();
+        $familymembers = $familyFunc['familymembers'];
 
         $articles = [];
 
-        foreach ($users as $user) {
+        foreach ($familymembers as $user) {
             $familySpending = $user->finances()
                 ->where('type', 'Spending')
                 ->whereMonth('time', now()->month)
@@ -214,4 +238,24 @@ class HomeController extends Controller
         ];
 
     }
+
+    public function getFamilyMembers()
+    {
+        $familymembers = User::whereNotNull('family_id')->get();
+        return [
+            'familymembers' => $familymembers 
+        ];
+    }
+    
+
+     public function getFinances() 
+     {
+        $monthlyIncomes = Finance::join('monthlies', 'finances.id', '=', 'monthlies.finance_id')
+        ->where('finances.user_id', '=', auth()->user()->id)
+        ->select('name', 'price', 'time', 'type') 
+        ->get(); 
+        return [
+            'monthlyIncomes' => $monthlyIncomes
+        ];
+     }
 }

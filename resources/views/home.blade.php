@@ -49,7 +49,7 @@
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-4">
-                @if (auth()->user()->family && !empty($familyIncomes))
+                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familyIncomes))
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Incomes</h3>
@@ -67,7 +67,7 @@
                 @endif
             </div>
             <div class="col-md-4">
-                @if (auth()->user()->family && !empty($familySpending))
+                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familySpending))
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Spendings</h3>
@@ -366,6 +366,22 @@
         var familySpendingChart = new ApexCharts(document.querySelector('#familySpendingChart'), familySpendingOptions);
         familySpendingChart.render();
 
+
+        var MonthlyFinances = @json($userMonthlyFinances);
+
+        var jsonData = [];
+        MonthlyFinances.forEach(function(element) {
+            
+        var color = (element.type === 'Income') ? 'green' : 'red';
+        var eventData = {
+            title: element.name,  
+            start: element.time,
+            color: color 
+        };
+        jsonData.push(eventData);
+        });
+   
+
         //calendar
         $(document).ready(function() {
             $('#calendar').fullCalendar({
@@ -374,6 +390,7 @@
                     center: 'title, today',
                     right: 'next',
                 },
+                events: jsonData
             })
         });
     </script>

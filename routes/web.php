@@ -33,7 +33,7 @@ Auth::routes();
 
 /* This is the home route */
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::post('/calculate', [HomeController::class, 'calculate'])->name('calculate');
+Route::post('/home', [HomeController::class, 'calculate'])->name('calculate');
 Route::post('/calculate-entropy', [RegisterController::class, 'calculateEntropy'])->name('caculate-entropy');
 
 /* This is the check for username*/
