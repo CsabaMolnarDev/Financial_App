@@ -115,7 +115,7 @@
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-1">
-                                    <label for="currency_id" id="symbol">1
+                                    <label for="currency" id="symbol">1
                                         {{ isset($fromSymbol) ? $fromSymbol : '' }}</label>
                                 </div>
                                 <div class="col-md-3">
@@ -129,7 +129,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-1">
-                                    <label for="currency_id2"
+                                    <label for="currency2"
                                         id="result">{{ isset($exchangeRate) ? $exchangeRate . ' ' . $toSymbol : '' }}</label>
                                 </div>
                                 <div class="col-md-3">
@@ -367,12 +367,14 @@
         familySpendingChart.render();
 
         //calendar
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
-            });
-            calendar.render();
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev',
+                    center: 'title, today',
+                    right: 'next',
+                },
+            })
         });
     </script>
 @endsection

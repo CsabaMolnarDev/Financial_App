@@ -34,12 +34,13 @@ Auth::routes();
 /* This is the home route */
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/calculate', [HomeController::class, 'calculate'])->name('calculate');
+Route::post('/calculate-entropy', [RegisterController::class, 'calculateEntropy'])->name('caculate-entropy');
 
 /* This is the check for username*/
 Route::post('/checkUsernameTaken', [RegisterController::class, 'checkNameIsTaken'])->name('username.check');
 /* This is the check for email*/
 Route::post('/checkEmailTaken', [RegisterController::class, 'checkEmailIsTaken'])->name('email.check');
-
+/* Check user exist */
 Route::post('/checkIfUserExists', [SettingsController::class, 'checkIfUserExists'])->name('checkIfUserExists');
 
 
@@ -49,32 +50,37 @@ Route::middleware(['auth'])->group(function (){
 });
 
 
-Route::post('/calculate-entropy', [RegisterController::class, 'calculateEntropy'])->name('caculate-entropy');
 /* Add category route */
 Route::post('/add-category', [SpendingController::class, 'addCategory'])->name('addCategory');
 Route::post('/add-IncomeCategory', [IncomeController::class, 'addCategory'])->name('addIncomeCategory');
+
 /* This is the about us route */
 Route::get('/about_us', [AboutUsController::class, 'index'])->name('about_us');
 
 /* This is the creating a new finance */
 Route::post('/finances', [FinanceController::class, 'store'])->name('finances.store');
+/* Monthly finances */
+Route::get('/deleteMonthly/{id}', [MonthlyController::class, 'deleteMonthly'])->name('deleteMonthly');
+Route::post('/createMonthly/{id}', [MonthlyController::class, 'store'])->name('createMonthly');
+/* JQERRY table delete */
+Route::get('/deleteFinance/{id}', [SpendingController::class, 'deleteFinance'])->name('deleteFinance');
+
 /* This is the income route */
 Route::get('/income', [IncomeController::class, 'index'])->name('income');
-/* This is the income create */
 Route::get('/incomeCreate', [IncomeController::class, 'create'])->name('incomeCreate');
 Route::post('/editIncomeValue', [IncomeController::class, 'editIncomeValue'])->name('editIncomeValue');
+
 /* This is the spending route */
 Route::get('/spending', [SpendingController::class, 'index'])->name('spending');
+Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
+Route::post('/editSpendingValue', [SpendingController::class, 'editSpendingValue'])->name('editSpendingValue');
 
+/* Advanced statistics page */
 Route::get('/advancedStatistics', [AdvancedStatisticsController::class, 'index'])->name('advancedStatistics')->middleware('auth');
 Route::post('/formHandling', [AdvancedStatisticsController::class, 'handleForm'])->name('handleForm');
 Route::post('/advancedStatistics', [AdvancedStatisticsController::class, 'handleFamilyForm'])->name('handleFamilyForm');
 
-/* This is the spending create */
-Route::get('/spendingCreate', [SpendingController::class, 'create'])->name('spendingCreate');
 /* Edit finance */
-Route::post('/editSpendingValue', [SpendingController::class, 'editSpendingValue'])->name('editSpendingValue');
-Route::get('/deleteFinance/{id}', [SpendingController::class, 'deleteFinance'])->name('deleteFinance');
 /* Settings route */
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings')->middleware('auth');
 /* Change Fullname */
@@ -91,6 +97,11 @@ Route::post('/enableNotification', [SettingsController::class, 'enableNotificati
 Route::post('/changePhone', [SettingsController::class, 'changePhone'])->name('changePhone');
 /* Deactivate accoutn */
 Route::post('/deactivateAccount', [SettingsController::class, 'softDeleteAccount'])->name('softDeleteAccount');
+//Restore deactivated account
+Route::get('/restore-account', [RestoreAccountController::class, 'restoreAccountIndex'])->name('restoreAccountIndex');
+Route::post('/checkIfUserDisabled', [RestoreAccountController::class, 'checkIfUserDisabled'])->name('checkIfUserDisabled');
+Route::post('/reactivateAccount', [RestoreAccountController::class, 'reactivateAccount'])->name('reactivateAccount');
+
 /* Family system */
 Route::post('/createFamily', [SettingsController::class, 'createFamily'])->name('createFamily');
 Route::post('/deleteFamily', [SettingsController::class, 'deleteFamily'])->name('deleteFamily');
@@ -100,23 +111,14 @@ Route::post('/leaveFamily', [SettingsController::class, 'leaveFamily'])->name('l
 /* accept invite */
 Route::get('/accept-invitation/{token}', [FamilyController::class, 'acceptInvitation'])->name('family.acceptInvitation');
 
-
 /* Download page */
 Route::get('/download', [DownloadController::class, 'index'])->name('download')->middleware('auth');
 
 /* Documentation page */
 Route::get('/documentation', [DocumentationController::class, 'index'])->name('documentation')->middleware('auth');
+
 //Forget password routes
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-
-//Restore deactivated account
-Route::get('/restore-account', [RestoreAccountController::class, 'restoreAccountIndex'])->name('restoreAccountIndex');
-Route::post('/checkIfUserDisabled', [RestoreAccountController::class, 'checkIfUserDisabled'])->name('checkIfUserDisabled');
-Route::post('/reactivateAccount', [RestoreAccountController::class, 'reactivateAccount'])->name('reactivateAccount');
-
-
-Route::get('/deleteMonthly/{id}', [MonthlyController::class, 'deleteMonthly'])->name('deleteMonthly');
-Route::post('/createMonthly/{id}', [MonthlyController::class, 'store'])->name('createMonthly');

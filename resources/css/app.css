@@ -222,6 +222,19 @@ html {
 }
 
 /* homepage */
+#calendar {
+    background: #212529 !important;
+    color: #FBFBFB !important;
+}
+
+.fc-unthemed td.fc-today {
+    background-color: rgb(69, 154, 154) !important;
+}
+
+.fc-view-container {
+    border: 2px rgb(142, 201, 232) solid;
+}
+
 .pie {
     display: flex;
     justify-content: center;
