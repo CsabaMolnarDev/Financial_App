@@ -262,7 +262,8 @@
         /* Graphs: */
         /* Pie graph */
         var familyIncomes = @json($familyIncomes);
-        var familyIncomeLabels = [];
+        if(familyIncomes.length > 0){
+            var familyIncomeLabels = [];
         var familyIncomeSeries = [];
 
         for (var i = 0; i < familyIncomes.length; i++) {
@@ -311,12 +312,15 @@
 
         var familyIncomeChart = new ApexCharts(document.querySelector('#familyIncomeChart'), familyIncomeOptions);
         familyIncomeChart.render();
+        }
+        
 
 
 
         //familySpending
         var familySpending = @json($familySpending);
-        var familySpendingLabels = [];
+        if(familySpending.length > 0) {
+            var familySpendingLabels = [];
         var familySpendingSeries = [];
 
         for (var i = 0; i < familySpending.length; i++) {
@@ -366,13 +370,15 @@
         var familySpendingChart = new ApexCharts(document.querySelector('#familySpendingChart'), familySpendingOptions);
         familySpendingChart.render();
 
+        }
+        
 
         var MonthlyFinances = @json($userMonthlyFinances);
-
+        var financeColors = @json($financeColors);
         var jsonData = [];
         MonthlyFinances.forEach(function(element) {
             
-        var color = (element.type === 'Income') ? 'green' : 'red';
+        var color = financeColors[element.id];
         var eventData = {
             title: element.name,  
             start: element.time,

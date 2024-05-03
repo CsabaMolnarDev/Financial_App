@@ -9,6 +9,7 @@ use AshAllenDesign\LaravelExchangeRates\Classes\ExchangeRate;
 use App\Models\Currency;
 use App\Models\Category;
 use App\Models\Finance;
+use App\Models\Monthly;
 use Carbon\Carbon;
 
 
@@ -52,7 +53,12 @@ class HomeController extends Controller
         $familySpending = $familySpendingCall['articles2'];
 
         $getfinances = $this->getFinances();
-        $userMonthlyFinances = $getfinances['monthlyIncomes'];
+        $userMonthlyFinances = $getfinances['userfinances'];
+
+        $financeColors = [];
+        foreach ($userMonthlyFinances as $finance) {
+            $financeColors[$finance->id] = $this->getFinanceColor($finance->id);
+        }
 
 
         return view('home', [
@@ -62,7 +68,8 @@ class HomeController extends Controller
             'familyIncomes' => $familyIncomes,
             'familySpending' => $familySpending,
             'familymembers' => $familymembers,
-            'userMonthlyFinances' => $userMonthlyFinances
+            'userMonthlyFinances' => $userMonthlyFinances,
+            'financeColors' => $financeColors
 
         ]);
     }
@@ -88,7 +95,7 @@ class HomeController extends Controller
         $familySpending = $familySpendingCall['articles2'];
 
         $getfinances = $this->getFinances();
-        $userMonthlyFinances = $getfinances['monthlyIncomes'];
+        $userMonthlyFinances = $getfinances['userfinances'];
 
         $from = Currency::find($request->currency_id)->code;
         $fromSymbol = Currency::find($request->currency_id)->symbol;
@@ -248,14 +255,26 @@ class HomeController extends Controller
     }
     
 
-     public function getFinances() 
-     {
-        $monthlyIncomes = Finance::join('monthlies', 'finances.id', '=', 'monthlies.finance_id')
-        ->where('finances.user_id', '=', auth()->user()->id)
-        ->select('name', 'price', 'time', 'type') 
+    public function getFinances() 
+    {
+        $userfinances = Finance::where('finances.user_id', '=', auth()->user()->id)
+        ->select('name', 'price', 'time', 'type', 'id') 
         ->get(); 
         return [
-            'monthlyIncomes' => $monthlyIncomes
+            'userfinances' => $userfinances
         ];
-     }
+    }
+
+    public function getFinanceColor($financeId)
+    {
+        $isMonthly = Monthly::where('finance_id', $financeId)->exists();
+        $finance = Finance::findOrFail($financeId);
+        $type = $finance->type;
+
+        if ($isMonthly) {
+            return ($type === 'Income') ? 'lime' : 'red'; 
+        } else {
+            return ($type === 'Income') ? 'green' : 'crimson'; 
+        }
+    }
 }
