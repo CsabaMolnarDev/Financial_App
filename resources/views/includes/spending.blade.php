@@ -471,9 +471,9 @@
         });
 
         function submitForm(id) {
-            var asd = 'monthlyForm' + id;
-            console.log(asd);
-            document.getElementById(asd).submit();
+            var monthly_id = 'monthlyForm' + id;
+            console.log(monthly_id);
+            document.getElementById(monthly_id).submit();
         }
     </script>
 @endsection

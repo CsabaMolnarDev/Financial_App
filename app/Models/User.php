@@ -17,8 +17,8 @@ class User extends Authenticatable
     use SoftDeletes;
     use HasApiTokens, HasFactory, Notifiable;
     // user-role connection
-    public function roles() : HasOne{
-        return $this->hasOne(Role::class);
+    public function roles() : BelongsTo{
+        return $this->belongsTo(Role::class);
     }
     public function finances() : HasMany{
         return $this->hasMany(Finance::class);
