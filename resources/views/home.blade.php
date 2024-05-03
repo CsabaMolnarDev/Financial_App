@@ -262,7 +262,7 @@
         /* Graphs: */
         /* Pie graph */
         var familyIncomes = @json($familyIncomes);
-        if(familyIncomes.length > 0){
+        if(familyIncomes.length > 1){
             var familyIncomeLabels = [];
         var familyIncomeSeries = [];
 
@@ -319,7 +319,7 @@
 
         //familySpending
         var familySpending = @json($familySpending);
-        if(familySpending.length > 0) {
+        if(familySpending.length > 1) {
             var familySpendingLabels = [];
         var familySpendingSeries = [];
 
@@ -372,32 +372,66 @@
 
         }
         
-
-        var MonthlyFinances = @json($userMonthlyFinances);
-        var financeColors = @json($financeColors);
-        var jsonData = [];
-        MonthlyFinances.forEach(function(element) {
-            
-        var color = financeColors[element.id];
-        var eventData = {
-            title: element.name,  
-            start: element.time,
-            color: color 
-        };
-        jsonData.push(eventData);
-        });
-   
-
+       
+        var MonthlyFamilyFinances = @json($familyFinances);
+        if(MonthlyFamilyFinances.length != 0){
+            var financeColors = @json($familyFinanceColors);
+            var jsonData = [];
+            MonthlyFamilyFinances.forEach(function(element) {
+                
+            var color = financeColors[element.id];
+            var eventData = {
+                title: element.name,  
+                start: element.time,
+                color: color 
+            };
+            jsonData.push(eventData);
+            });
         //calendar
         $(document).ready(function() {
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev',
-                    center: 'title, today',
-                    right: 'next',
-                },
-                events: jsonData
-            })
-        });
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev',
+                        center: 'title, today',
+                        right: 'next',
+                    },
+                    events: jsonData
+                })
+            });
+        }
+        
+        else{
+            var MonthlyFinances = @json($userMonthlyFinances);
+            var financeColors = @json($financeColors);
+            console.log(financeColors);
+            var jsonData = [];
+            MonthlyFinances.forEach(function(element) {
+                
+            var color = financeColors[element.id];
+            var eventData = {
+                title: element.name,  
+                start: element.time,
+                color: color 
+            };
+            jsonData.push(eventData);
+            });
+    
+
+            //calendar
+            $(document).ready(function() {
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev',
+                        center: 'title, today',
+                        right: 'next',
+                    },
+                    events: jsonData
+                })
+            });
+        
+        }
+           
+      
+        
     </script>
 @endsection
