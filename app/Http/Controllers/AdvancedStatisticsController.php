@@ -159,8 +159,11 @@ class AdvancedStatisticsController extends Controller
 
     function AvarageWithTheSameCurrency()
     {
-        $spendingsWithTheSameCurrency = round(Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->pluck('price')->avg(), 3);
-        $incomesWithTheSameCurrency = round(Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->pluck('price')->avg(), 3);
+        $currentDate = Carbon::now();
+        $currentMonth = $currentDate->month;
+        $currentYear = $currentDate->year;
+        $spendingsWithTheSameCurrency = round(Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Spending')->whereMonth('time', $currentMonth)->whereYear('time', $currentYear)->pluck('price')->avg(), 3);
+        $incomesWithTheSameCurrency = round(Finance::where('currency_id', auth()->user()->currency_id)->where('type', 'Income')->whereMonth('time', $currentMonth)->whereYear('time', $currentYear)->pluck('price')->avg(), 3);
 
         return [
             'spendingsWithTheSameCurrency' => $spendingsWithTheSameCurrency,
