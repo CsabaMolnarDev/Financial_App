@@ -49,19 +49,8 @@
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-4">
-                {{-- @php
-                    if (!function_exists('checkInc')) {
-                        function checkInc()
-                        {
-                            $total = 0;
-                            for ($i = 0; $i < count($familyIncomes); $i++) {
-                                $total = $familyIncomes[i] . $family_income;
-                            }
-                            return $total;
-                        }
-                    }
-                @endphp --}}
-                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familyIncomes) /* && checkInc() > 0 */)
+
+                @if (auth()->user()->family && $familymembers->count() > 1 && $allIncomesZero != null /* && checkInc() > 0 */)
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Incomes</h3>
@@ -79,7 +68,7 @@
                 @endif
             </div>
             <div class="col-md-4">
-                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familySpending))
+                @if (auth()->user()->family && $familymembers->count() > 1 && $allSpendingsZero != null)
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Spendings</h3>

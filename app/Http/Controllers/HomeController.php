@@ -43,10 +43,13 @@ class HomeController extends Controller
 
         $familyFunc = $this->getFamilyMembers();
         $familymembers = $familyFunc['familymembers'];
-
         
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
         $familyIncomes = $familyIncomesCall['articles'];
+        
+        $allIncomesZero = $this->allIncomesZero();
+        $allSpendingsZero = $this->allSpendingsZero();
+
         $familySpendingCall = $this->generateFamilySpendingArticles();
         $familySpending = $familySpendingCall['articles2'];
        
@@ -73,9 +76,6 @@ class HomeController extends Controller
 
 
 
-        /* $inc = ;
-        $spen = ; */
-
 
 
         return view('home', [
@@ -92,9 +92,8 @@ class HomeController extends Controller
             'financeColors' => $financeColors,
             'familyFinances' => $familyFinances ?? null,
             'familyFinanceColors' => $familyFinanceColors ?? null,
-            //inc spen total for graps
-            /*' inc' => $inc,
-            'spen' => $spen */
+            'allIncomesZero' => $allIncomesZero ?? '',
+            'allSpendingsZero' => $allSpendingsZero ?? ''
         ]);
     }
 
@@ -124,7 +123,8 @@ class HomeController extends Controller
         $getFamilyFinances = $this->getFamilyFinances();
         $familyFinances = $getFamilyFinances['familyFinances'];
    
-
+        $allIncomesZero = $this->allIncomesZero();
+        $allSpendingsZero = $this->allSpendingsZero();
 
         $financeColors = [];
         foreach ($userMonthlyFinances as $finance) {
@@ -155,11 +155,14 @@ class HomeController extends Controller
             'familyIncomes' => $familyIncomes,
             'familySpending' => $familySpending,
             'familymembers' => $familymembers,
+            'allIncomesZero' => $allIncomesZero ?? '',
+            'allSpendingsZero' => $allSpendingsZero ?? '',
             //calendar
             'userMonthlyFinances' => $userMonthlyFinances,
             'financeColors' => $financeColors,
             'familyFinances' => $familyFinances ?? null,
             'familyFinanceColors' => $familyFinanceColors ?? null
+
 
         ]);
     }
@@ -342,5 +345,33 @@ class HomeController extends Controller
         } else {
             return ($type === 'Income') ? 'green' : 'crimson';
         }
+    }
+
+    public function allIncomesZero()
+    {
+        $familyIncomesCall = $this->generateFamilyIncomeArticles();
+        $familyIncomes = $familyIncomesCall['articles'];
+        $allIncomesZero = true;
+        foreach ($familyIncomes as $income) {
+            if ($income['family_income'] != 0) {
+                $allIncomesZero = false;
+                break;
+            }
+        }
+        return $allIncomesZero ? null : false;
+    }
+
+    public function allSpendingsZero()
+    {
+        $familySpendingCall = $this->generateFamilySpendingArticles();
+        $familySpending = $familySpendingCall['articles2'];
+        $allSpendingsZero = true;
+        foreach ($familySpending as $spending) {
+            if ($spending['family_spending'] != 0) {
+                $allSpendingsZero = false;
+                break;
+            }
+        }
+        return $allSpendingsZero ? null : false;
     }
 }
