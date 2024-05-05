@@ -262,160 +262,158 @@
         /* Graphs: */
         /* Pie graph */
         var familyIncomes = @json($familyIncomes);
-        if(familyIncomes.length > 1){
+        if (familyIncomes.length > 1) {
             var familyIncomeLabels = [];
-        var familyIncomeSeries = [];
+            var familyIncomeSeries = [];
 
-        for (var i = 0; i < familyIncomes.length; i++) {
-            familyIncomeLabels.push(familyIncomes[i].user_fullname);
-            familyIncomeSeries.push(familyIncomes[i].family_income);
-        }
+            for (var i = 0; i < familyIncomes.length; i++) {
+                familyIncomeLabels.push(familyIncomes[i].user_fullname);
+                familyIncomeSeries.push(familyIncomes[i].family_income);
+            }
 
-        var familyIncomeOptions = {
-            chart: {
-                type: 'pie',
-                width: 300,
-                height: 300,
-                /* Fontcolor */
-                foreColor: '#FBFBFB',
-            },
-            dataLabels: {
-                enabled: true
-            },
-            stroke: {
-                width: 2,
-                colors: ["#fff"]
-            },
-            legend: {
-                show: false
-            },
-            labels: familyIncomeLabels,
-            series: familyIncomeSeries,
-            // Other options...
-            responsive: [{
-                // breakepoint in px.... when the window size goes under this, the graph changes
-                breakpoint: 1200,
-                // options for the changed responsive graph
-                options: {
-                    plotOptions: {
+            var familyIncomeOptions = {
+                chart: {
+                    type: 'pie',
+                    width: 300,
+                    height: 300,
+                    /* Fontcolor */
+                    foreColor: '#FBFBFB',
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                stroke: {
+                    width: 2,
+                    colors: ["#fff"]
+                },
+                legend: {
+                    show: false
+                },
+                labels: familyIncomeLabels,
+                series: familyIncomeSeries,
+                // Other options...
+                responsive: [{
+                    // breakepoint in px.... when the window size goes under this, the graph changes
+                    breakpoint: 1200,
+                    // options for the changed responsive graph
+                    options: {
+                        plotOptions: {
+                            chart: {
+                                horizontal: false
+                            }
+                        },
                         chart: {
-                            horizontal: false
-                        }
-                    },
-                    chart: {
-                        width: 200,
-                        height: 200,
-                    },
-                }
-            }]
-        };
+                            width: 200,
+                            height: 200,
+                        },
+                    }
+                }]
+            };
 
-        var familyIncomeChart = new ApexCharts(document.querySelector('#familyIncomeChart'), familyIncomeOptions);
-        familyIncomeChart.render();
+            var familyIncomeChart = new ApexCharts(document.querySelector('#familyIncomeChart'), familyIncomeOptions);
+            familyIncomeChart.render();
         }
-        
+
 
 
 
         //familySpending
         var familySpending = @json($familySpending);
-        if(familySpending.length > 1) {
+        if (familySpending.length > 1) {
             var familySpendingLabels = [];
-        var familySpendingSeries = [];
+            var familySpendingSeries = [];
 
-        for (var i = 0; i < familySpending.length; i++) {
-            familySpendingLabels.push(familySpending[i].user_fullname);
-            familySpendingSeries.push(familySpending[i].family_spending);
-        }
+            for (var i = 0; i < familySpending.length; i++) {
+                familySpendingLabels.push(familySpending[i].user_fullname);
+                familySpendingSeries.push(familySpending[i].family_spending);
+            }
 
-        var familySpendingOptions = {
-            chart: {
-                type: 'pie',
-                width: 300,
-                height: 300,
-                /* Fontcolor */
-                foreColor: '#FBFBFB',
-            },
-            dataLabels: {
-                enabled: true
-            },
-            stroke: {
-                width: 2,
-                colors: ["#fff"]
-            },
-            legend: {
-                show: false
-            },
-            labels: familySpendingLabels,
-            series: familySpendingSeries,
-            // Other options...
-            responsive: [{
-                // breakepoint in px.... when the window size goes under this, the graph changes
-                breakpoint: 1200,
-                // options for the changed responsive graph
-                options: {
-                    plotOptions: {
+            var familySpendingOptions = {
+                chart: {
+                    type: 'pie',
+                    width: 300,
+                    height: 300,
+                    /* Fontcolor */
+                    foreColor: '#FBFBFB',
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                stroke: {
+                    width: 2,
+                    colors: ["#fff"]
+                },
+                legend: {
+                    show: false
+                },
+                labels: familySpendingLabels,
+                series: familySpendingSeries,
+                // Other options...
+                responsive: [{
+                    // breakepoint in px.... when the window size goes under this, the graph changes
+                    breakpoint: 1200,
+                    // options for the changed responsive graph
+                    options: {
+                        plotOptions: {
+                            chart: {
+                                horizontal: false
+                            }
+                        },
                         chart: {
-                            horizontal: false
-                        }
-                    },
-                    chart: {
-                        width: 200,
-                        height: 200,
-                    },
-                }
-            }]
-        };
+                            width: 200,
+                            height: 200,
+                        },
+                    }
+                }]
+            };
 
-        var familySpendingChart = new ApexCharts(document.querySelector('#familySpendingChart'), familySpendingOptions);
-        familySpendingChart.render();
+            var familySpendingChart = new ApexCharts(document.querySelector('#familySpendingChart'), familySpendingOptions);
+            familySpendingChart.render();
 
         }
-        
-       
+
+
         var MonthlyFamilyFinances = @json($familyFinances);
-        if(MonthlyFamilyFinances.length != 0){
+        if (MonthlyFamilyFinances.length != 0) {
             var financeColors = @json($familyFinanceColors);
             var jsonData = [];
             MonthlyFamilyFinances.forEach(function(element) {
-                
-            var color = financeColors[element.id];
-            var eventData = {
-                title: element.name,  
-                start: element.time,
-                color: color 
-            };
-            jsonData.push(eventData);
+
+                var color = financeColors[element.id];
+                var eventData = {
+                    title: element.name,
+                    start: element.time,
+                    color: color
+                };
+                jsonData.push(eventData);
             });
-        //calendar
-        $(document).ready(function() {
+            //calendar
+            $(document).ready(function() {
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev',
                         center: 'title, today',
-                        right: 'next',
+                        right: 'next, month, agendaDay',
                     },
                     events: jsonData
                 })
             });
-        }
-        
-        else{
+        } else {
             var MonthlyFinances = @json($userMonthlyFinances);
             var financeColors = @json($financeColors);
             console.log(financeColors);
             var jsonData = [];
             MonthlyFinances.forEach(function(element) {
-                
-            var color = financeColors[element.id];
-            var eventData = {
-                title: element.name,  
-                start: element.time,
-                color: color 
-            };
-            jsonData.push(eventData);
+
+                var color = financeColors[element.id];
+                var eventData = {
+                    title: element.name,
+                    start: element.time,
+                    color: color
+                };
+                jsonData.push(eventData);
             });
-    
+
 
             //calendar
             $(document).ready(function() {
@@ -423,15 +421,12 @@
                     header: {
                         left: 'prev',
                         center: 'title, today',
-                        right: 'next',
+                        right: 'next, month, agendaDay',
                     },
                     events: jsonData
                 })
             });
-        
+
         }
-           
-      
-        
     </script>
 @endsection

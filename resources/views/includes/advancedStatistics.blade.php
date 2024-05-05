@@ -134,7 +134,7 @@ FIX SELECT BY CATEGORY
                         @foreach ($familyMembers as $member)
                             @php
                                 /* $memberCurrencySymbol = "$"; */
-                                $memberCurrencySymbol = $familyCurrencySymbols[$member->id]; 
+                                $memberCurrencySymbol = $familyCurrencySymbols[$member->id];
                                 /* DOEST WORK NEEDS FIXING */
                             @endphp
                             @php
@@ -193,7 +193,7 @@ FIX SELECT BY CATEGORY
         </div>
     </div>
     @if (isset($selected_category))
-        <div class="specialcard-container">
+        <div class="specialcard-container mb-3">
             @php
                 $currentYear = date('Y');
                 $monthsToShow = [$currentMonth - 2, $currentMonth - 1, $currentMonth];
