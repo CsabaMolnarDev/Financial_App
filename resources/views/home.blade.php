@@ -49,7 +49,19 @@
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-4">
-                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familyIncomes))
+                {{-- @php
+                    if (!function_exists('checkInc')) {
+                        function checkInc()
+                        {
+                            $total = 0;
+                            for ($i = 0; $i < count($familyIncomes); $i++) {
+                                $total = $familyIncomes[i] . $family_income;
+                            }
+                            return $total;
+                        }
+                    }
+                @endphp --}}
+                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familyIncomes) /* && checkInc() > 0 */)
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Incomes</h3>
@@ -259,6 +271,7 @@
         var incomeChart = new ApexCharts(document.querySelector('#incomeChart'), incomeOptions);
         incomeChart.render();
 
+
         /* Graphs: */
         /* Pie graph */
         var familyIncomes = @json($familyIncomes);
@@ -309,9 +322,9 @@
                     }
                 }]
             };
-
             var familyIncomeChart = new ApexCharts(document.querySelector('#familyIncomeChart'), familyIncomeOptions);
             familyIncomeChart.render();
+
         }
 
 
@@ -392,8 +405,8 @@
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev',
-                        center: 'title, today',
-                        right: 'next, month, agendaDay',
+                        center: 'title, today, month, agendaDay',
+                        right: 'next',
                     },
                     events: jsonData
                 })
@@ -420,8 +433,8 @@
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev',
-                        center: 'title, today',
-                        right: 'next, month, agendaDay',
+                        center: 'title, today, month, agendaDay',
+                        right: 'next',
                     },
                     events: jsonData
                 })

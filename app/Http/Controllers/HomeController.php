@@ -56,7 +56,7 @@ class HomeController extends Controller
 
         $getFamilyFinances = $this->getFamilyFinances();
         $familyFinances = $getFamilyFinances['familyFinances'];
-   
+
 
 
         $financeColors = [];
@@ -73,7 +73,8 @@ class HomeController extends Controller
 
 
 
-        
+        /* $inc = ;
+        $spen = ; */
 
 
 
@@ -90,8 +91,10 @@ class HomeController extends Controller
             'userMonthlyFinances' => $userMonthlyFinances,
             'financeColors' => $financeColors,
             'familyFinances' => $familyFinances ?? null,
-            'familyFinanceColors' => $familyFinanceColors ?? null
-
+            'familyFinanceColors' => $familyFinanceColors ?? null,
+            //inc spen total for graps
+            /*' inc' => $inc,
+            'spen' => $spen */
         ]);
     }
 
@@ -300,13 +303,13 @@ class HomeController extends Controller
             'familymembers' => $familymembers
         ];
    }
-    
 
-    public function getFinances() 
+
+    public function getFinances()
     {
         $userfinances = Finance::where('finances.user_id', '=', auth()->user()->id)
-        ->select('name', 'price', 'time', 'type', 'id') 
-        ->get(); 
+        ->select('name', 'price', 'time', 'type', 'id')
+        ->get();
         return [
             'userfinances' => $userfinances
         ];
@@ -335,9 +338,9 @@ class HomeController extends Controller
         $type = $finance->type;
 
         if ($isMonthly) {
-            return ($type === 'Income') ? 'lime' : 'red'; 
+            return ($type === 'Income') ? 'lime' : 'red';
         } else {
-            return ($type === 'Income') ? 'green' : 'crimson'; 
+            return ($type === 'Income') ? 'green' : 'crimson';
         }
     }
 }
