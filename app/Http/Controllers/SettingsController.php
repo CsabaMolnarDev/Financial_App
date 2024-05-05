@@ -94,7 +94,8 @@ class SettingsController extends Controller
         $user->save();
 
         $currencyTo  = Currency::find($request->newCurrency)->code;
-        $exchangeRate = app(ExchangeRate::class)->exchangeRate($currencyFrom, $currencyTo);
+        //exchange rate is rounded to 3 decimal
+        $exchangeRate = round(app(ExchangeRate::class)->exchangeRate($currencyFrom, $currencyTo), 3);
         $userFinances = Finance::where('user_id', $user->id)->get();
        foreach ($userFinances as $finance) {
             $finance->price = $finance->price * $exchangeRate;
@@ -236,7 +237,6 @@ class SettingsController extends Controller
         return back();
     }
 
-    //need to be finished
     public function addFamilyMember(Request $request)
     {
         $request->validate([
