@@ -127,8 +127,6 @@ class SettingsController extends Controller
             return back();
         } 
         
-
-
     }
     public function changePhone(Request $request)
     {

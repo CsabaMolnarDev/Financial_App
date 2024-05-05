@@ -41,14 +41,15 @@ class HomeController extends Controller
         $incomeFunc = $this->incomeGraphData();
         $incomeCategoryPrices = $incomeFunc['categoryPrices'];
 
-        $familyFunc = $this->getFamilyMembersForGraphicon();
+        $familyFunc = $this->getFamilyMembers();
         $familymembers = $familyFunc['familymembers'];
+
         
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
         $familyIncomes = $familyIncomesCall['articles'];
-
         $familySpendingCall = $this->generateFamilySpendingArticles();
         $familySpending = $familySpendingCall['articles2'];
+       
 
         $getfinances = $this->getFinances();
         $userMonthlyFinances = $getfinances['userfinances'];
@@ -105,7 +106,7 @@ class HomeController extends Controller
 
         //family data
           
-        $familyFunc = $this->getFamilyMembersForGraphicon();
+        $familyFunc = $this->getFamilyMembers();
         $familymembers = $familyFunc['familymembers'];
 
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
@@ -234,7 +235,7 @@ class HomeController extends Controller
 
     public function generateFamilyIncomeArticles()
     {       
-        $familyFunc = $this->getFamilyMembersForGraphicon();
+        $familyFunc = $this->getFamilyMembers();
         $familymembers = $familyFunc['familymembers'];
 
 
@@ -262,7 +263,7 @@ class HomeController extends Controller
     public function generateFamilySpendingArticles()
     {
 
-        $familyFunc = $this->getFamilyMembersForGraphicon();
+        $familyFunc = $this->getFamilyMembers();
         $familymembers = $familyFunc['familymembers'];
 
         $articles = [];
@@ -287,13 +288,7 @@ class HomeController extends Controller
 
     }
 
-    public function getFamilyMembersForGraphicon()
-    {
-        $familymembers = User::whereNotNull('family_id')->get();
-        return [
-            'familymembers' => $familymembers 
-        ];
-    }
+  
 
    public function getFamilyMembers() {
         $currentUserFamilyId = auth()->user()->family_id;
@@ -302,7 +297,7 @@ class HomeController extends Controller
         ->where('family_id', $currentUserFamilyId)
         ->get();
         return [
-            'familymembersForCalendar' => $familymembers
+            'familymembers' => $familymembers
         ];
    }
     
@@ -319,8 +314,8 @@ class HomeController extends Controller
 
     public function getFamilyFinances()
     {
-        $getFamilyMembersForGraphicon = $this->getFamilyMembers(); 
-        $familymembers = $getFamilyMembersForGraphicon['familymembersForCalendar'];
+        $getFamilyMembers = $this->getFamilyMembers(); 
+        $familymembers = $getFamilyMembers['familymembers'];
       
         $userFinances = collect();
         foreach ($familymembers as $member) {
