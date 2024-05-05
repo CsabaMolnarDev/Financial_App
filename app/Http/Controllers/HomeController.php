@@ -117,6 +117,24 @@ class HomeController extends Controller
         $getfinances = $this->getFinances();
         $userMonthlyFinances = $getfinances['userfinances'];
 
+        $getFamilyFinances = $this->getFamilyFinances();
+        $familyFinances = $getFamilyFinances['familyFinances'];
+   
+
+
+        $financeColors = [];
+        foreach ($userMonthlyFinances as $finance) {
+            $financeColors[$finance->id] = $this->getFinanceColor($finance->id);
+        }
+
+        if ($familyFinances != null) {
+            $familyFinanceColors = [];
+            foreach ($familyFinances as $finance) {
+                $familyFinanceColors[$finance->id] = $this->getFinanceColor($finance->id);
+            }
+        }
+
+
         $from = Currency::find($request->currency_id)->code;
         $fromSymbol = Currency::find($request->currency_id)->symbol;
         $to = Currency::find($request->currency_id2)->code;
@@ -134,7 +152,10 @@ class HomeController extends Controller
             'familySpending' => $familySpending,
             'familymembers' => $familymembers,
             //calendar
-            'userMonthlyFinances' => $userMonthlyFinances
+            'userMonthlyFinances' => $userMonthlyFinances,
+            'financeColors' => $financeColors,
+            'familyFinances' => $familyFinances ?? null,
+            'familyFinanceColors' => $familyFinanceColors ?? null
 
         ]);
     }
