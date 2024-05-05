@@ -245,7 +245,8 @@
                                         <p>You are the member of the {{ $user->family?->name }} family.</p>
                                         <form action="{{ route('leaveFamily') }}" method="POST">
                                             @csrf
-                                            <p><button type="submit" id="leaveFamily">Leave family</button></p>
+                                            <p><button class="btn btn-outline-primary" type="submit"
+                                                    id="leaveFamily">Leave family</button></p>
                                         </form>
                                     @endif
                                 @endif
@@ -261,7 +262,7 @@
 
     <script>
         /* Change background image */
-        /* document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";*/ //uncomment it
+        document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";
         //notification handler
         document.addEventListener('DOMContentLoaded', function() {
             var checkbox = document.getElementById('notification');
