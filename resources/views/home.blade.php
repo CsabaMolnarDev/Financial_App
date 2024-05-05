@@ -50,7 +50,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-4">
 
-                @if (auth()->user()->family && $familymembers->count() > 1 && $allIncomesZero != null /* && checkInc() > 0 */)
+                @if (auth()->user()->family && $familymembers->count() > 1 && $allIncomesZero === false)
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Incomes</h3>
@@ -68,7 +68,7 @@
                 @endif
             </div>
             <div class="col-md-4">
-                @if (auth()->user()->family && $familymembers->count() > 1 && $allSpendingsZero != null)
+                @if (auth()->user()->family && $familymembers->count() > 1 && $allSpendingsZero === false)
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Spendings</h3>
