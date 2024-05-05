@@ -60,10 +60,6 @@ FIX SELECT BY CATEGORY
                         <h1 class="available-balance">Available Balance: {{ $availableBalance }} {{ $currencySymbol }}
                         </h1>
 
-                        {{-- if() if user in family
-                                total family balance
-                            @end if
-                            --}}
                     </div>
                 </div>
             </div>
@@ -167,31 +163,36 @@ FIX SELECT BY CATEGORY
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="card bg-dark text-light">
-                    <div class="card-body">
-                        <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
-                            @csrf
-                            <label for="options">Select an option : </label>
-                            <select class="form-control" name="options" id="options" onchange="submitForm1()">
-                                <option value="" selected disabled>Choose one</option>
-                                <optgroup label="Spending categories">
-                                    @foreach ($spendingCategories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Income categories">
-                                    @foreach ($incomeCategories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </form>
+                @if (auth()->user()->finances()->where('type', 'spending')->exists() && auth()->user()->finances()->where('type', 'income')->exists())
+                    <div class="card bg-dark text-light">
+                        <div class="card-body">
+                        
+                            <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
+                                @csrf
+                                <label for="options">Select an option : </label>
+                                <select class="form-control" name="options" id="options" onchange="submitForm1()">
+                                    <option value="" selected disabled>Choose one</option>
+                                    <optgroup label="Spending categories">
+                                        @foreach ($spendingCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                    <optgroup label="Income categories">
+                                        @foreach ($incomeCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="col-md-3"></div>
         </div>
     </div>
+    
+    
     @if (isset($selected_category))
         <div class="specialcard-container mb-3">
             @php
