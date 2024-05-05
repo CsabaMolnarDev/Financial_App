@@ -61,7 +61,7 @@
                         }
                     }
                 @endphp --}}
-                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familyIncomes) && checkInc() > 0)
+                @if (auth()->user()->family && $familymembers->count() > 1 && !empty($familyIncomes) /* && checkInc() > 0 */)
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
                             <h3>Family Incomes</h3>
