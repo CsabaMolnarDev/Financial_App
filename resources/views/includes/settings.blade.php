@@ -176,14 +176,15 @@
                             </div>
                             {{-- Notification --}}
                             <div class="col-md-6">
-                                <p class="card-text">Notification:</p>
+                                <p class="card-text">Notifications:</p>
                                 <form action="{{ route('enableNotification') }}" method="POST">
                                     @csrf
-                                    <input type="checkbox" id="notification" name="notification">
-                                    <label for="notification"> I want to get notified</label><br>
+                                    @if (auth()->user()->notification == true && auth()->user()->timezone != null)
+                                        <label>You are subscribed</label><br>
+                                    @endif
                                     <button id="enableNotificationBtn" type="submit"
-                                        class="btn btn-outline-primary">Enable
-                                        notification</button>
+                                        class="btn btn-outline-primary">Enable / Disable
+                                        notifications</button>
                                     <input type="hidden" id="timezone" name="timezone">
                                 </form>
                             </div>
@@ -261,20 +262,6 @@
     <script>
         /* Change background image */
         /* document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";*/ //uncomment it
-        var financesData = @json($finances);
-
-        //csv downloader (under construction)
-        //maybe use the apexcharts's csv download functionality
-        document.getElementById('downloadButton').addEventListener('click', function() {
-
-            const dataToConvert = {
-                data: financesData,
-                filename: 'Spendings',
-                delimiter: ',',
-                headers: ['Name', 'Price', 'Time']
-            };
-            csvDownload(dataToConvert);
-        });
         //notification handler
         document.addEventListener('DOMContentLoaded', function() {
             var checkbox = document.getElementById('notification');

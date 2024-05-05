@@ -30,12 +30,10 @@ class SettingsController extends Controller
         $user = auth()->user();
         $currencies = Currency::all();
         $userId = Auth::id();
-        $finances = Finance::where('type','Spending')->where('user_id', $userId)->get();
         $family = User::where('family_id', '=', $user->family_id)->get();
         return view('includes.settings', [
             'user' => $user,
             'currencies' => $currencies,
-            'finances' => $finances,
             'family' => $family
         ]);
     }
@@ -110,15 +108,25 @@ class SettingsController extends Controller
     }
 
     public function enableNotification(Request $request)
-    {
+    {   
         $user = auth()->user();
-        $userTimezone = $request->input('timezone');
-        $checkboxValue = $request->input('notification');
-        $user->notification = $checkboxValue ? '1' : '0';
-        $user->timezone = $userTimezone;
-        $user->save();
-        toastr()->success('Notification settings updated successfully');
-        return back();
+        if($user->notification == false){
+            $userTimezone = $request->input('timezone');
+            $user->notification = '1';
+            $user->timezone = $userTimezone;
+            $user->save();
+            toastr()->success('Notifications enabled successfully');
+            return back();
+        }
+       else
+        {
+            $user->notification = '0';
+            $user->timezone = null;
+            $user->save();
+            toastr()->success('Notifications disabled successfully');
+            return back();
+        } 
+        
 
 
     }
