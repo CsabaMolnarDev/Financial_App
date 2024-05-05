@@ -29,7 +29,7 @@ class AdvancedStatisticsController extends Controller
         $familyCurrencySymbols=$result["symbol"];
         $totalIncome=$result["tincome"];
         $totalSpending=$result["tspending"];
-        
+
         //avarage income, spending with the same currency
         $result = $this->AvarageWithTheSameCurrency();
         $spendingsAverage = $result['spendingsWithTheSameCurrency'];
@@ -84,7 +84,7 @@ class AdvancedStatisticsController extends Controller
             $result = $this->AvarageWithTheSameCurrency();
             $spendingsAverage = $result['spendingsWithTheSameCurrency'];
             $incomesAverage = $result['incomesWithTheSameCurrency'];
-        
+
         // Pass filtered incomes and spendings to the view
         return view('includes.advancedStatistics', [
             'incomes' => $indexData['incomes'],
@@ -260,7 +260,8 @@ class AdvancedStatisticsController extends Controller
         $familyMembers = User::where('family_id', auth()->user()->family_id)
         ->whereNotNull('family_id')
         ->get();
-
+        $memberIncome = 0;
+        $memberSpending = 0;
         $familyCurrencySymbols = [];
         foreach ($familyMembers as $member) {
             $familyCurrencySymbols[$member->id] = $member->currency->symbol;
@@ -270,12 +271,12 @@ class AdvancedStatisticsController extends Controller
         foreach($familyMembers as $member)
         {
             $userFinances = Finance::where('user_id', $member->id)->get();
-            
+
             $memberIncome = $userFinances->where('type', 'Income')->sum('price');
             $memberSpending = $userFinances->where('type', 'Spending')->sum('price');
-            
+
             $totalIncome += $memberIncome;
-            $totalSpending += $memberSpending; 
+            $totalSpending += $memberSpending;
         }
         return[
             "members"=>$familyMembers,

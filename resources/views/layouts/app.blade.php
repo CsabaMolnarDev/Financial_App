@@ -20,10 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- Apexcharts --}}
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="{{ asset('js/apexcharts.min.js') }}"></script>
-    {{-- Csv export --}}
-    <script src="{{ asset('js/json-to-csv-export.min.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/apexcharts.min.js') }}"></script> --}}
     {{-- Jquerry table --}}
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
     <script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
