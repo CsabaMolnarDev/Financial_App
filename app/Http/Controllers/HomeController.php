@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         $familyFunc = $this->getFamilyMembersForGraphicon();
         $familymembers = $familyFunc['familymembers'];
-        
+
         $familyIncomesCall = $this->generateFamilyIncomeArticles();
         $familyIncomes = $familyIncomesCall['articles'];
 
@@ -55,7 +55,7 @@ class HomeController extends Controller
 
         $getFamilyFinances = $this->getFamilyFinances();
         $familyFinances = $getFamilyFinances['familyFinances'];
-   
+
 
 
         $financeColors = [];
@@ -72,7 +72,8 @@ class HomeController extends Controller
 
 
 
-        
+        /* $inc = ;
+        $spen = ; */
 
 
 
@@ -89,8 +90,10 @@ class HomeController extends Controller
             'userMonthlyFinances' => $userMonthlyFinances,
             'financeColors' => $financeColors,
             'familyFinances' => $familyFinances ?? null,
-            'familyFinanceColors' => $familyFinanceColors ?? null
-
+            'familyFinanceColors' => $familyFinanceColors ?? null,
+            //inc spen total for graps
+            /*' inc' => $inc,
+            'spen' => $spen */
         ]);
     }
 
@@ -104,7 +107,7 @@ class HomeController extends Controller
         $incomeCategoryPrices = $incomeFunc['categoryPrices'];
 
         //family data
-          
+
         $familyFunc = $this->getFamilyMembersForGraphicon();
         $familymembers = $familyFunc['familymembers'];
 
@@ -212,7 +215,7 @@ class HomeController extends Controller
 
 
     public function generateFamilyIncomeArticles()
-    {       
+    {
         $familyFunc = $this->getFamilyMembersForGraphicon();
         $familymembers = $familyFunc['familymembers'];
 
@@ -270,7 +273,7 @@ class HomeController extends Controller
     {
         $familymembers = User::whereNotNull('family_id')->get();
         return [
-            'familymembers' => $familymembers 
+            'familymembers' => $familymembers
         ];
     }
 
@@ -284,13 +287,13 @@ class HomeController extends Controller
             'familymembersForCalendar' => $familymembers
         ];
    }
-    
 
-    public function getFinances() 
+
+    public function getFinances()
     {
         $userfinances = Finance::where('finances.user_id', '=', auth()->user()->id)
-        ->select('name', 'price', 'time', 'type', 'id') 
-        ->get(); 
+        ->select('name', 'price', 'time', 'type', 'id')
+        ->get();
         return [
             'userfinances' => $userfinances
         ];
@@ -298,9 +301,9 @@ class HomeController extends Controller
 
     public function getFamilyFinances()
     {
-        $getFamilyMembersForGraphicon = $this->getFamilyMembers(); 
+        $getFamilyMembersForGraphicon = $this->getFamilyMembers();
         $familymembers = $getFamilyMembersForGraphicon['familymembersForCalendar'];
-      
+
         $userFinances = collect();
         foreach ($familymembers as $member) {
             $finances = Finance::where('user_id', $member->id)->get();
@@ -319,9 +322,9 @@ class HomeController extends Controller
         $type = $finance->type;
 
         if ($isMonthly) {
-            return ($type === 'Income') ? 'lime' : 'red'; 
+            return ($type === 'Income') ? 'lime' : 'red';
         } else {
-            return ($type === 'Income') ? 'green' : 'crimson'; 
+            return ($type === 'Income') ? 'green' : 'crimson';
         }
     }
 }
