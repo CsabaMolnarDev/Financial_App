@@ -7,25 +7,6 @@ FIX SELECT BY CATEGORY
 
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row gy-3">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="card bg-dark text-light text-center">
-                    <div class="card-body">
-                        <div class="row">
-                            <p>Avarge income in your country: {{ $incomesAverage }} {{ $currencySymbol }}</p>
-                        </div>
-                        <div class="row mt-3">
-                            <p>Avarage spending in your country: {{ $spendingsAverage }} {{ $currencySymbol }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-    </div>
     <div class="container mt-3">
         <div class="row mb-3">
             <div class="col-md-3"></div>
@@ -60,10 +41,6 @@ FIX SELECT BY CATEGORY
                         <h1 class="available-balance">Available Balance: {{ $availableBalance }} {{ $currencySymbol }}
                         </h1>
 
-                        {{-- if() if user in family
-                                total family balance
-                            @end if
-                            --}}
                     </div>
                 </div>
             </div>
@@ -167,31 +144,36 @@ FIX SELECT BY CATEGORY
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="card bg-dark text-light">
-                    <div class="card-body">
-                        <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
-                            @csrf
-                            <label for="options">Select an option : </label>
-                            <select class="form-control" name="options" id="options" onchange="submitForm1()">
-                                <option value="" selected disabled>Choose one</option>
-                                <optgroup label="Spending categories">
-                                    @foreach ($spendingCategories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                                <optgroup label="Income categories">
-                                    @foreach ($incomeCategories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </form>
+                @if (auth()->user()->finances()->where('type', 'spending')->exists() && auth()->user()->finances()->where('type', 'income')->exists())
+                    <div class="card bg-dark text-light">
+                        <div class="card-body">
+                        
+                            <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
+                                @csrf
+                                <label for="options">Filter by category: </label>
+                                <select class="form-control" name="options" id="options" onchange="submitForm1()">
+                                    <option value="" selected disabled>Choose one</option>
+                                    <optgroup label="Spending categories">
+                                        @foreach ($spendingCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                    <optgroup label="Income categories">
+                                        @foreach ($incomeCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
             <div class="col-md-3"></div>
         </div>
     </div>
+    
+    
     @if (isset($selected_category))
         <div class="specialcard-container mb-3">
             @php
@@ -393,6 +375,26 @@ FIX SELECT BY CATEGORY
                     </div>
                 </div>
             @endif
+        </div>
+        <br>
+        <div class="container">
+            <div class="row gy-3">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="card bg-dark text-light text-center">
+                        <div class="card-body">
+                            <div class="row">
+                                <p>Avarge income in your country (monthly): {{ $incomesAverage }} {{ $currencySymbol }}</p>
+                            </div>
+                            <div class="row mt-3">
+                                <p>Avarage spending in your country (monthly): {{ $spendingsAverage }} {{ $currencySymbol }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
         </div>
     @endif
     {{-- Scripts --}}

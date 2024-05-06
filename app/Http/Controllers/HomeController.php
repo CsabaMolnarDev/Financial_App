@@ -224,7 +224,7 @@ class HomeController extends Controller
             // Organize the finances data by category
             $categoryPrices = [];
             foreach ($spendingFinances as $finance) {
-                $categoryName = $finance->name; // Assuming category name is stored in the 'name' column
+                $categoryName = $finance->name; 
                 $price = $finance->price;
                 if (!isset($categoryPrices[$categoryName])) {
                     $categoryPrices[$categoryName] = $price;
