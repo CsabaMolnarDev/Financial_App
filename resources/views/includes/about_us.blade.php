@@ -31,7 +31,7 @@
         <div class="wrapper">
             <div class="carousel">
                 <li class="card bg-dark text-light">
-                    <div class="img"><img src="../storage/icons/calendar.png"></div>
+                    <div class="img"><img src="../storage/icons/calendarIcon.png"></div>
                     <div class="text-center">
                         <h4>24/7 access</h4>
                         <p>Our services are running day and night, in order to be able to support you
@@ -39,14 +39,14 @@
                     </div>
                 </li>
                 <li class="card bg-dark text-light">
-                    <div class="img"><img src="../storage/icons/globe.png"></div>
+                    <div class="img"><img src="../storage/icons/globeIcon.png"></div>
                     <div class="text-center">
                         <h4">Access from anywhere</h4>
                             <p>You can access our product from anywhere on the globe</p>
                     </div>
                 </li>
                 <li class="card bg-dark text-light">
-                    <div class="img"><img src="../storage/icons/pin.png"></div>
+                    <div class="img"><img src="../storage/icons/pinIcon.png"></div>
                     <div class="text-center">
                         <h4>Remember everything</h4>
                         <p>With the help of our product, you can easily track and manage your finances
@@ -54,7 +54,7 @@
                     </div>
                 </li>
                 <li class="card bg-dark text-light">
-                    <div class="img"><img src="../storage/icons/family.png"></div>
+                    <div class="img"><img src="../storage/icons/familyIcon.png"></div>
                     <div class="text-center">
                         <h4>Family system</h4>
                         <p>You can create a group with your family, and you can manage the finances
