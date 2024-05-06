@@ -7,7 +7,8 @@
             <div class="col-8">
                 <div class="card bg-dark text-light">
                     <div class="card-body">
-                        <form id="categoryForm" action="{{ route('finances.store') }}" method="POST" enctype="multipart/form-data">
+                        <form id="categoryForm" action="{{ route('finances.store') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
@@ -48,7 +49,8 @@
                                 </div>
                             </div>
                             <div class="mb-3 text-center">
-                                <button id="add_new_btn" type="submit" class="btn btn-outline-success w-75">Add new</button>
+                                <button id="add_new_btn" type="submit" class="btn btn-outline-success w-75">Add
+                                    new</button>
                                 <div class="row">
                                 </div>
                             </div>
@@ -58,7 +60,8 @@
                             <div class="mb-3 text-center" id="newCategoryForm" style="display: none;">
                                 <input class="form-control mb-3" type="text" id="newCategoryInput" name="new_category"
                                     placeholder="Enter new category">
-                                <button id="addCategoryBtn" type="submit" class="btn btn-outline-success w-75">Add Category</button>
+                                <button id="addCategoryBtn" type="submit" class="btn btn-outline-success w-75">Add
+                                    Category</button>
                             </div>
                         </form>
                     </div>
@@ -69,17 +72,17 @@
     </div>
 
     <script>
-        document.body.style.backgroundImage = "url('../storage/pictures/incomeCreate.jpg')";
-        
+        document.body.style.backgroundImage = "url('../storage/pictures/incomeCreatePic.jpg')";
+
         document.getElementById('category_id').addEventListener('change', function() {
             var newCategoryForm = document.getElementById('newCategoryForm');
-            var addNewBtn = document.getElementById('add_new_btn'); 
+            var addNewBtn = document.getElementById('add_new_btn');
             if (this.value === 'add_category') {
                 newCategoryForm.style.display = 'block';
-                addNewBtn.disabled = true; 
+                addNewBtn.disabled = true;
             } else {
                 newCategoryForm.style.display = 'none';
-                addNewBtn.disabled = false; 
+                addNewBtn.disabled = false;
             }
         });
     </script>

@@ -49,7 +49,8 @@
                                 </div>
                             </div>
                             <div class="mb-3 text-center">
-                                <button id="add_new_btn" type="submit" class="btn btn-outline-success form-control mb-3">Add new</button>
+                                <button id="add_new_btn" type="submit"
+                                    class="btn btn-outline-success form-control mb-3">Add new</button>
                                 <div class="row">
                                 </div>
                             </div>
@@ -63,7 +64,7 @@
                                     Category</button>
                             </div>
                         </form>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="col-2"></div>
@@ -71,17 +72,17 @@
     </div>
 
     <script>
-        document.body.style.backgroundImage = "url('../storage/pictures/incomeCreate.jpg')";
-        
+        document.body.style.backgroundImage = "url('../storage/pictures/incomeCreatePic.jpg')";
+
         document.getElementById('category_id').addEventListener('change', function() {
             var newCategoryForm = document.getElementById('newCategoryForm');
-            var addNewBtn = document.getElementById('add_new_btn'); 
+            var addNewBtn = document.getElementById('add_new_btn');
             if (this.value === 'add_category') {
                 newCategoryForm.style.display = 'block';
-                addNewBtn.disabled = true; 
+                addNewBtn.disabled = true;
             } else {
                 newCategoryForm.style.display = 'none';
-                addNewBtn.disabled = false; 
+                addNewBtn.disabled = false;
             }
         });
     </script>

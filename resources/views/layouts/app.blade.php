@@ -42,7 +42,7 @@ background-size: cover;
 background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: center;
-background-image: url('../storage/pictures/home.jpg');
+background-image: url('../storage/pictures/homePic.jpg');
 
 ">
     <div id="app">

@@ -1,9 +1,8 @@
-{{-- TODO: fix graphs coloring, font color, font size, font family, graphs responsivity, add border to card --}}
 @extends('layouts.app')
 @section('content')
     {{-- Image --}}
     <script>
-        document.body.style.backgroundImage = "url('../storage/pictures/income.jpg')";
+        document.body.style.backgroundImage = "url('../storage/pictures/incomePic.jpg')";
     </script>
     <div class="container">
         {{-- Add new button --}}

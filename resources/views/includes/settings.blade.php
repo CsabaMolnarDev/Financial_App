@@ -262,7 +262,7 @@
 
     <script>
         /* Change background image */
-        document.body.style.backgroundImage = "url('../storage/pictures/settings.jpg')";
+        document.body.style.backgroundImage = "url('../storage/pictures/settingsPic.jpg')";
         //notification handler
         document.addEventListener('DOMContentLoaded', function() {
             var checkbox = document.getElementById('notification');
