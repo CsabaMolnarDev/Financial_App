@@ -256,11 +256,6 @@
             dataLabels: {
                 enabled: false
             },
-            /* Theme */
-            /* theme: {
-                mode:'light',
-            }, */
-            /* toolbar */
             chart: {
                 toolbar: {
                     show: true,
