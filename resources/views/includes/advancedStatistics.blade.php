@@ -144,10 +144,11 @@ FIX SELECT BY CATEGORY
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                @if (auth()->user()->finances()->where('type', 'spending')->exists() && auth()->user()->finances()->where('type', 'income')->exists())
+                @if (auth()->user()->finances()->where('type', 'spending')->exists() ||
+                        auth()->user()->finances()->where('type', 'income')->exists())
                     <div class="card bg-dark text-light">
                         <div class="card-body">
-                        
+
                             <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
                                 @csrf
                                 <label for="options">Filter by category: </label>
@@ -172,8 +173,8 @@ FIX SELECT BY CATEGORY
             <div class="col-md-3"></div>
         </div>
     </div>
-    
-    
+
+
     @if (isset($selected_category))
         <div class="specialcard-container mb-3">
             @php
@@ -384,10 +385,12 @@ FIX SELECT BY CATEGORY
                     <div class="card bg-dark text-light text-center">
                         <div class="card-body">
                             <div class="row">
-                                <p>Avarge income in your country (monthly): {{ $incomesAverage }} {{ $currencySymbol }}</p>
+                                <p>Avarge income in your country (monthly): {{ $incomesAverage }} {{ $currencySymbol }}
+                                </p>
                             </div>
                             <div class="row mt-3">
-                                <p>Avarage spending in your country (monthly): {{ $spendingsAverage }} {{ $currencySymbol }}
+                                <p>Avarage spending in your country (monthly): {{ $spendingsAverage }}
+                                    {{ $currencySymbol }}
                                 </p>
                             </div>
                         </div>
