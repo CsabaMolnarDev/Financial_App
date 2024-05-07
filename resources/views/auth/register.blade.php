@@ -44,7 +44,6 @@
                                     <input id="phone" type="text"
                                         class="form-control text-dark inputPhone @error('phone') is-invalid @enderror"
                                         name="phone" value="{{ old('phone') }}" autofocus>
-
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

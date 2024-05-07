@@ -9,8 +9,6 @@ class AboutUsController extends Controller
 {
     public function index()
     {
-        // get users that are devs by role id
-        $devs = DB::table('users')->where('roles_id','1')->get();
-        return view('includes.about_us', ['devs' => $devs]);
+        return view('includes.about_us');
     }
 }

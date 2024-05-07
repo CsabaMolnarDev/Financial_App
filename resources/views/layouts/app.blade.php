@@ -8,9 +8,7 @@
     <link rel="icon" type="image/png" href="../storage/icons/appIcon.png" sizes="96x96">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>Finances</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -20,7 +18,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- Apexcharts --}}
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    {{-- <script src="{{ asset('js/apexcharts.min.js') }}"></script> --}}
     {{-- Jquerry table --}}
     <link rel="stylesheet" href="//cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
     <script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
@@ -42,7 +39,6 @@ background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: center;
 background-image: url('../storage/pictures/homePic.jpg');
-
 ">
     <div id="app">
         {{-- Navnar --}}
@@ -63,7 +59,6 @@ background-image: url('../storage/pictures/homePic.jpg');
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="offcanvas offcanvas-end bg-dark text-info" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
@@ -102,13 +97,8 @@ background-image: url('../storage/pictures/homePic.jpg');
                                 <button id="menuBtn" class="btn btn-outline-info" type="submit" {{-- Advanced statistics --}}
                                     onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
                                     statistics</button>
-                                {{--  @if (auth()->user()->finances()->where('type', 'spending')->exists() && auth()->user()->finances()->where('type', 'income')->exists())
-                                @endif --}}
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
-                                {{-- Under construction --}}
-                                {{-- <button id="menuBtn" class="btn btn-outline-success" type="submit"
-                                    onclick="window.location=' {{ url('/download') }} '">Download</button> --}}
                                 <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/documentation') }} '">Documentation</button>
                             @endguest

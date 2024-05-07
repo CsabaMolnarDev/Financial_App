@@ -69,7 +69,6 @@
                             <tbody>
                                 @foreach ($finances as $item)
                                     <tr>
-                                        {{-- @dd($categories[$item->category_id]) --}}
                                         <td id="date" item_id="{{ $item->id }}">{{ $item->time }}</td>
                                         <td id="category_id" item_id="{{ $item->id }}">{{ $item->category->name }}</td>
                                         <td id="name" item_id="{{ $item->id }}">{{ $item->name }}</td>
@@ -151,7 +150,6 @@
         sum = 'income in total: ' + sum + ' ' + '{{ $currencySymbol }}';
         document.getElementById('sum').innerHTML = sum;
         document.getElementById('avarage').innerHTML = avarage;
-        /* console.log(sum/prices.length); */
         var monthlyCategoryPrices = {};
         financesData.forEach(function(finance) {
             var categoryName = finance.category.name;
@@ -195,7 +193,7 @@
                 /* Fontcolor */
                 foreColor: '#FBFBFB',
             },
-            /* Sets the color of the pie slices */
+            /* if the color needs changing you can do it with the following code */
             /* fill: {
                 colors: ['#F44336', '#E91E63', '#9C27B0']
             }, */
@@ -343,7 +341,6 @@
                     caseInsensitive: false // Sets the search to be case-sensitive
                 }
             });
-
             // Event handler for double-clicking on table cells for editing
             $('#incomeTable tbody').on('dblclick', 'td:not(:last-child)', function(obj) {
                 var cell = $(this);
@@ -371,7 +368,6 @@
                     cell.find('input').focus();
                 }
             });
-
             // Event handler for detecting Enter key press while editing cells
             $('#incomeTable tbody').on('keydown', 'input', function(event) {
                 var cell = $(this).closest('td');
@@ -389,7 +385,6 @@
                     saveEditedCell(cell); // Call function to save cell edit
                 }
             });
-
             // Event handler for detecting blur event on input fields (cell editing finished)
             $('#incomeTable tbody').on('blur', 'input', function() {
                 var cell = $(this).closest('td');
@@ -401,7 +396,6 @@
                 var cell = $(this).closest('td');
                 saveEditedCell(cell); // Call function to save cell edit
             });
-
             // Function to save edited cell data
             function saveCellEdit(cell) {
                 var newValue = cell.find('input').val(); // Get new value from input field
@@ -431,8 +425,6 @@
                 // Send edited data to server via AJAX
                 sendEditData(rowId, columnIndex, categories[newValue].id);
             }
-
-
             // Function to send edited data to server via AJAX
             function sendEditData(rowId, columnIndex, newValue) {
                 $.ajax({
@@ -461,8 +453,6 @@
                     }
                 });
             }
-
-
             // Event handler to prevent button click event from propagating
             $('#incomeTable tbody').on('click', 'button', function(event) {
                 event.stopPropagation();

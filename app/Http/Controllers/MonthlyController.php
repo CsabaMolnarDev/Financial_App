@@ -34,7 +34,7 @@ class MonthlyController extends Controller
                     'year' => date("Y"),
                     'month' => date("m")
         ]);
-        return back(); 
+        return back();
     }
 
     /**
@@ -70,7 +70,6 @@ class MonthlyController extends Controller
     public function deleteMonthly($id)
     {
         $deleteFinanceById = Monthly::where('finance_id', '=', $id)->delete();
-        //toastr()->success("Monthly record deleted successfully");
-        return back(); 
+        return back();
     }
 }

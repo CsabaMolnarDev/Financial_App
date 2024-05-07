@@ -1,4 +1,3 @@
-{{-- TODO: fix graphs coloring, font color, font size, font family, graphs responsivity, add border to card --}}
 @extends('layouts.app')
 @section('content')
     {{-- Image --}}
@@ -70,7 +69,6 @@
                             <tbody>
                                 @foreach ($finances as $item)
                                     <tr>
-                                        {{-- @dd($categories[$item->category_id]) --}}
                                         <td id="date" item_id="{{ $item->id }}">{{ $item->time }}</td>
                                         <td id="category_id" item_id="{{ $item->id }}">{{ $item->category->name }}</td>
                                         <td id="name" item_id="{{ $item->id }}">{{ $item->name }}</td>
@@ -152,7 +150,6 @@
         sum = 'Spending in total: ' + sum + ' ' + '{{ $currencySymbol }}';
         document.getElementById('sum').innerHTML = sum;
         document.getElementById('avarage').innerHTML = avarage;
-        /* console.log(sum/prices.length); */
         var monthlyCategoryPrices = {};
         financesData.forEach(function(finance) {
             var categoryName = finance.category.name;
@@ -160,7 +157,6 @@
             var year = parseInt(dateParts[0]); // Get year
             var month = parseInt(dateParts[1]); // Get month
             var key = categoryName + '-' + year + '-' + month; // Unique key for each category and month
-
             if (!monthlyCategoryPrices[key]) {
                 monthlyCategoryPrices[key] = finance.price;
             } else {
@@ -196,10 +192,6 @@
                 /* Fontcolor */
                 foreColor: '#FBFBFB',
             },
-            /* Sets the color of the pie slices */
-            /* fill: {
-                colors: ['#F44336', '#E91E63', '#9C27B0']
-            }, */
             dataLabels: {
                 style: {
                     colors: ['#F44336', '#E91E63', '#9C27B0']
@@ -259,11 +251,6 @@
             dataLabels: {
                 enabled: false
             },
-            /* Theme */
-            /* theme: {
-                mode:'light',
-            }, */
-            /* toolbar */
             chart: {
                 toolbar: {
                     show: true,
@@ -344,7 +331,6 @@
                     caseInsensitive: false // Sets the search to be case-sensitive
                 }
             });
-
             // Event handler for double-clicking on table cells for editing
             $('#spendingTable tbody').on('dblclick', 'td:not(:last-child)', function(obj) {
                 var cell = $(this);
@@ -372,7 +358,6 @@
                     cell.find('input').focus();
                 }
             });
-
             // Event handler for detecting Enter key press while editing cells
             $('#spendingTable tbody').on('keydown', 'input', function(event) {
                 var cell = $(this).closest('td');
@@ -390,7 +375,6 @@
                     saveEditedCell(cell); // Call function to save cell edit
                 }
             });
-
             // Event handler for detecting blur event on input fields (cell editing finished)
             $('#spendingTable tbody').on('blur', 'input', function() {
                 var cell = $(this).closest('td');
@@ -402,12 +386,10 @@
                 var cell = $(this).closest('td');
                 saveEditedCell(cell); // Call function to save cell edit
             });
-
             // Function to save edited cell data
             function saveCellEdit(cell) {
                 var newValue = cell.find('input').val(); // Get new value from input field
                 cell.text(newValue); // Update cell text with new value
-
                 // Get row data and cell index for sending to server
                 var rowData = table.row(cell.closest('tr')).data();
                 var rowId = cell[0].attributes.item_id.value;
@@ -416,7 +398,6 @@
                 // Send edited data to server via AJAX
                 sendEditData(rowId, columnIndex, newValue);
             }
-
             function saveEditedCell(cell) {
                 var newValue = cell.find('select').val(); // Get new value from input field
                 var categories = {!! json_encode($categories->toArray()) !!};
@@ -432,8 +413,6 @@
                 // Send edited data to server via AJAX
                 sendEditData(rowId, columnIndex, categories[newValue].id);
             }
-
-
             // Function to send edited data to server via AJAX
             function sendEditData(rowId, columnIndex, newValue) {
                 $.ajax({
@@ -462,14 +441,11 @@
                     }
                 });
             }
-
-
             // Event handler to prevent button click event from propagating
             $('#spendingTable tbody').on('click', 'button', function(event) {
                 event.stopPropagation();
             });
         });
-
         function submitForm(id) {
             var monthly_id = 'monthlyForm' + id;
             console.log(monthly_id);

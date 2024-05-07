@@ -1,4 +1,3 @@
-{{-- TODO:FIX BG IMG IT SUCKS --}}
 @extends('layouts.app')
 @section('content')
     <div class="container" style="margin-bottom: 3vh">

@@ -41,15 +41,14 @@
                                 <img class="docu-image"
                                     src="{{ asset('storage/documentation_pictures/Manage spending/Fill_inCard.png') }}"
                                     alt="Fill in every input field">
-                                    <br>
-                                    <ul style="list-style: none; padding: 0;">
-                                        <li style="display: flex; align-items: center; justify-content: center;">
-                                            <span style="margin-right: 5px;">&bull;</span>
-                                            <span>If you check the checkbox, you can set your spending monthly</span>
-                                        </li>
-                                    </ul>
+                                <br>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="display: flex; align-items: center; justify-content: center;">
+                                        <span style="margin-right: 5px;">&bull;</span>
+                                        <span>If you check the checkbox, you can set your spending monthly</span>
+                                    </li>
+                                </ul>
                             </div>
-
                             <div id="incomes" style="display: none;">
                                 <h3>Manage incomes</h3>
                                 <ul>
@@ -64,15 +63,14 @@
                                 <img class="docu-image"
                                     src="{{ asset('storage/documentation_pictures/Manage income/Fill_inCard.png') }}"
                                     alt="Fill in every input field">
-                                    <br>
-                                    <ul style="list-style: none; padding: 0;">
-                                        <li style="display: flex; align-items: center; justify-content: center;">
-                                            <span style="margin-right: 5px;">&bull;</span>
-                                            <span>If you check the checkbox, you can set your income monthly</span>
-                                        </li>
-                                    </ul>
+                                <br>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="display: flex; align-items: center; justify-content: center;">
+                                        <span style="margin-right: 5px;">&bull;</span>
+                                        <span>If you check the checkbox, you can set your income monthly</span>
+                                    </li>
+                                </ul>
                             </div>
-
                             <div id="family" style="display: none;">
                                 <h3>Manage family</h3>
                                 <ul>
@@ -119,7 +117,6 @@
                                     </ul>
                                 </ul>
                             </div>
-
                             <div id="account" style="display: none;">
                                 <h3>Graphicon explainer</h3>
                                 <ul>
@@ -128,13 +125,15 @@
                                     </li>
                                 </ul>
                                 <img class="docu-image"
-                                src="{{ asset('storage/documentation_pictures/Account explainer/Homepage.png') }}"
-                                alt="Home Page">
+                                    src="{{ asset('storage/documentation_pictures/Account explainer/Homepage.png') }}"
+                                    alt="Home Page">
                                 <ul>
                                     <li>
                                         On the home page, we can inspect four possible graphics.
-                                        If we also include income and spending for this month, we can see the top two graphics.
-                                        Additionally, if we have family members who have added data for the month, we can see the rate of each family member represented by the two bottom graphics.
+                                        If we also include income and spending for this month, we can see the top two
+                                        graphics.
+                                        Additionally, if we have family members who have added data for the month, we can
+                                        see the rate of each family member represented by the two bottom graphics.
                                     </li>
                                 </ul>
                                 <ul>
@@ -143,25 +142,26 @@
                                     </li>
                                 </ul>
                                 <img class="docu-image"
-                                src="{{ asset('storage/documentation_pictures/Account explainer/SpendingPage.png') }}"
-                                alt="Spending page">
+                                    src="{{ asset('storage/documentation_pictures/Account explainer/SpendingPage.png') }}"
+                                    alt="Spending page">
                                 <ul>
                                     <li>
                                         On the spending page we can see our overall spendings.
                                     </li>
                                 </ul>
                                 <img class="docu-image"
-                                src="{{ asset('storage/documentation_pictures/Account explainer/Edit.png') }}"
-                                alt="Editing data">
+                                    src="{{ asset('storage/documentation_pictures/Account explainer/Edit.png') }}"
+                                    alt="Editing data">
                                 <ul>
                                     <li>
-                                        If you scroll down a bit you can see your logs, you can edit whatever you want here, you need to double click on the data to edit.
+                                        If you scroll down a bit you can see your logs, you can edit whatever you want here,
+                                        you need to double click on the data to edit.
                                     </li>
                                 </ul>
                                 <br>
                                 <ul>
                                     <li>
-                                        The income page is the same, excpect on that page we can see our incomes. 
+                                        The income page is the same, excpect on that page we can see our incomes.
                                     </li>
                                 </ul>
                             </div>
@@ -177,12 +177,10 @@
             function handleButtonClick(buttonType) {
                 var contentDiv = document.getElementById(buttonType);
                 var button = document.getElementById(buttonType + 'Btn');
-
                 if (buttonType === activeButtonId) {
 
                     contentDiv.style.display = contentDiv.style.display === 'none' ? 'block' : 'none';
                 } else {
-
                     if (activeButtonId) {
                         document.getElementById(activeButtonId).style.display = 'none';
                     }

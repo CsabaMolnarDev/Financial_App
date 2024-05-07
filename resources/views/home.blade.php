@@ -30,9 +30,7 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="row" id="spending">
-                                {{-- Use apexcharts --}}
                                 <div id="spendingChart"></div>
-
                             </div>
                             <div class="row">
                                 <button class="btn btn-outline-info" type="submit"
@@ -49,7 +47,6 @@
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-4">
-
                 @if (auth()->user()->family && $familymembers->count() > 1 && $allIncomesZero === false)
                     <div class="card bg-dark text-light">
                         <div class="card-header text-center">
@@ -163,7 +160,6 @@
         /* Functions: */
         // Fetch the category prices data from PHP
         var spendingCategoryPrices = @json($spendingCategoryPrices);
-
         /* Graphs: */
         /* Pie graph */
         var spendingOptions = {
@@ -205,15 +201,12 @@
                 }
             }]
         };
-
         /* render apexcharts */
         var spendingChart = new ApexCharts(document.querySelector('#spendingChart'), spendingOptions);
         spendingChart.render();
-
         /* Functions: */
         // Fetch the category prices data from PHP
         var incomeCategoryPrices = @json($incomeCategoryPrices);
-
         /* Graphs: */
         /* Pie graph */
         var incomeOptions = {
@@ -255,12 +248,9 @@
                 }
             }]
         };
-
         /* render apexcharts */
         var incomeChart = new ApexCharts(document.querySelector('#incomeChart'), incomeOptions);
         incomeChart.render();
-
-
         /* Graphs: */
         /* Pie graph */
         var familyIncomes = @json($familyIncomes);
@@ -272,7 +262,6 @@
                 familyIncomeLabels.push(familyIncomes[i].user_fullname);
                 familyIncomeSeries.push(familyIncomes[i].family_income);
             }
-
             var familyIncomeOptions = {
                 chart: {
                     type: 'pie',
@@ -315,10 +304,6 @@
             familyIncomeChart.render();
 
         }
-
-
-
-
         //familySpending
         var familySpending = @json($familySpending);
         if (familySpending.length > 1) {
@@ -329,7 +314,6 @@
                 familySpendingLabels.push(familySpending[i].user_fullname);
                 familySpendingSeries.push(familySpending[i].family_spending);
             }
-
             var familySpendingOptions = {
                 chart: {
                     type: 'pie',
@@ -368,19 +352,14 @@
                     }
                 }]
             };
-
             var familySpendingChart = new ApexCharts(document.querySelector('#familySpendingChart'), familySpendingOptions);
             familySpendingChart.render();
-
         }
-
-
         var MonthlyFamilyFinances = @json($familyFinances);
         if (MonthlyFamilyFinances.length != 0) {
             var financeColors = @json($familyFinanceColors);
             var jsonData = [];
             MonthlyFamilyFinances.forEach(function(element) {
-
                 var color = financeColors[element.id];
                 var eventData = {
                     title: element.name,
@@ -415,8 +394,6 @@
                 };
                 jsonData.push(eventData);
             });
-
-
             //calendar
             $(document).ready(function() {
                 $('#calendar').fullCalendar({
@@ -428,7 +405,6 @@
                     events: jsonData
                 })
             });
-
         }
     </script>
 @endsection

@@ -116,13 +116,11 @@
                             </div>
                             {{-- Phone area --}}
                             <div class="col-md-6">
-
                                 @if ($user->phone)
                                     <p class="card-text">Phone number: <i>{{ $user->phone }}</i></p>
                                 @else
                                     <p class="card-text">Phone number: <i>Not set</i></p>
                                 @endif
-
                                 <button type="button" class="btn btn-outline-primary"
                                     data-bs-toggle="modal"data-bs-target="#changePhoneNumberModal">Change phone
                                     number</button>
@@ -271,7 +269,6 @@
                 document.getElementById('timezone').value = userTimezone;
             });
         });
-
 
         function checkIfUserExists(input) {
             $.ajax({

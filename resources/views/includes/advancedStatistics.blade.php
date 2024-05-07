@@ -1,10 +1,3 @@
-{{-- TODO:
-
-FIX SELECT BY CATEGORY
---}}
-
-
-
 @extends('layouts.app')
 @section('content')
     <div class="container mt-3">
@@ -18,7 +11,6 @@ FIX SELECT BY CATEGORY
                             $totalSpending = 0;
                             $currentMonth = date('m');
                         @endphp
-
                         @foreach ($incomes as $income)
                             @if (substr($income->time, 5, 2) == $currentMonth)
                                 @php
@@ -26,7 +18,6 @@ FIX SELECT BY CATEGORY
                                 @endphp
                             @endif
                         @endforeach
-
                         @foreach ($spendings as $spend)
                             @if (substr($spend->time, 5, 2) == $currentMonth)
                                 @php
@@ -34,19 +25,16 @@ FIX SELECT BY CATEGORY
                                 @endphp
                             @endif
                         @endforeach
-
                         @php
                             $availableBalance = $totalIncome - $totalSpending;
                         @endphp
                         <h1 class="available-balance">Available Balance: {{ $availableBalance }} {{ $currencySymbol }}
                         </h1>
-
                     </div>
                 </div>
             </div>
             <div class="col-md-3"></div>
         </div>
-
     </div>
     @if (!auth()->user()->family || (auth()->user()->family && $familyMembers->count() == 1))
         {{-- If user dont have a family or user's family doesnt have members exept the user --}}
@@ -110,9 +98,7 @@ FIX SELECT BY CATEGORY
                         <h5 class="specialcard-title">{{ $monthsLabels[$index] }}</h5>
                         @foreach ($familyMembers as $member)
                             @php
-                                /* $memberCurrencySymbol = "$"; */
                                 $memberCurrencySymbol = $familyCurrencySymbols[$member->id];
-                                /* DOEST WORK NEEDS FIXING */
                             @endphp
                             @php
                                 $userFinances = \App\Models\Finance::where('user_id', $member->id)
@@ -148,7 +134,6 @@ FIX SELECT BY CATEGORY
                         auth()->user()->finances()->where('type', 'income')->exists())
                     <div class="card bg-dark text-light">
                         <div class="card-body">
-
                             <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
                                 @csrf
                                 <label for="options">Filter by category: </label>
@@ -173,8 +158,6 @@ FIX SELECT BY CATEGORY
             <div class="col-md-3"></div>
         </div>
     </div>
-
-
     @if (isset($selected_category))
         <div class="specialcard-container mb-3">
             @php
@@ -201,7 +184,6 @@ FIX SELECT BY CATEGORY
                                 @endphp
                             @endif
                         @endforeach
-
                         @foreach ($filteredSpendings as $spend)
                             @if (date('m', strtotime($spend->time)) == $monthsToShow[$i] && date('Y', strtotime($spend->time)) == $currentYear)
                                 @php
@@ -215,14 +197,12 @@ FIX SELECT BY CATEGORY
                                 {{ $currencySymbol }}
                             </p>
                         @endif
-
                         @if ($totalSpendingForCategory !== null)
                             <p class="specialcard-text">Total Spending for
                                 <u><strong>{{ $selected_category->name }}</strong></u>:<br>{{ $totalSpending }}
                                 {{ $currencySymbol }}
                             </p>
                         @endif
-
                     </div>
                 </div>
             @endfor
@@ -231,7 +211,7 @@ FIX SELECT BY CATEGORY
     {{-- SELECT FAMILY MEMBER IF USER HAS FAMILY MEMBERS --}}
     @if ($familyMembers->count() > 1)
         <div id="advanced_details" class="hidden">
-            <div class="container">
+            <div class="container mb-3">
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
@@ -312,7 +292,6 @@ FIX SELECT BY CATEGORY
                     </div>
                     <div class="col-md-3"></div>
                 </div>
-
             </div>
             @if (isset($selectedFamilyMemberId) &&
                     isset($memberIncome) &&
@@ -377,29 +356,28 @@ FIX SELECT BY CATEGORY
                 </div>
             @endif
         </div>
-        <br>
-        <div class="container">
-            <div class="row gy-3">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="card bg-dark text-light text-center">
-                        <div class="card-body">
-                            <div class="row">
-                                <p>Avarge income in your country (monthly): {{ $incomesAverage }} {{ $currencySymbol }}
-                                </p>
-                            </div>
-                            <div class="row mt-3">
-                                <p>Avarage spending in your country (monthly): {{ $spendingsAverage }}
-                                    {{ $currencySymbol }}
-                                </p>
-                            </div>
+    @endif
+    <div class="container">
+        <div class="row gy-3">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card bg-dark text-light text-center">
+                    <div class="card-body">
+                        <div class="row">
+                            <p>Avarge income in your country (monthly): {{ $incomesAverage }} {{ $currencySymbol }}
+                            </p>
+                        </div>
+                        <div class="row mt-3">
+                            <p>Avarage spending in your country (monthly): {{ $spendingsAverage }}
+                                {{ $currencySymbol }}
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3"></div>
             </div>
+            <div class="col-md-3"></div>
         </div>
-    @endif
+    </div>
     {{-- Scripts --}}
     <script>
         /* SELECT BY CATEGORY HANDLER */

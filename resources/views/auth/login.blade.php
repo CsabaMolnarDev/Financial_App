@@ -67,7 +67,6 @@
                                     <a href="{{ route('restoreAccountIndex') }}">Restore deactivated account!</a>
                                 </div>
                                 <div class="col-4">
-
                                 </div>
                             </div>
                     </div>
