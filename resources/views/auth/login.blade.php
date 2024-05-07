@@ -67,7 +67,7 @@
                                     <a href="{{ route('restoreAccountIndex') }}">Restore deactivated account!</a>
                                 </div>
                                 <div class="col-4">
-                        
+
                                 </div>
                             </div>
                     </div>
@@ -78,6 +78,6 @@
     </div>
     </div>
     <script>
-        document.body.style.backgroundImage = "url('../storage/pictures/login.jpg')";
+        document.body.style.backgroundImage = "url('../storage/pictures/loginPic.jpg')";
     </script>
 @endsection
