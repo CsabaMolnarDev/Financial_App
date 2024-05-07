@@ -374,3 +374,9 @@ html {
         grid-auto-columns: 100%;
     }
 }
+
+div.dt-container select.dt-input {
+    padding: 4px;
+    background: #212529;
+    color: #FBFBFB;
+}
