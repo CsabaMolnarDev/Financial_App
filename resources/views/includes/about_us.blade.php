@@ -41,8 +41,8 @@
                 <li class="card bg-dark text-light">
                     <div class="img"><img src="../storage/icons/globeIcon.png"></div>
                     <div class="text-center">
-                        <h4">Access from anywhere</h4>
-                            <p>You can access our product from anywhere on the globe</p>
+                        <h4>Access anywere</h4>
+                        <p>You can access our product from anywhere on the globe</p>
                     </div>
                 </li>
                 <li class="card bg-dark text-light">
