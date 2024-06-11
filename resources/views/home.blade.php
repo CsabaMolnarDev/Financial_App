@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+
+<div class="container">
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-4">
@@ -11,7 +12,6 @@
                         </div>
                         <div class="card-body text-center">
                             <div class="row" id="income">
-                                {{-- Use apexcharts --}}
                                 <div id="incomeChart"></div>
                             </div>
                             <div class="row">
@@ -406,5 +406,5 @@
                 })
             });
         }
-    </script>
+    </script> 
 @endsection

@@ -87,7 +87,7 @@
                                     onclick="window.location=' {{ url('/income') }} '">Incomes</button>
                                 <button id="menuBtn" class="btn btn-outline-danger" type="submit"
                                     onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit" {{-- Advanced statistics --}}
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
                                     statistics</button>
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
@@ -102,7 +102,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4" id="content" style="margin-top: 7vh;">
+        <main class="py-4" id="content" style="margin-top: 6.5vh;">
             @yield('content')
             @yield('footer')
         </main>

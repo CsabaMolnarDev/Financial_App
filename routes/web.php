@@ -111,9 +111,6 @@ Route::post('/leaveFamily', [SettingsController::class, 'leaveFamily'])->name('l
 /* accept invite */
 Route::get('/accept-invitation/{token}', [FamilyController::class, 'acceptInvitation'])->name('family.acceptInvitation');
 
-/* Download page */
-Route::get('/download', [DownloadController::class, 'index'])->name('download')->middleware('auth');
-
 /* Documentation page */
 Route::get('/documentation', [DocumentationController::class, 'index'])->name('documentation')->middleware('auth');
 

@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    {{-- Video of the main page --}}
-    <video id="welcomeVideo" src="../storage/videos/welcome.mp4" autoplay loop placeinline muted></video>
-    {{-- Slogen --}}
-    {{-- button --}}
     <div class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
         <div class="row">
             <div class="col-2"></div>

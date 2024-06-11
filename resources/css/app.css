@@ -4,21 +4,14 @@
 @import url(https://fonts.googleapis.com/css?family=Poppins);
 
 /* --------- MAIN THINGS --------- */
-/* html */
 html {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+    background-color: #ac82ab;
 }
 
-/* footer */
-.footer {
-    height: 15%;
+body {
+    height: 100%;
     width: 100%;
-    position: absolute;
-    bottom: 0%;
-    vertical-align: bottom;
-    text-align: center;
+    background-color: #6A6D78;
 }
 
 /* content */
@@ -26,6 +19,7 @@ html {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    background-color: #6A6D78;
 }
 
 /* --------- NAV --------- */
