@@ -32,14 +32,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
-<body
-    style="
-background-size: cover;
-background-repeat: no-repeat;
-background-attachment: fixed;
-background-position: center;
-background-image: url('../storage/pictures/homePic.jpg');
-">
+<body>
     <div id="app">
         {{-- Navnar --}}
         <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -109,7 +102,7 @@ background-image: url('../storage/pictures/homePic.jpg');
                 </div>
             </div>
         </nav>
-        <main class="py-4"id="content" style="margin-top: 7vh">
+        <main class="py-4" id="content" style="margin-top: 7vh; background-color: #1c1b1b">
             @yield('content')
             @yield('footer')
         </main>

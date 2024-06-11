@@ -26,7 +26,7 @@
             <div class="col-md-1"></div>
         </div>
     </div>
-    <div class="container homeContainer">
+    <div class="container aboutContainer">
         <div class="wrapper">
             <div class="carousel">
                 <li class="card bg-dark text-light">

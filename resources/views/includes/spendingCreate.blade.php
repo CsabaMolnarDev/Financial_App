@@ -70,7 +70,6 @@
         </div>
     </div>
     <script>
-        document.body.style.backgroundImage = "url('../storage/pictures/incomeCreatePic.jpg')";
         document.getElementById('category_id').addEventListener('change', function() {
             var newCategoryForm = document.getElementById('newCategoryForm');
             var addNewBtn = document.getElementById('add_new_btn');

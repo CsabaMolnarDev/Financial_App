@@ -1,12 +1,20 @@
+/* --------- IMPORTS --------- */
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 /* Apex charts */
 @import url(https://fonts.googleapis.com/css?family=Poppins);
 
+/* --------- MAIN THINGS --------- */
 /* html */
 html {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    background-color: #1c1b1b;
+}
+
+/* body */
+body {
+    background-color: #1c1b1b;
 }
 
 /* footer */
@@ -26,7 +34,7 @@ html {
     object-fit: cover;
 }
 
-/* Nav bar */
+/* --------- NAV --------- */
 #homeIcon {
     width: 4vh;
     height: 4vh;
@@ -44,40 +52,7 @@ html {
     margin-bottom: 1.5vh;
 }
 
-/* register page */
-.iti__dial-code {
-    color: black !important;
-}
-
-.iti__country-name {
-    color: black !important;
-}
-
-.iti {
-    width: 100% !important;
-}
-
-#registerButton {
-    display: flex;
-    flex-direction: column;
-}
-
-#RegFormTittle {
-    font-size: 3vh;
-}
-
-#logButton {
-    margin: 2vh;
-    width: fit-content;
-}
-
-/* login page */
-.logbtn {
-    display: flex;
-    flex-direction: column;
-}
-
-/* welcome page */
+/* --------- WELCOME --------- */
 #welcomeVideo {
     z-index: -100;
     height: 100%;
@@ -128,8 +103,62 @@ html {
     text-decoration: none;
 }
 
-/* spending page */
+/* --------- HOME --------- */
+/* calendar settings */
+#calendar {
+    background: #212529 !important;
+    color: #FBFBFB !important;
+}
 
+.fc-unthemed td.fc-today {
+    background-color: rgb(69, 154, 154) !important;
+}
+
+.fc-view-container {
+    border: 2px rgb(142, 201, 232) solid;
+}
+
+/* pie graph (diagramm) settings */
+.pie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --------- REGISTER --------- */
+.iti__dial-code {
+    color: black !important;
+}
+
+.iti__country-name {
+    color: black !important;
+}
+
+.iti {
+    width: 100% !important;
+}
+
+#registerButton {
+    display: flex;
+    flex-direction: column;
+}
+
+#RegFormTittle {
+    font-size: 3vh;
+}
+
+#logButton {
+    margin: 2vh;
+    width: fit-content;
+}
+
+/* --------- LOGIN --------- */
+.logbtn {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------- SPENDING AND INCOME --------- */
 #financeCard {
     margin-bottom: 2vh;
 }
@@ -138,27 +167,13 @@ html {
     margin-bottom: 2vh;
 }
 
-/* settings page - Set Time */
-#setTime {
-    display: none;
-}
-
+/* --------- SETTINGS --------- */
 #settingsRow {
     margin-bottom: 3vh;
     font-size: 2vh;
 }
 
-/* Apexcharts */
-.apexcharts-menu {
-    background: #212529 !important;
-    color: #FBFBFB !important;
-}
-
-.apexcharts-menu-item:hover {
-    background: #212529 !important;
-}
-
-/* advancedStatistics page */
+/* --------- ADVANCED STATISTICS --------- */
 .available-balance {
     text-align: center;
 }
@@ -193,7 +208,7 @@ html {
 }
 
 
-/* documentation page */
+/* --------- DOCUMENTATION --------- */
 .docu-image {
     border: 5px solid red;
     display: block;
@@ -225,27 +240,9 @@ html {
     border-color: #007bff;
 }
 
-/* homepage */
-#calendar {
-    background: #212529 !important;
-    color: #FBFBFB !important;
-}
-
-.fc-unthemed td.fc-today {
-    background-color: rgb(69, 154, 154) !important;
-}
-
-.fc-view-container {
-    border: 2px rgb(142, 201, 232) solid;
-}
-
-.pie {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.homeContainer {
+/* --------- ABOUT US --------- */
+/* the container of the about us page */
+.aboutContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -379,4 +376,23 @@ div.dt-container select.dt-input {
     padding: 4px;
     background: #212529;
     color: #FBFBFB;
+}
+
+/* --------- TAGS --------- */
+/* border for cards */
+#border-white {
+    border-color: lightgray !important;
+    border-radius: 10px !important;
+}
+
+/* Apexcharts */
+/*This changes the menu color of the line charts*/
+.apexcharts-menu {
+    background: #212529 !important;
+    color: #FBFBFB !important;
+}
+
+/*This changes the menu color of the line charts on hover*/
+.apexcharts-menu-item:hover {
+    background: #212529 !important;
 }

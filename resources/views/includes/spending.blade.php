@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    {{-- Image --}}
-    <script>
-        document.body.style.backgroundImage = "url('../storage/pictures/spendingPic.jpg')";
-    </script>
     <div class="container">
         {{-- Add new button --}}
         <div class="row">
