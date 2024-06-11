@@ -7,4 +7,18 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+/*  All the css files:
+NOTE:
+Please if you import any more keep the order based on the file order that is in the "css" folder
+a.k.a ABC order */
+@import '../css/about_us.css';
+@import '../css/advancedStatistics.css';
 @import '../css/app.css';
+@import '../css/background.css';
+@import '../css/documentation.css';
+@import '../css/home.css';
+@import '../css/landing.css';
+@import '../css/login.css';
+@import '../css/register.css';
+@import '../css/settings.css';
+@import '../css/spending_income.css';

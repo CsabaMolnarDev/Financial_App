@@ -1,0 +1,21 @@
+/* Int-el phone input field */
+.iti__dial-code {
+    color: black !important;
+}
+
+.iti__country-name {
+    color: black !important;
+}
+
+.iti {
+    width: 100% !important;
+}
+
+#regFormTittle {
+    font-size: 3vh;
+}
+
+#regButton {
+    margin: 2vh;
+
+}

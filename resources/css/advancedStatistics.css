@@ -1,0 +1,32 @@
+.available-balance {
+    text-align: center;
+}
+
+.specialcard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+
+}
+
+.specialcard {
+    width: 150px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+}
+
+.specialcard-body {
+    padding: 10px;
+}
+
+.specialcard-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.specialcard-text {
+    font-size: 14px;
+}

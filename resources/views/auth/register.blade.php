@@ -4,7 +4,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card bg-dark text-light">
-                    <div class="card-header text" id="RegFormTittle">{{ __('Register') }}</div>
+                    <div class="card-header text" id="RegFormTittle">{{ __('Register') }}
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
@@ -14,7 +15,7 @@
                                 <div class="col-md-6">
                                     <input id="fullname" type="text"
                                         class="form-control @error('fullname') is-invalid @enderror" name="fullname"
-                                        value="{{ old('fullname') }}" required autocomplete="fullname" autofocus>
+                                        value="{{ old('fullname') }}" required autocomplete="familyname">
                                     @error('fullname')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -28,7 +29,7 @@
                                 <div class="col-md-6">
                                     <input oninput="checkUsernameTaken(this.value);" id="username" type="text"
                                         class="form-control @error('username') is-invalid @enderror" name="username"
-                                        value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                        value="{{ old('username') }}" required autocomplete="usersname">
                                     <div id="responseText"></div>
                                     @error('username')
                                         <span class="invalid-feedback" role="alert">
@@ -43,7 +44,7 @@
                                 <div class="col-md-6">
                                     <input id="phone" type="text"
                                         class="form-control text-dark inputPhone @error('phone') is-invalid @enderror"
-                                        name="phone" value="{{ old('phone') }}" autofocus>
+                                        name="phone" value="{{ old('phone') }}">
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -57,7 +58,7 @@
                                 <div class="col-md-6">
                                     <select id="currency" class="form-control" type="text"
                                         @error('currency') is-invalid @enderror name="currency_id"
-                                        value="{{ old('currency') }}" required autocomplete="currency" autofocus>
+                                        value="{{ old('currency') }}" required autocomplete="currencys">
                                         <option value="" disabled selected hidden>Please Choose...</option>
                                         @foreach ($currencies as $currency)
                                             <option value="{{ $currency->id }}">{{ $currency->name }} -
@@ -77,7 +78,7 @@
                                 <div class="col-md-6">
                                     <input oninput="checkEmailTaken(this.value);" id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email">
+                                        value="{{ old('email') }}" required autocomplete="emails">
                                     <div id="responseTextEmail"></div>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -106,14 +107,14 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" required autocomplete="new-password">
+                                        name="password_confirmation" required>
                                 </div>
                             </div>
                             <div class="row content-justify-center">
                                 <div class="col-4">
                                 </div>
                                 <div class="col-4 text-center">
-                                    <button id="logButton" type="submit" class="btn btn-outline-warning registerButton">
+                                    <button id="regButton" type="submit" class="btn btn-outline-success">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
@@ -129,8 +130,8 @@
                                 <div class="col-4">
                                 </div>
                             </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -151,11 +152,11 @@
                         $('#responseText').removeClass('text-danger text-success')
                         $('#responseText').html(data.message);
                         $('#responseText').addClass('text-danger');
-                        $('#logButton').prop('disabled', true);
+                        $('#regButton').prop('disabled', true);
 
                     } else if (data.status == "success") {
                         $('#responseText').removeClass('text-danger').html('');
-                        $('#logButton').prop('disabled', false);
+                        $('#regButton').prop('disabled', false);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -180,11 +181,11 @@
                         $('#responseTextEmail').removeClass('text-danger text-success')
                         $('#responseTextEmail').html(data.message);
                         $('#responseTextEmail').addClass('text-danger');
-                        $('#logButton').prop('disabled', true);
+                        $('#regButton').prop('disabled', true);
 
                     } else if (data.status == "success") {
                         $('#responseTextEmail').removeClass('text-danger').html('');
-                        $('#logButton').prop('disabled', false);
+                        $('#regButton').prop('disabled', false);
                     }
                 },
                 error: function(xhr, status, error) {

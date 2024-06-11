@@ -1,0 +1,21 @@
+/* calendar settings */
+#calendar {
+    background: var(--dark);
+    color: var(--light);
+}
+
+.fc-unthemed td.fc-today {
+    background-color: rgb(69, 154, 107) !important;
+}
+
+.fc-view-container {
+    border: 2px solid;
+    border-color: var(--light);
+}
+
+/* pie graph (diagramm) settings */
+.pie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
