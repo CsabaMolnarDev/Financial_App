@@ -104,9 +104,37 @@
         </nav>
         <main class="py-4" id="content" style="margin-top: 6.5vh;">
             @yield('content')
-            @yield('footer')
         </main>
     </div>
+    <div class="box">
+        {{--
+        <div class="box-item1"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        <div class="box-item"></div>
+        --}}
+        {{-- TODO:  Animation has a problem where it it collides with any other element, it appears on top of them
+             a.ka. it's not in the background
+             I tryed fixing it using z-index, using javascript (check down below)
+             TODO: Also the overflow hidden doesnt work and the positions aren't responsive.... :C
+             --}}
+    </div>
+    {{-- <script>
+        var pos1 = getElementById(".box-item1").getBoundingClientRect();
+        var pos2 = getElementById(".card").getBoundingClientRect();
+        if (
+            (pos1.left < pos2.right && pos1.right > pos2.left) &&
+            (pos1.top < pos2.bottom && pos1.bottom > pos2.top)
+        ) {
+            pos1.style.opacity = newOpacity;
+        }
+    </script> --}}
 </body>
 
 </html>

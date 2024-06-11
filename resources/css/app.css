@@ -5,13 +5,106 @@
 
 /* --------- MAIN THINGS --------- */
 html {
-    background-color: #ac82ab;
+    background: linear-gradient(rgba(2.0, .6, 1) 0%, rgb(5, 10, 50) 20%, rgb(11, 11, 143) 50%, rgb(5, 10, 50) 80%, rgb(2.0, .6, 1) 100%) !important;
 }
 
 body {
-    height: 100%;
-    width: 100%;
-    background-color: #6A6D78;
+    height: auto;
+    min-height: 93.5vh;
+    background: linear-gradient(rgba(2.0, .6, 1) 0%, rgb(5, 10, 50) 20%, rgb(11, 11, 143) 50%, rgb(5, 10, 50) 80%, rgb(2.0, .6, 1) 100%) !important;
+}
+
+
+.box div {
+    position: absolute;
+    min-height: 40px;
+    max-height: 80px;
+    min-width: 40px;
+    max-width: 80px;
+    background-color: transparent;
+    border: 5px solid rgba(255, 255, 255, 0.8);
+}
+
+.box div:nth-child(1) {
+    top: 12%;
+    left: 42%;
+    animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(2) {
+    top: 70%;
+    left: 50%;
+    animation: animate 7s linear infinite;
+}
+
+.box div:nth-child(3) {
+    top: 17%;
+    left: 6%;
+    animation: animate 9s linear infinite;
+}
+
+.box div:nth-child(4) {
+    top: 30%;
+    left: 70%;
+    animation: animate 5s linear infinite;
+}
+
+.box div:nth-child(5) {
+    top: 20%;
+    left: 90%;
+    animation: animate 15s linear infinite;
+}
+
+.box div:nth-child(6) {
+    top: 40%;
+    left: 15%;
+    animation: animate 8s linear infinite;
+}
+
+.box div:nth-child(7) {
+    top: 55%;
+    left: 33%;
+    animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(8) {
+    top: 45%;
+    left: 60%;
+    animation: animate 13s linear infinite;
+}
+
+.box div:nth-child(9) {
+    top: 70vh;
+    left: 42%;
+    animation: animate 4s linear infinite;
+}
+
+.box div:nth-child(10) {
+    top: 65%;
+    left: 87%;
+    animation: animate 6s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: scale(0) translateY(0) rotate(0);
+        opacity: 0;
+    }
+
+    20%,
+    40% {
+        opacity: 0.2;
+    }
+
+    60%,
+    80% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: scale(1.4) translateY(150px) rotate(360deg);
+        opacity: 0.6;
+    }
 }
 
 /* content */
@@ -19,7 +112,6 @@ body {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    background-color: #6A6D78;
 }
 
 /* --------- NAV --------- */

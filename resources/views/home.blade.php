@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
-<div class="container">
+    <div class="container">
         <div class="row gy-3">
             <div class="col-md-2"></div>
             <div class="col-md-4">
@@ -406,5 +405,5 @@
                 })
             });
         }
-    </script> 
+    </script>
 @endsection
