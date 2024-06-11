@@ -76,7 +76,4 @@
         </div>
     </div>
     </div>
-    <script>
-        document.body.style.backgroundImage = "url('../storage/pictures/loginPic.jpg')";
-    </script>
 @endsection

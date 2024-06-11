@@ -137,8 +137,6 @@
     </div>
     </div>
     <script>
-        /* Bg image */
-        document.body.style.backgroundImage = "url('../storage/pictures/registerPic.jpg')";
         /* Check username */
         function checkUsernameTaken(input) {
             $.ajax({
