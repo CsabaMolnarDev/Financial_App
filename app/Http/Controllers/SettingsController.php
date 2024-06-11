@@ -274,4 +274,62 @@ class SettingsController extends Controller
         $user->delete();
         return redirect()->route('home');
     }
+
+    public function readingFile(Request $request)
+    {
+
+        $request->validate([
+            'fileInput' => 'required|mimes:txt,csv'
+        ],[
+            'fileInput.mimes' => 'The file must be a file of type: txt, csv.'
+        ]);
+
+
+        // Check if a file was uploaded
+        if ($request->hasFile('fileInput')) {
+            // Get the uploaded file
+            $file = $request->file('fileInput');
+            $fileObject = new \SplFileObject($file->getRealPath());
+            $fileObject->setFlags(\SplFileObject::READ_CSV);
+            $fileObject->setCsvControl(',');
+            $rows = [];
+
+            while(!$fileObject->eof())
+            {
+                $row = $fileObject->fgetcsv();
+                
+                if(empty($row)){
+                    continue;
+                }
+
+                $rows[] = [
+                    'user_id'=> $row[0],
+                    'type' => $row[1],
+                    'name' => $row[2],
+                    'price' => $row[3],
+                    'time' => $row[4],
+                    'category_id' => $row[5],
+                    'currency_id' => $row[6]
+                ];
+            
+                
+            }
+        
+           foreach ($rows as $obj) {
+                Finance::create([
+                    'user_id' => auth()->user()->id,
+                    'type' => $obj['type'],
+                    'name' => $obj['name'],
+                    'price' => $obj['price'],
+                    'time' => $obj['time'],
+                    'category_id' => $obj['category_id'],
+                    'currency_id' => $obj['currency_id']
+                ]);
+            } 
+            toastr()->success("File uploaded and processed successfully");
+            return back();
+        }
+
+        return back()->withErrors(['fileInput' => 'Please upload a valid file.']);
+    }
 }

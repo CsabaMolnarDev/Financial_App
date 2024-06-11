@@ -101,6 +101,8 @@ Route::post('/deactivateAccount', [SettingsController::class, 'softDeleteAccount
 Route::get('/restore-account', [RestoreAccountController::class, 'restoreAccountIndex'])->name('restoreAccountIndex');
 Route::post('/checkIfUserDisabled', [RestoreAccountController::class, 'checkIfUserDisabled'])->name('checkIfUserDisabled');
 Route::post('/reactivateAccount', [RestoreAccountController::class, 'reactivateAccount'])->name('reactivateAccount');
+/* Add finance from file */
+Route::post('/settings', [SettingsController::class, 'readingFile'])->name('readingFile');
 
 /* Family system */
 Route::post('/createFamily', [SettingsController::class, 'createFamily'])->name('createFamily');

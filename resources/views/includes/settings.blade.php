@@ -251,6 +251,25 @@
                                 {{-- We list out the family members --}}
                             </div>
                         </div>
+                    
+                        {{-- Add finance from file --}}
+                        <div class="col">
+                            <h4>Add finance from file</h4>
+                            <form action="{{ route('settings') }}" method="POST" id="fileForm" enctype="multipart/form-data">
+                                @csrf
+                                <label id="fileLabel" for="fileInput">Select a file: </label>
+                                <input type="file" name="fileInput" id="fileInput">
+                            </form>
+                        </div>
+                        @if ($errors->any())
+                        <div class="mt-3 alert alert-danger">
+                                <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -267,6 +286,16 @@
                 document.getElementById('timezone').value = userTimezone;
             });
         });
+
+        // Get a reference to the file input element
+        const fileInput = document.getElementById('fileInput');
+
+
+
+        // Add an event listener for the change event on the file input element
+        fileInput.addEventListener('change', (event) => {
+            document.getElementById('fileForm').submit();
+        });     
 
         function checkIfUserExists(input) {
             $.ajax({
