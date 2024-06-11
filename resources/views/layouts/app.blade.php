@@ -102,7 +102,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4" id="content" style="margin-top: 7vh; background-color: #1c1b1b">
+        <main class="py-4" id="content" style="margin-top: 7vh;">
             @yield('content')
             @yield('footer')
         </main>
