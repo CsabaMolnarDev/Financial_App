@@ -1,4 +1,3 @@
-{{-- here we can track our spendings --}}
 @extends('layouts.app')
 @section('content')
     <div class="container">
