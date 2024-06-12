@@ -1,9 +1,38 @@
 @extends('layouts.app')
 @section('content')
 @endsection
-
-
-
+{{-- Section 1 --}}
+<div class="flex justify-center items-center bg-spending min-h-screen bg-fixed bg-no-repeat bg-cover bg-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h4>Title</h4>
+            </div>
+            <div class="col-6">
+                <h4>Text</h4>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Section 2 --}}
+<div class="p-10">
+    <h1 class="font-black text-6xl">Section two</h1>
+</div>
+{{-- Section 2 --}}
+<div class="flex justify-center items-center bg-income min-h-screen bg-fixed bg-no-repeat bg-cover bg-center">
+    <h1 class="font-black text-6xl">Section three</h1>
+</div>
+{{-- Section 2 --}}
+<div class="p-10">
+    <h1 class="font-black text-6xl">Section four</h1>
+</div>
+{{-- Section 3 --}}
+<div class="flex justify-center items-center bg-home min-h-screen bg-fixed bg-no-repeat bg-cover bg-center">
+    <h1 class="font-black text-6xl">Section five</h1>
+</div>
+<div class="p-10">
+    <h1 class="font-black">content</h1>
+</div>
 {{-- 
 This will be the text and some images that i will use up:
 

@@ -6,7 +6,13 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'spending': 'url("/public/storage/pictures/spendingPic.jpg")',
+        'income': 'url("/public/storage/pictures/incomePic.jpg")',
+        'home': 'url("/public/storage/pictures/homePic.jpg")',
+      }
+    },
   },
   plugins: [],
 }
