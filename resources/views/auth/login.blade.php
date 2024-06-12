@@ -40,7 +40,7 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-3 text-center logbtn">
-                                    <button type="submit" class="btn btn-outline-success">
+                                    <button type="submit" class="btn btn-outline-primary">
                                         {{ __('Login') }}
                                     </button>
                                 </div>

@@ -114,7 +114,7 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-4 text-center">
-                                    <button id="regButton" type="submit" class="btn btn-outline-success">
+                                    <button id="regButton" type="submit" class="btn btn-outline-warning">
                                         {{ __('Register') }}
                                     </button>
                                 </div>

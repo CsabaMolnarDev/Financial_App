@@ -3,11 +3,17 @@
 /* Apex charts */
 @import url(https://fonts.googleapis.com/css?family=Poppins);
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* --------- CONTENT --------- */
 #content {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    /* This is the height from the top which is = to the size of the navbar */
+    margin-top: 6.5vh;
 }
 
 /* --------- NAV --------- */
@@ -26,4 +32,12 @@
 
 #menuBtn {
     margin-bottom: 1.5vh;
+}
+
+.nav-left {
+    text-align: left;
+}
+
+.nav-right {
+    text-align: right;
 }

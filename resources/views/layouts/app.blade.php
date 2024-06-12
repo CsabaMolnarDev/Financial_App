@@ -45,28 +45,30 @@
                     @else
                         {{ url('/home') }} @endguest
                         ">
-                    <img id="homeIcon" src="../storage/icons/homeIcon3.png" alt="">
+                    <img id="homeIcon" src="../storage/icons/homeIcon3.png" draggable="false">
                 </a>
                 {{-- Side menu  --}}
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="offcanvas offcanvas-end bg-dark text-info" tabindex="-1" id="offcanvasNavbar"
+                <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><img src="../storage/icons/appIcon.png"
-                                alt="">Finances</h5>
-
-                        <button type="button" class="btn text-reset" data-bs-dismiss="offcanvas"
-                            aria-label="Close">X</button>
+                        <div class="col-6 nav-left">
+                            <img src="../storage/icons/appIcon.png" draggable="false">
+                        </div>
+                        <div class="col-6 nav-right text-light">
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="offcanvas"
+                                aria-label="Close">X</button>
+                        </div>
                     </div>
                     {{-- Log in / Register and Log out --}}
                     <div class="offcanvas-body bg-dark text-info">
                         <ul class="navbar-nav">
                             @guest
                                 @if (Route::has('login'))
-                                    <button id="menuBtn" class="btn btn-outline-success" type="submit"
+                                    <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                         onclick="window.location=' {{ url('/login') }} '">{{ __('Login') }}</button>
                                 @endif
                                 @if (Route::has('register'))
@@ -75,7 +77,7 @@
                                         {{ __('Register') }}</button>
                                 @endif
                             @else
-                                <button id="menuBtn" class="btn btn-outline-warning" type="submit"
+                                <button id="menuBtn" class="btn btn-outline-danger" type="submit"
                                     href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
@@ -83,58 +85,25 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                <button id="menuBtn" class="btn btn-outline-success" type="submit"
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/income') }} '">Incomes</button>
-                                <button id="menuBtn" class="btn btn-outline-danger" type="submit"
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
                                 <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
                                     statistics</button>
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
-                                    onclick="window.location=' {{ url('/documentation') }} '">Documentation</button>
                             @endguest
-                            <button class="btn btn-outline-info" type="submit"
-                                onclick="window.location=' {{ url('/about_us') }} '">About us</button>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
-        <main class="py-4" id="content" style="margin-top: 6.5vh;">
+        <main class="py-4" id="content">
             @yield('content')
         </main>
     </div>
-    <div class="box">
-        {{--
-        <div class="box-item1"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        <div class="box-item"></div>
-        --}}
-        {{-- TODO:  Animation has a problem where it it collides with any other element, it appears on top of them
-             a.ka. it's not in the background
-             I tryed fixing it using z-index, using javascript (check down below)
-             TODO: Also the overflow hidden doesnt work and the positions aren't responsive.... :C
-             --}}
-    </div>
-    {{-- <script>
-        var pos1 = getElementById(".box-item1").getBoundingClientRect();
-        var pos2 = getElementById(".card").getBoundingClientRect();
-        if (
-            (pos1.left < pos2.right && pos1.right > pos2.left) &&
-            (pos1.top < pos2.bottom && pos1.bottom > pos2.top)
-        ) {
-            pos1.style.opacity = newOpacity;
-        }
-    </script> --}}
 </body>
 
 </html>
