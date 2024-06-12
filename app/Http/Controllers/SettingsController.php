@@ -133,8 +133,7 @@ class SettingsController extends Controller
         $request->validate([
             'newPhone' => 'required|string|unique:users,phone'
         ]);
-        /*        $user->family_id = $family->id;
-            $user->save(); */
+
             if (auth()->user()->phone == null) {
                 $user = auth()->user();
                 $user->phone = $request->newPhone;
@@ -161,7 +160,7 @@ class SettingsController extends Controller
                 }
             }
             $request->newPhone=$numbers;
-            //@dd($request->newPhone);
+
 
         $user = auth()->user();
 
@@ -290,12 +289,20 @@ class SettingsController extends Controller
         ],[
             'fileInput.mimes' => 'The file must be a file of type: txt, csv.'
         ]);
-
+  
 
         // Check if a file was uploaded
         if ($request->hasFile('fileInput')) {
             // Get the uploaded file
             $file = $request->file('fileInput');
+
+            
+            $rows = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            if (!$this->DataValidation($rows)) {
+                toastr()->error("Invalid file format");
+                return back();
+            }
+
             $fileObject = new \SplFileObject($file->getRealPath());
             $fileObject->setFlags(\SplFileObject::READ_CSV);
             $fileObject->setCsvControl(',');
@@ -305,22 +312,36 @@ class SettingsController extends Controller
             {
                 $row = $fileObject->fgetcsv();
                 
-                if(empty($row)){
-                    continue;
+                if ($row && !empty(array_filter($row))) {
+                    $rows[] = [
+                        'type' => $row[0],
+                        'name' => $row[1],
+                        'price' => $row[2],
+                        'time' => $row[3],
+                        'category' => $row[4],
+                        'currency' => $row[5]
+                    ];
                 }
-
-                $rows[] = [
-                    'user_id'=> $row[0],
-                    'type' => $row[1],
-                    'name' => $row[2],
-                    'price' => $row[3],
-                    'time' => $row[4],
-                    'category_id' => $row[5],
-                    'currency_id' => $row[6]
-                ];
-            
-                
             }
+
+
+            foreach ($rows as $row) {
+                $categoryName = $row['category'];
+                $category = Category::where('name', $categoryName)->where(function($query) {
+                    $query->where('owner_id', 0)
+                          ->orWhere('owner_id', auth()->user()->id);
+                })
+                ->first();
+
+                if (!$category) {
+                    Category::create([
+                        'owner_id' => auth()->user()->id,
+                        'name' => $categoryName,
+                        'type' => $row['type']
+                    ]);
+                }
+            }
+           
         
            foreach ($rows as $obj) {
                 Finance::create([
@@ -329,14 +350,47 @@ class SettingsController extends Controller
                     'name' => $obj['name'],
                     'price' => $obj['price'],
                     'time' => $obj['time'],
-                    'category_id' => $obj['category_id'],
-                    'currency_id' => $obj['currency_id']
+                    'category_id' => Category::where('name', '=',  $obj['category'])->value('id'),
+                    'currency_id' => Currency::where('name', 'like', '%' . $obj['currency'] . '%')->value('id')
                 ]);
+
             } 
 
             return back();
         }
 
         return back()->withErrors(['fileInput' => 'Please upload a valid file.']);
+    }
+
+    public function DataValidation($rows)
+    {
+        $floatPattern = '/^-?\d+(\.\d+)?$/';
+        $dateTimePattern = '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/';
+        $validTypes = ['Income', 'income', 'Spending', 'spending'];
+
+        foreach ($rows as $row) {
+            $data = str_getcsv($row);
+
+            if (!in_array($data[0], $validTypes)) {
+                return false;
+            }
+
+            if (!preg_match($floatPattern, $data[2])) {
+                return false;
+            }
+
+            if (!preg_match($dateTimePattern, $data[3])) {
+                return false;
+            }
+
+
+            // Validate currency existence
+            $currencyExists = Currency::where('name', 'like', '%' . $data[5] . '%')->exists();
+            if (!$currencyExists) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
