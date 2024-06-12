@@ -2,6 +2,7 @@
 @section('content')
 @endsection
 {{-- Section 1 --}}
+
 <div class="flex justify-center items-center bg-spending min-h-screen bg-fixed bg-no-repeat bg-cover bg-center">
     <div class="container">
         <div class="row">
