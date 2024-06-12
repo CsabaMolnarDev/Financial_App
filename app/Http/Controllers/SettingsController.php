@@ -134,7 +134,15 @@ class SettingsController extends Controller
         $request->validate([
             'newPhone' => 'required|string|unique:users,phone'
         ]);
-
+        /*        $user->family_id = $family->id;
+            $user->save(); */
+            if (auth()->user()->phone == null) {
+                $user = auth()->user();
+                $user->phone = $request->newPhone;
+                $user->save();
+                toastr()->success("Phone number added successfully");
+                return back();
+            }            
 
             $phone = $request->newPhone;
             $numbers="";
