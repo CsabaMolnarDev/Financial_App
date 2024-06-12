@@ -2,3 +2,10 @@
     margin-bottom: 3vh;
     font-size: 2vh;
 }
+
+/* .icon-button {
+    background-image: url({{ asset('storage/icons/delete.png') }});
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 12px;
+  } */

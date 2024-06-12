@@ -124,6 +124,10 @@
                                 <button type="button" class="btn btn-outline-primary"
                                     data-bs-toggle="modal"data-bs-target="#changePhoneNumberModal">Change phone
                                     number</button>
+                                <form action="{{ route('deletePhone') }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-primary icon-button" type="button">Del</button>
+                                </form>
                                 <!-- Phone Modal -->
                                 <div class="modal fade" id="changePhoneNumberModal"
                                     tabindex="-1"aria-labelledby="changePhoneNumberModalLabel" aria-hidden="true">

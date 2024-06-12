@@ -169,6 +169,12 @@ class SettingsController extends Controller
       
         return back();
     }
+    public function deletePhone()
+    {
+        User::where('id', '=', auth()->user()->id)->update(['phone' => null]);
+       /*  $deleteFamilyMemberById = User::where('id', '=', $id)->update(['family_id' => null]); */
+        return back();
+    }
 
     public function createFamily()
     {
@@ -298,10 +304,12 @@ class SettingsController extends Controller
 
             
             $rows = file($file->getRealPath(), FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
             if (!$this->DataValidation($rows)) {
                 toastr()->error("Invalid file format");
                 return back();
-            }
+            } 
+   
 
             $fileObject = new \SplFileObject($file->getRealPath());
             $fileObject->setFlags(\SplFileObject::READ_CSV);
@@ -363,34 +371,37 @@ class SettingsController extends Controller
     }
 
     public function DataValidation($rows)
-    {
-        $floatPattern = '/^-?\d+(\.\d+)?$/';
-        $dateTimePattern = '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/';
-        $validTypes = ['Income', 'income', 'Spending', 'spending'];
+{
+    $floatPattern = '/^-?\d+(\.\d+)?$/';
+    $dateTimePattern = '/^\d{4}[-.]?\d{2}[-.]?\d{2} \d{2}:\d{2}:\d{2}$/';
+    $validTypes = ['Income', 'income', 'Spending', 'spending'];
 
-        foreach ($rows as $row) {
-            $data = str_getcsv($row);
+    foreach ($rows as $index => $row) {
+        $data = str_getcsv($row);
 
-            if (!in_array($data[0], $validTypes)) {
-                return false;
-            }
-
-            if (!preg_match($floatPattern, $data[2])) {
-                return false;
-            }
-
-            if (!preg_match($dateTimePattern, $data[3])) {
-                return false;
-            }
-
-
-            // Validate currency existence
-            $currencyExists = Currency::where('name', 'like', '%' . $data[5] . '%')->exists();
-            if (!$currencyExists) {
-                return false;
-            }
+        // Validate type
+        if (!in_array($data[0], $validTypes)) {
+            return false;
         }
 
-        return true;
+        // Validate price
+        if (!preg_match($floatPattern, $data[2])) {
+            return false;
+        }
+
+        // Validate date time
+        if (!preg_match($dateTimePattern, $data[3])) {
+            return false;
+        }
+
+
+        // Validate currency existence
+        $currencyExists = Currency::where('name', 'like', '%' . $data[5] . '%')->exists();
+        if (!$currencyExists) {
+            return false;
+        }
     }
+
+    return true;
+}
 }

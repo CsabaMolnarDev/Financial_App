@@ -92,6 +92,8 @@ Route::post('/changeCurrency', [SettingsController::class, 'changeCurrency'])->n
 Route::post('/enableNotification', [SettingsController::class, 'enableNotification'])->name('enableNotification');
 /* Change Phone */
 Route::post('/changePhone', [SettingsController::class, 'changePhone'])->name('changePhone');
+/* Delete phone */
+Route::post('/deletePhone', [SettingsController::class, 'deletePhone'])->name('deletePhone');
 /* Deactivate accoutn */
 Route::post('/deactivateAccount', [SettingsController::class, 'softDeleteAccount'])->name('softDeleteAccount');
 //Restore deactivated account
