@@ -38,7 +38,6 @@ class FinanceController extends Controller
         $bool = str_contains(url()->previous(), 'spending');
         if($request->category_id == null ||$request->name == null ||$request->price == null)
         {
-            toastr()->warning("Please fill in each field");
             return back();
         }
 

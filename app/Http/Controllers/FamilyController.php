@@ -46,7 +46,7 @@ class FamilyController extends Controller
         $invitation->save();
 
         // Redirect with a success message
-        toastr()->success('You have successfully joined the family');
+
         return redirect('/');
     }
 }

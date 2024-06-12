@@ -1,6 +1,5 @@
 /* --------- IMPORTS --------- */
 @import url(https://fonts.googleapis.com/css?family=Roboto);
-/* Apex charts */
 @import url(https://fonts.googleapis.com/css?family=Poppins);
 
 @tailwind base;
@@ -16,7 +15,7 @@
     margin-top: 6.5vh;
 }
 
-/* --------- NAV --------- */
+/* --------- NAVBAR --------- */
 #homeIcon {
     width: 4vh;
     height: 4vh;

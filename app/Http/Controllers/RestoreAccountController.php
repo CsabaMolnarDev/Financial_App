@@ -40,7 +40,6 @@ class RestoreAccountController extends Controller
         $activate = User::where('email', $userEmail)->withTrashed();
         $activate->restore();
         Auth::logout();
-        toastr()->success("Account reactivated successfully");
         return redirect()->route('login');
     }
 }

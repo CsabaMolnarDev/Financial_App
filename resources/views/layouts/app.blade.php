@@ -30,6 +30,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- Tailwind --}}
+    @vite('resources/css/app.css')
 </head>
 
 <body>
@@ -103,6 +105,7 @@
         <main class="py-4" id="content">
             @yield('content')
         </main>
+        
     </div>
 </body>
 

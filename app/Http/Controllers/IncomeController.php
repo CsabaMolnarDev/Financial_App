@@ -58,7 +58,7 @@ class IncomeController extends Controller
             $category->type = 'income';
             $category->save();
 
-        toastr()->success($category->name . ' has been added to the categories successfully');
+
         return back();
     }
     /* income create */
@@ -100,7 +100,6 @@ class IncomeController extends Controller
     public function deleteFinance($id)
     {
         $deleteFinanceById = Finance::where('id', '=', $id)->delete();
-        toastr()->success("Finance record deleted successfully");
         return back();
     }
 }

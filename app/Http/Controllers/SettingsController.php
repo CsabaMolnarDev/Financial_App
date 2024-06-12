@@ -47,8 +47,7 @@ class SettingsController extends Controller
 
 
         $user->fullname = $request->newFullname;
-        $user->update();
-        toastr()->success("Fullname changed successfully");
+        $user->update();     
         return back();
 
     }
@@ -63,7 +62,7 @@ class SettingsController extends Controller
 
         $user->username = $request->newUsername;
         $user->save();
-        toastr()->success("Username changed successfully");
+
         return back();
 
     }
@@ -78,7 +77,7 @@ class SettingsController extends Controller
 
         $user->email = $request->newEmail;
         $user->save();
-        toastr()->success("Email changed successfully");
+     
         return back();
     }
 
@@ -104,7 +103,7 @@ class SettingsController extends Controller
         }
         //1.10086,
 
-        toastr()->success("Currency changed successfully");
+       
         return back();
     }
 
@@ -116,7 +115,7 @@ class SettingsController extends Controller
             $user->notification = '1';
             $user->timezone = $userTimezone;
             $user->save();
-            toastr()->success('Notifications enabled successfully');
+           
             return back();
         }
        else
@@ -124,7 +123,7 @@ class SettingsController extends Controller
             $user->notification = '0';
             $user->timezone = null;
             $user->save();
-            toastr()->success('Notifications disabled successfully');
+           
             return back();
         } 
         
@@ -140,7 +139,7 @@ class SettingsController extends Controller
                 $user = auth()->user();
                 $user->phone = $request->newPhone;
                 $user->save();
-                toastr()->success("Phone number added successfully");
+              
                 return back();
             }            
 
@@ -168,7 +167,7 @@ class SettingsController extends Controller
 
         $user->phone = $request->newPhone;
         $user->save();
-        toastr()->success("Phone number changed successfully");
+      
         return back();
     }
 
@@ -187,11 +186,11 @@ class SettingsController extends Controller
             $family->save();
             $user->family_id = $family->id;
             $user->save();
-            toastr()->success("Family created");
+          
             return back();
         }
         else {
-            toastr()->warning('You already have family created');
+        
             return back();
         }
     }
@@ -234,14 +233,14 @@ class SettingsController extends Controller
         $deleteFamilyMembers = User::where('family_id', '=', $userFamilyId)->update(['family_id' => null]);
 
 
-        toastr()->success("Family deleted");
+
         return back();
     }
 
     public function deleteFamilyMember($id)
     {
         $deleteFamilyMemberById = User::where('id', '=', $id)->update(['family_id' => null]);
-        toastr()->success("Family member deleted successfully");
+
         return back();
     }
 
@@ -263,7 +262,7 @@ class SettingsController extends Controller
         ]);
         $username = auth()->user()->username;
         Mail::to($joininguser->email)->send(new FamilyInvitationMail($invitation, $username));
-        toastr()->success("Join request sent");
+
         return back();
     }
 
@@ -271,14 +270,14 @@ class SettingsController extends Controller
     {
         $user = auth()->user();
         $leaveFamily = User::where('id', '=', $user->id)->update(['family_id' => null]);
-        toastr()->success("You left the family successfully");
+
         return back();
     }
 
     public function softDeleteAccount()
     {
         $user = auth()->user();
-        toastr()->success("You deactivated your account successfully");
+      
         $user->delete();
         return redirect()->route('home');
     }
@@ -334,7 +333,7 @@ class SettingsController extends Controller
                     'currency_id' => $obj['currency_id']
                 ]);
             } 
-            toastr()->success("File uploaded and processed successfully");
+
             return back();
         }
 
