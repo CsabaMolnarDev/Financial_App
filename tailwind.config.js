@@ -1,5 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+/* 
+  For the configs:
+  https://tailwindcss.com/docs/theme#configuration-reference
+*/
 export default {
+  mode: 'jit',
+  darkMode: 'class',
   content: [
     /* NEVER LINK CSS HERE */
     "./resources/**/*.blade.php",
@@ -24,10 +30,7 @@ export default {
   ],
   theme: {
     /* Anything here OVERWRITES */
-    /* 
-    For the configs:
-    https://tailwindcss.com/docs/theme#configuration-reference
-     */
+
     /* Anything here EXTENDS */
     extend: {
       /* Import images that will be used as backgrounds */
@@ -35,9 +38,12 @@ export default {
         'spending': 'url("/public/storage/pictures/spendingPic.jpg")',
         'income': 'url("/public/storage/pictures/incomePic.jpg")',
         'home': 'url("/public/storage/pictures/homePic.jpg")',
+        /* Icons */
+        '': 'url("/public/storage/pictures/homePic.jpg")',
       },
+
     },
   },
-  plugins: [],
+  plugins: ["prettier-plugin-tailwindcss"],
 }
 

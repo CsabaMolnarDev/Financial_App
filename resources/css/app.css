@@ -6,13 +6,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .font {
+        color: var(--light);
+        font-family: var(--font-neue-montreal);
+        font-size: 2.625rem;
+        font-weight: 500;
+    }
+}
+
+:root {
+    --light: #FBFBFB !important;
+    --dark: #212529 !important;
+}
+
 /* --------- CONTENT --------- */
 #content {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    /* This is the height from the top which is = to the size of the navbar */
-    margin-top: 6.5vh;
 }
 
 /* --------- NAVBAR --------- */

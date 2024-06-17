@@ -102,7 +102,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4" id="content">
+        <main class="py-4 mt-[6.5vh]" id="content">
             @yield('content')
         </main>
 
