@@ -22,3 +22,7 @@ buttons with animations
         slightly darker bg with hover
 
 language change
+picture compressing
+
+<!-- Write your todo seperatly down here: -->
+<!-- Thank you <3> -->
