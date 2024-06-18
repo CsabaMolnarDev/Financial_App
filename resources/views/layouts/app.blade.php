@@ -105,7 +105,6 @@
         <main class="py-4 mt-[5.5vh] h-full w-full object-cover" id="content">
             @yield('content')
         </main>
-
     </div>
 </body>
 

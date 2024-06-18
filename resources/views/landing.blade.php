@@ -4,15 +4,15 @@
     <section
         class="relative mb-4 mx-4 flex h-[600px] flex-col items-center justify-center 
         overflow-clip rounded-3xl py-6 lg:h-[min(calc(100vh-2rem),2000px)] border-2 border-gray-600">
-        <div class="z-30 flex flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
+        <div class="flex flex-col z-10 gap-8 px-6 lg:w-[960px] lg:px-16">
             <h1 class="text-center font-display font-slogen text-teal-500">Start tracking your finances today!
             </h1>
             <button
                 class="bg-gradient-to-r from-orange-400 to-yellow-300 hover:from-yellow-300 hover:to-orange-400 
-                border-2 border-gray-600 rounded-xl ">
+                border-2 border-gray-600 rounded-xl">
                 Getting started</button>
         </div>
-        <video class="flex absolute w-full h-full overflow-hidden bg-no-repeat bg-cover opacity-90 object-cover"
+        <video class="flex absolute z-0 w-full h-full overflow-hidden bg-no-repeat bg-cover object-cover opacity-90"
             autoplay="" loop="" playsinline="" disablepictureinpicture muted preload
             src="../storage/videos/welcome.mp4">
         </video>
@@ -22,7 +22,7 @@
     <section
         class="relative mb-4 mx-4 flex h-[600px] flex-col items-center justify-center 
         overflow-clip rounded-3xl py-6 lg:h-[min(calc(100vh-2rem),2000px)] border-2 border-gray-600">
-        <div class="z-30 flex flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
+        <div class="flex z-10 flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
             <h1 class="heading-xl text-center font-display font text-light">
                 Our project is designed for financial management.
                 We could help you to manage your finances in order for you to achieve your goals.
@@ -30,14 +30,14 @@
             </h1>
         </div>
         <div
-            class="flex bg-income min-h-screen bg-fixed bg-no-repeat bg-cover bg-center absolute left-0 top-0 h-full w-full opacity-90">
+            class="flex z-0 bg-income min-h-screen bg-fixed bg-no-repeat bg-cover bg-center absolute left-0 top-0 h-full w-full opacity-90">
         </div>
     </section>
     {{-- section 3 --}}
     <section
         class="relative mb-4 mx-4 flex h-[600px] flex-col items-center justify-center 
         overflow-clip rounded-3xl py-6 lg:h-[min(calc(100vh-2rem),2000px)] border-2 border-gray-600">
-        <div class="z-30 flex flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
+        <div class="z-10 flex flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
             <h1 class="heading-xl text-center font-display font text-light">
                 We provide
             </h1>
@@ -55,14 +55,14 @@
             </h1>
         </div>
         <div
-            class="flex bg-spending min-h-screen bg-fixed bg-no-repeat bg-cover bg-center absolute left-0 top-0 z-20 h-full w-full opacity-90">
+            class="flex bg-spending min-h-screen bg-fixed bg-no-repeat bg-cover bg-center absolute left-0 top-0 z-0 h-full w-full opacity-90">
         </div>
     </section>
     {{-- section 4 --}}
     <section
         class="relative mb-4 mx-4 flex h-[600px] flex-col items-center justify-center 
         overflow-clip rounded-3xl py-6 lg:h-[min(calc(100vh-2rem),2000px)] border-2 border-gray-600">
-        <div class="z-30 flex flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
+        <div class="z-10 flex flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
             <h1 class="heading-xl text-center font-display font text-light">
                 With us you can
             </h1>
@@ -77,14 +77,14 @@
             </h1>
         </div>
         <div
-            class="flex bg-settings min-h-screen bg-fixed bg-no-repeat bg-cover bg-center absolute left-0 top-0 z-20 h-full w-full opacity-90">
+            class="flex bg-settings min-h-screen bg-fixed bg-no-repeat bg-cover bg-center absolute left-0 top-0 z-0 h-full w-full opacity-90">
         </div>
     </section>
-    {{-- Section 5 --}}
-    <section
-        class="relative mb-4 mx-4 flex h-[600px] flex-col items-center justify-center 
-    overflow-clip rounded-3xl py-6 lg:h-[min(calc(100vh-2rem),2000px)] border-2 border-gray-600">
-        <div class="z-30 flex flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
+    {{-- footer --}}
+    <div
+        class="bg-dark bg-cover bg-center relative mx-4 flex h-[300px] flex-col items-center justify-center 
+        overflow-clip rounded-3xl py-6 lg:h-[min(calc(50vh-2rem),2000px)] border-2 border-gray-600 opacity-95">
+        <div class="flex flex-col gap-8 text-center justify-center align-center">
             <h1 class="heading-xl text-center font-display font text-light">
                 Contact us here
             </h1>
@@ -93,8 +93,5 @@
             </h1>
             <p class="heading-xl text-center font-display font text-gray-400">Copyright @</p>
         </div>
-        <div
-            class="flex bg-home min-h-screen bg-fixed bg-no-repeat bg-cover bg-center absolute left-0 top-0 z-20 h-full w-full opacity-90">
-        </div>
-    </section>
+    </div>
 @endsection
