@@ -265,6 +265,13 @@
                                 <input type="file" name="fileInput" id="fileInput">
                             </form>
                         </div>
+                        <div class="mt-5 col">
+                            <h4>Download finances (csv):</h4>
+                            <form action="{{ route('downloadFinances') }}" method="POST">
+                                @csrf
+                                <button class="btn btn-outline-primary " type="submit">Download</button>
+                            </form>
+                        </div>
                         @if ($errors->any())
                         <div class="mt-3 alert alert-danger">
                                 <ul>

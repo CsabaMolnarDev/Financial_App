@@ -102,6 +102,8 @@ Route::post('/checkIfUserDisabled', [RestoreAccountController::class, 'checkIfUs
 Route::post('/reactivateAccount', [RestoreAccountController::class, 'reactivateAccount'])->name('reactivateAccount');
 /* Add finance from file */
 Route::post('/settings', [SettingsController::class, 'readingFile'])->name('readingFile');
+/* Download finances */
+Route::post('/downloadFinances', [SettingsController::class, 'downloadFinances'])->name('downloadFinances');
 
 /* Family system */
 Route::post('/createFamily', [SettingsController::class, 'createFamily'])->name('createFamily');

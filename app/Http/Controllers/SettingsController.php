@@ -371,37 +371,73 @@ class SettingsController extends Controller
     }
 
     public function DataValidation($rows)
-{
-    $floatPattern = '/^-?\d+(\.\d+)?$/';
-    $dateTimePattern = '/^\d{4}[-.]?\d{2}[-.]?\d{2} \d{2}:\d{2}:\d{2}$/';
-    $validTypes = ['Income', 'income', 'Spending', 'spending'];
+    {
+        $floatPattern = '/^-?\d+(\.\d+)?$/';
+        $dateTimePattern = '/^\d{4}[-.]?\d{2}[-.]?\d{2} \d{2}:\d{2}:\d{2}$/';
+        $validTypes = ['Income', 'income', 'Spending', 'spending'];
 
-    foreach ($rows as $index => $row) {
-        $data = str_getcsv($row);
+        foreach ($rows as $index => $row) {
+            $data = str_getcsv($row);
 
-        // Validate type
-        if (!in_array($data[0], $validTypes)) {
-            return false;
+            // Validate type
+            if (!in_array($data[0], $validTypes)) {
+                return false;
+            }   
+
+            // Validate price
+            if (!preg_match($floatPattern, $data[2])) {
+                return false;
+            }
+
+            // Validate date time
+            if (!preg_match($dateTimePattern, $data[3])) {
+                return false;
+            }
+
+
+            // Validate currency existence
+            $currencyExists = Currency::where('name', 'like', '%' . $data[5] . '%')->exists();
+            if (!$currencyExists) {
+                return false;
+            }
         }
 
-        // Validate price
-        if (!preg_match($floatPattern, $data[2])) {
-            return false;
-        }
-
-        // Validate date time
-        if (!preg_match($dateTimePattern, $data[3])) {
-            return false;
-        }
-
-
-        // Validate currency existence
-        $currencyExists = Currency::where('name', 'like', '%' . $data[5] . '%')->exists();
-        if (!$currencyExists) {
-            return false;
-        }
+        return true;
     }
 
-    return true;
-}
+
+    public function downloadFinances()
+    {
+        $userFinances = Finance::where('user_id', '=', auth()->user()->id)->get();   
+
+        $financeArray = []; 
+
+        foreach ($userFinances as $finance) {
+
+            $financeArray[] = [
+                'type' => $finance->type,
+                'name' => $finance->name,
+                'price' => $finance->price,
+                'time' => $finance->time,
+                'category' => $finance->category->name,
+                'currency' => $finance->currency->name
+            ];
+            
+
+        }
+
+        $csvFileName  = 'finances.csv';
+        $file = fopen($csvFileName , 'w');
+        $firstrow = "Type, Name, Price, Time, Category, Currency";
+        fwrite($file, $firstrow."\n");
+        foreach ($financeArray as $finance) {
+            fputcsv($file, $finance);
+        }
+        fclose($file);
+        $headers = array(
+            'Content-Type' => 'text/csv',
+        );
+
+        return response()->download($csvFileName, $csvFileName, $headers);
+    }
 }

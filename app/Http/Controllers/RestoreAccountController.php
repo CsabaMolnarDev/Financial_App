@@ -10,7 +10,7 @@ class RestoreAccountController extends Controller
 {
     public function restoreAccountIndex()
     {
-        return view('includes.accountRestore');
+        return view('auth.accountRestore');
     }
 
     public function checkIfUserDisabled(Request $request)

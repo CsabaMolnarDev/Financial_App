@@ -4,6 +4,11 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -25,6 +30,35 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+
+            Log::error($e->getMessage(), ['exception' => $e]);
         });
+        
+    }
+    /**
+     * Render an exception into an HTTP response.
+     */
+    public function render($request, Throwable $e)
+    {
+        // Customize handling of specific exceptions
+
+        if ($e instanceof ModelNotFoundException) {
+            return response()->view('errors.404', [], 404);
+        }
+
+        if ($e instanceof AuthorizationException) {
+            return response()->view('errors.403', [], 403);
+        }
+
+        if ($e instanceof NotFoundHttpException) {
+            return response()->view('errors.404', [], 404);
+        }
+
+        if ($e instanceof HttpException) {
+            return response()->view('errors.generic', ['message' => $e->getMessage()], $e->getStatusCode());
+        }
+
+        // Default handling
+        return parent::render($request, $e);
     }
 }
