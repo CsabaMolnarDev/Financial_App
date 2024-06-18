@@ -82,8 +82,8 @@
     </section>
     {{-- footer --}}
     <div
-        class="bg-dark bg-cover bg-center relative mx-4 flex h-[300px] flex-col items-center justify-center 
-        overflow-clip rounded-3xl py-6 lg:h-[min(calc(50vh-2rem),2000px)] border-2 border-gray-600 opacity-95">
+        class="bg-dark bg-cover bg-center relative mx-4 flex h-[200px] flex-col items-center justify-center 
+        overflow-clip rounded-3xl py-6 lg:h-[min(calc(30vh-2rem),2000px)] border-2 border-gray-600">
         <div class="flex flex-col gap-8 text-center justify-center align-center">
             <h1 class="heading-xl text-center font-display font text-light">
                 Contact us here

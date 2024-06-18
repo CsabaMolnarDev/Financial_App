@@ -17,8 +17,10 @@ body {
 
 .T404 {
     font-size: 8em;
-    color: #000; /* Text color */
-    fill: #000; /* Bug color */
+    color: #000;
+    /* Text color */
+    fill: #000;
+    /* Bug color */
 }
 
 .bug {

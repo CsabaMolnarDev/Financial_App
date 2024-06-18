@@ -60,11 +60,12 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-4 text-center">
-                                    <a href="{{ route('register') }}">Register now!</a>
+                                    <a class="btn btn-link" href="{{ route('register') }}">Register now!</a>
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">Forgot password?</a>
                                     @endif
-                                    <a href="{{ route('restoreAccountIndex') }}">Restore deactivated account!</a>
+                                    <a class="btn btn-link" href="{{ route('restoreAccountIndex') }}">Restore deactivated
+                                        account!</a>
                                 </div>
                                 <div class="col-4">
                                 </div>

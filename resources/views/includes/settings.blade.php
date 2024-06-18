@@ -126,7 +126,8 @@
                                     number</button>
                                 <form action="{{ route('deletePhone') }}" method="post">
                                     @csrf
-                                    <button type="submit" class="btn btn-outline-primary icon-button" type="button">Del</button>
+                                    <button type="submit" class="btn btn-outline-primary icon-button"
+                                        type="button">Del</button>
                                 </form>
                                 <!-- Phone Modal -->
                                 <div class="modal fade" id="changePhoneNumberModal"
@@ -255,11 +256,12 @@
                                 {{-- We list out the family members --}}
                             </div>
                         </div>
-                    
+
                         {{-- Add finance from file --}}
                         <div class="col">
                             <h4>Add finance from file</h4>
-                            <form action="{{ route('settings') }}" method="POST" id="fileForm" enctype="multipart/form-data">
+                            <form action="{{ route('settings') }}" method="POST" id="fileForm"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <label id="fileLabel" for="fileInput">Select a file: </label>
                                 <input type="file" name="fileInput" id="fileInput">
@@ -273,11 +275,11 @@
                             </form>
                         </div>
                         @if ($errors->any())
-                        <div class="mt-3 alert alert-danger">
+                            <div class="mt-3 alert alert-danger">
                                 <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
                                 </ul>
                             </div>
                         @endif
@@ -306,7 +308,7 @@
         // Add an event listener for the change event on the file input element
         fileInput.addEventListener('change', (event) => {
             document.getElementById('fileForm').submit();
-        });     
+        });
 
         function checkIfUserExists(input) {
             $.ajax({
