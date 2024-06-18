@@ -6,25 +6,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Own tailwind class */
 @layer utilities {
-    .font {
-        color: var(--light);
+    .font-slogen {
+        text-shadow: rgb(0, 0, 0) 1px 0px 0px, rgb(0, 0, 0) 1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px, rgb(0, 0, 0) 0px 2px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.3px -1.5px 0px, rgb(0, 0, 0) -0.4px -1.3px 0px, rgb(0, 0, 0) 0.5px -1.5px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) 1.5px -0.5px 0px;
         font-family: var(--font-neue-montreal);
-        font-size: 2.625rem;
-        font-weight: 500;
+        font-style: italic;
+        font-size: 2.7rem;
+        font-weight: 600;
+        letter-spacing: 0px;
+        word-spacing: 2px;
+        text-decoration: none;
+        font-style: italic;
+        font-variant: normal;
+        text-transform: capitalize;
+        border: 1;
+        border-color: rgb(0, 0, 0);
     }
-}
 
-:root {
-    --light: #FBFBFB !important;
-    --dark: #212529 !important;
-}
-
-/* --------- CONTENT --------- */
-#content {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+    .font {
+        font-family: var(--font-neue-montreal);
+        font-size: 1.3rem;
+        font-weight: 400;
+    }
 }
 
 /* --------- NAVBAR --------- */

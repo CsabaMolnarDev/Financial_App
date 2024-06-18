@@ -33,13 +33,21 @@ export default {
 
     /* Anything here EXTENDS */
     extend: {
+      colors: {
+        'light': '#FBFBFB',
+        'dark': '#212529',
+      },
       /* Import images that will be used as backgrounds */
       backgroundImage: {
         'spending': 'url("/public/storage/pictures/spendingPic.jpg")',
         'income': 'url("/public/storage/pictures/incomePic.jpg")',
+        'incomeCreate': 'url("/public/storage/pictures/incomeCreatePic.jpg")',
         'home': 'url("/public/storage/pictures/homePic.jpg")',
+        'settings': 'url("/public/storage/pictures/settingsPic.jpg")',
+        'login': 'url("/public/storage/pictures/loginPic.jpg")',
+        'register': 'url("/public/storage/pictures/registerPic.jpg")',
         /* Icons */
-        '': 'url("/public/storage/pictures/homePic.jpg")',
+        'homeIcon': 'url("/public/storage/pictures/homePic.jpg")',
       },
 
     },
