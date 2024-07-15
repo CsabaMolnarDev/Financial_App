@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->integer('owner_id')->default(0);
-            $table->string('name');
-            $table->enum('type', ['spending', 'income', 'saving'])->default('spending'); 
-            $table->timestamps();
+        Schema::table('savings', function (Blueprint $table) {
+            $table->foreignId('user_id')->after('id')->nullable()->constrained('users')->onDelete('set null');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-    
+        Schema::table('savings', function (Blueprint $table) {
+            //
+        });
     }
 };

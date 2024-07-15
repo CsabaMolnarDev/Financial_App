@@ -94,6 +94,9 @@
                                 <button id="menuBtn" class="btn btn-outline-info" type="submit"
                                     onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
                                     statistics</button>
+                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                    onclick="window.location=' {{ url('/saving') }} '">Saving</button>
+
                                 <button id="menuBtn" class="btn btn-outline-primary" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
                             @endguest

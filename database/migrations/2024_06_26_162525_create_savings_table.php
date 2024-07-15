@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('savings', function (Blueprint $table) {
             $table->id();
-            $table->integer('owner_id')->default(0);
             $table->string('name');
-            $table->enum('type', ['spending', 'income', 'saving'])->default('spending'); 
+            $table->integer('amount');
+            $table->boolean('shared_with_family')->default(false);
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-    
+        Schema::dropIfExists('savings');
     }
 };

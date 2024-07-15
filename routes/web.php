@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SpendingController;
 use App\Http\Controllers\AdvancedStatisticsController;
 use App\Http\Controllers\RestoreAccountController;
+use App\Http\Controllers\SavingController;
 
 
 /*
@@ -76,6 +77,13 @@ Route::post('/editSpendingValue', [SpendingController::class, 'editSpendingValue
 Route::get('/advancedStatistics', [AdvancedStatisticsController::class, 'index'])->name('advancedStatistics')->middleware('auth');
 Route::post('/formHandling', [AdvancedStatisticsController::class, 'handleForm'])->name('handleForm');
 Route::post('/advancedStatistics', [AdvancedStatisticsController::class, 'handleFamilyForm'])->name('handleFamilyForm');
+
+/* Saving page */
+Route::get('/saving', [SavingController::class, 'index'])->name('saving')->middleware('auth');
+Route::post('/savingSaved', [SavingController::class, 'addSavingGoal'])->name('addSavingGoal');
+Route::post('/addMoneyToSaving', [SavingController::class, 'addSaving'])->name('addSaving');
+
+
 
 /* Edit finance */
 /* Settings route */
