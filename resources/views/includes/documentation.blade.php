@@ -1,32 +1,32 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="card bg-dark text-light">
-                    <div class="card-header text-center">
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
+                <div class="">
+                    <div class="">
                         <h3>Use the buttons for the user manual</h3>
                     </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-3 mt-2"><button id="spendingsBtn" class="btn btn-outline-info"
+                    <div class="">
+                        <div class="">
+                            <div class=""><button id="spendingsBtn" class=""
                                     onclick="handleButtonClick('spendings')">Manage
                                     spendings</button>
                             </div>
-                            <div class="col-md-3 mt-2"><button id="incomesBtn" class="btn btn-outline-info"
+                            <div class=""><button id="incomesBtn" class=""
                                     onclick="handleButtonClick('incomes')">Manage
                                     incomes</button>
                             </div>
-                            <div class="col-md-3 mt-2"><button id="familyBtn" class="btn btn-outline-info"
+                            <div class=""><button id="familyBtn" class=""
                                     onclick="handleButtonClick('family')">Manage
                                     family</button>
                             </div>
-                            <div class="col-md-3 mt-2"><button id="accountBtn" class="btn btn-outline-info"
+                            <div class=""><button id="accountBtn" class=""
                                     onclick="handleButtonClick('account')">Graphicon explainer</button>
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        <div class="">
                             <div id="spendings" style="display: none;">
                                 <h3>Manage spendings</h3>
                                 <ul>
@@ -169,7 +169,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-2"></div>
+            <div class=""></div>
         </div>
         <script>
             var activeButtonId = null;

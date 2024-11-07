@@ -1,17 +1,17 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card bg-dark text-light">
-                    <div class="card-header bg-dark" id="RegFormTittle">{{ __('Login') }}</div>
-                    <div class="card-body bg-dark">
+    <div class="">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <div class="" id="RegFormTittle">{{ __('Login') }}</div>
+                    <div class="">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Email Address') }}</label>
+                                <div class="">
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -22,10 +22,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Password') }}</label>
+                                <div class="">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         required autocomplete="current-password">
@@ -36,15 +36,15 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row content-justify-center">
-                                <div class="col-4">
+                            <div class="">
+                                <div class="">
                                 </div>
-                                <div class="col-3 text-center logbtn">
-                                    <button type="submit" class="btn btn-outline-primary">
+                                <div class="logbtn">
+                                    <button type="submit" class="">
                                         {{ __('Login') }}
                                     </button>
                                 </div>
-                                <div class="col-3">
+                                <div class="">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                             {{ old('remember') ? 'checked' : '' }}>
@@ -53,21 +53,21 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="">
                                 </div>
                             </div>
-                            <div class="row content-justify-center">
-                                <div class="col-4">
+                            <div class="">
+                                <div class="">
                                 </div>
-                                <div class="col-4 text-center">
-                                    <a class="btn btn-link" href="{{ route('register') }}">Register now!</a>
+                                <div class="">
+                                    <a class="btn-link" href="{{ route('register') }}">Register now!</a>
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">Forgot password?</a>
+                                        <a class="btn-link" href="{{ route('password.request') }}">Forgot password?</a>
                                     @endif
-                                    <a class="btn btn-link" href="{{ route('restoreAccountIndex') }}">Restore deactivated
+                                    <a class="btn-link" href="{{ route('restoreAccountIndex') }}">Restore deactivated
                                         account!</a>
                                 </div>
-                                <div class="col-4">
+                                <div class="">
                                 </div>
                             </div>
                     </div>

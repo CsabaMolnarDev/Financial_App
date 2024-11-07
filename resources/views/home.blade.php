@@ -1,121 +1,121 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <div class="row gy-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
+        <div class="">
+            <div class=""></div>
+            <div class="">
                 @if (auth()->user()->finances()->where('type', 'Income')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
-                    <div class="card bg-dark text-light">
-                        <div class="card-header text-center">
+                    <div class="">
+                        <div class="">
                             <h3>Incomes this month</h3>
                         </div>
-                        <div class="card-body text-center">
+                        <div class="">
                             <div class="row" id="income">
                                 <div id="incomeChart"></div>
                             </div>
                             <div class="row">
-                                <button class="btn btn-outline-info" type="submit"
+                                <button class="" type="submit"
                                     onclick="window.location=' {{ url('/income') }} '">Details</button>
                             </div>
                         </div>
                     </div>
                 @endif
             </div>
-            <div class="col-md-4">
+            <div class="">
                 @if (auth()->user()->finances()->where('type', 'Spending')->whereMonth('time', now()->month)->whereYear('time', now()->year)->exists())
-                    <div class="card bg-dark text-light">
-                        <div class="card-header text-center">
+                    <div class="">
+                        <div class="">
                             <h3>Spendings this month</h3>
                         </div>
-                        <div class="card-body text-center">
-                            <div class="row" id="spending">
+                        <div class="">
+                            <div class="" id="spending">
                                 <div id="spendingChart"></div>
                             </div>
-                            <div class="row">
-                                <button class="btn btn-outline-info" type="submit"
+                            <div class="">
+                                <button class="" type="submit"
                                     onclick="window.location=' {{ url('/spending') }} '">Details</button>
                             </div>
                         </div>
                     </div>
                 @endif
             </div>
-            <div class="col-md-2"></div>
+            <div class=""></div>
         </div>
     </div>
-    <div class="container mt-3">
-        <div class="row gy-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
                 @if (auth()->user()->family && $familymembers->count() > 1 && $allIncomesZero === false)
-                    <div class="card bg-dark text-light">
-                        <div class="card-header text-center">
+                    <div class="">
+                        <div class="">
                             <h3>Family Incomes</h3>
                         </div>
-                        <div class="card-body text-center">
-                            <div class="row" id="familyIncome">
+                        <div class="">
+                            <div class="" id="familyIncome">
                                 <div id="familyIncomeChart"></div>
                             </div>
-                            <div class="row">
-                                <button class="btn btn-outline-info" type="submit"
+                            <div class="">
+                                <button class="" type="submit"
                                     onclick="window.location=' {{ url('/advancedStatistics') }} '">Details</button>
                             </div>
                         </div>
                     </div>
                 @endif
             </div>
-            <div class="col-md-4">
+            <div class="">
                 @if (auth()->user()->family && $familymembers->count() > 1 && $allSpendingsZero === false)
-                    <div class="card bg-dark text-light">
-                        <div class="card-header text-center">
+                    <div class="">
+                        <div class="">
                             <h3>Family Spendings</h3>
                         </div>
-                        <div class="card-body text-center">
-                            <div class="row" id="familySpending">
+                        <div class="">
+                            <div class="" id="familySpending">
                                 <div id="familySpendingChart"></div>
                             </div>
-                            <div class="row">
-                                <button class="btn btn-outline-info" type="submit"
+                            <div class="">
+                                <button class="" type="submit"
                                     onclick="window.location=' {{ url('/advancedStatistics') }} '">Details</button>
                             </div>
                         </div>
                     </div>
                 @endif
             </div>
-            <div class="col-md-2"></div>
+            <div class=""></div>
         </div>
     </div>
-    <div class="container mt-3">
-        <div class="row gy-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="card text-light bg-dark">
-                    <div class="card-body">
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
+                <div class="">
+                    <div class="">
                         <div id="calendar">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class=""></div>
         </div>
     </div>
-    <div class="container mt-3">
-        <div class="row gy-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="card text-light bg-dark">
-                    <div class="card-header">
-                        <h3 class="text-center">Exchange currency</h3>
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
+                <div class="">
+                    <div class="">
+                        <h3 class="">Exchange currency</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="">
                         <form action="{{ route('calculate') }}" method="POST">
                             @csrf
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <div class="col-md-1">
+                            <div class="">
+                                <div class=""></div>
+                                <div class="">
                                     <label for="currency" id="symbol">1
                                         {{ isset($fromSymbol) ? $fromSymbol : '' }}</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="">
                                     <select id="currency" class="form-control" type="text" name="currency_id"
                                         value="{{ old('currency') }}" required autocomplete="currency" autofocus>
                                         <option value="" disabled selected hidden>Please Choose...</option>
@@ -125,11 +125,11 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="">
                                     <label for="currency2"
                                         id="result">{{ isset($exchangeRate) ? $exchangeRate . ' ' . $toSymbol : '' }}</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="">
                                     <select id="currency2" class="form-control" type="text" name="currency_id2"
                                         value="{{ old('currency') }}" required autocomplete="currency" autofocus>
                                         <option value="" disabled selected hidden>Please Choose...</option>
@@ -139,20 +139,20 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-2"></div>
+                                <div class=""></div>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-outline-success form-control" type="submit">Calculate</button>
+                            <div class="">
+                                <div class=""></div>
+                                <div class="">
+                                    <button class="form-control" type="submit">Calculate</button>
                                 </div>
-                                <div class="col-md-4"></div>
+                                <div class=""></div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class=""></div>
         </div>
     </div>
     <script>

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mt-3">
-        <div class="row mb-3">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="card bg-dark text-light">
-                    <div class="card-body">
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
+                <div class="">
+                    <div class="">
                         @php
                             $totalIncome = 0;
                             $totalSpending = 0;
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class=""></div>
         </div>
     </div>
     @if (!auth()->user()->family || (auth()->user()->family && $familyMembers->count() == 1))
@@ -49,7 +49,7 @@
                 ];
             @endphp
             @for ($i = 0; $i < 3; $i++)
-                <div class="specialcard bg-dark text-light">
+                <div class="specialcard">
                     <div class="specialcard-body">
                         <h5 class="specialcard-title">{{ $monthsLabels[$i] }}</h5>
                         @php
@@ -93,7 +93,7 @@
                 ];
             @endphp
             @foreach ($monthsToShow as $index => $month)
-                <div class="specialcard h-130 bg-dark text-light">
+                <div class="specialcard">
                     <div class="specialcard-body">
                         <h5 class="specialcard-title">{{ $monthsLabels[$index] }}</h5>
                         @foreach ($familyMembers as $member)
@@ -126,14 +126,14 @@
         </div>
     @endif
     {{-- SELECT BY CATEGORY --}}
-    <div class="container text-center mb-3 mt-3">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
                 @if (auth()->user()->finances()->where('type', 'spending')->exists() ||
                         auth()->user()->finances()->where('type', 'income')->exists())
-                    <div class="card bg-dark text-light">
-                        <div class="card-body">
+                    <div class="">
+                        <div class="">
                             <form id="selectForm" action="{{ route('handleForm') }}" method="POST">
                                 @csrf
                                 <label for="options">Filter by category: </label>
@@ -155,11 +155,11 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-3"></div>
+            <div class=""></div>
         </div>
     </div>
     @if (isset($selected_category))
-        <div class="specialcard-container mb-3">
+        <div class="specialcard-container">
             @php
                 $currentYear = date('Y');
                 $monthsToShow = [$currentMonth - 2, $currentMonth - 1, $currentMonth];
@@ -170,7 +170,7 @@
                 ];
             @endphp
             @for ($i = 0; $i < 3; $i++)
-                <div class="specialcard bg-dark text-light">
+                <div class="specialcard">
                     <div class="specialcard-body">
                         <h5 class="specialcard-title">{{ $monthsLabels[$i] }}</h5>
                         @php
@@ -211,18 +211,18 @@
     {{-- SELECT FAMILY MEMBER IF USER HAS FAMILY MEMBERS --}}
     @if ($familyMembers->count() > 1)
         <div id="advanced_details" class="hidden">
-            <div class="container mb-3">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <div class="card bg-dark text-light">
-                            <div class="card-header">
+            <div class="">
+                <div class="">
+                    <div class=""></div>
+                    <div class="">
+                        <div class="">
+                            <div class="">
                                 <h4>
                                     My Account
                                 </h4>
                             </div>
-                            <div class="card-body">
-                                <div class="card-text">
+                            <div class="">
+                                <div class="">
                                     @php
                                         $userFinances = \App\Models\Finance::where('user_id', auth()->user()->id)
                                             ->whereMonth('time', $month)
@@ -231,7 +231,7 @@
                                         $totalIncomeForAuth = $userFinances->where('type', 'Income')->sum('price');
                                         $totalSpendingForAuth = $userFinances->where('type', 'Spending')->sum('price');
                                     @endphp
-                                    <div class="card-text">
+                                    <div class="">
                                         <p>My Income for this month: {{ $totalIncomeForAuth }} {{ $currencySymbol }}</p>
                                         @foreach ($incomeCategoriesForAuthUserMonthly as $category)
                                             <li>{{ $category->name }} -
@@ -263,14 +263,14 @@
                                         </li>
                                     @endforeach
                                 </div>
-                                <div class="card-text">
+                                <div class="">
                                     <form id="familymemberForm" action="{{ route('handleFamilyForm') }}" method="POST">
                                         @csrf
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
+                                        <div class="">
+                                            <div class="">
                                                 <label for="familymember">Select a family member: </label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="">
                                                 <select class="form-control" name="familymember" id="familymember"
                                                     onchange="submitForm()">
                                                     <option value="" selected disabled>Choose</option>
@@ -290,7 +290,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class=""></div>
                 </div>
             </div>
             @if (isset($selectedFamilyMemberId) &&
@@ -298,13 +298,13 @@
                     isset($incomeCategoriesForChoosenUserMonthly) &&
                     isset($memberSpending) &&
                     isset($spendingCategoriesForChoosenUserMonthly))
-                <div class="container mt-3 mb-3">
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">
-                            <div class="card bg-dark text-light">
-                                <div class="card-body">
-                                    <div class="card-title">
+                <div class="">
+                    <div class="">
+                        <div class=""></div>
+                        <div class="">
+                            <div class="">
+                                <div class="">
+                                    <div class="">
                                         @php
                                             $username = \App\Models\User::where(
                                                 'id',
@@ -351,23 +351,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3"></div>
+                        <div class=""></div>
                     </div>
                 </div>
             @endif
         </div>
     @endif
-    <div class="container">
-        <div class="row gy-3">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="card bg-dark text-light text-center">
-                    <div class="card-body">
-                        <div class="row">
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
+                <div class="">
+                    <div class="">
+                        <div class="">
                             <p>Avarge income in your country (monthly): {{ $incomesAverage }} {{ $currencySymbol }}
                             </p>
                         </div>
-                        <div class="row mt-3">
+                        <div class="">
                             <p>Avarage spending in your country (monthly): {{ $spendingsAverage }}
                                 {{ $currencySymbol }}
                             </p>
@@ -375,7 +375,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class=""></div>
         </div>
     </div>
     {{-- Scripts --}}

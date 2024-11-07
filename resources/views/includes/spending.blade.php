@@ -1,44 +1,44 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+    <div class="">
         {{-- Add new button --}}
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6 text-center" id="financeButton">
-                <button class="btn btn-success" onclick="window.location=' {{ url('/spendingCreate') }} '">Add new
+        <div class="">
+            <div class=""></div>
+            <div class="" id="financeButton">
+                <button class="" onclick="window.location=' {{ url('/spendingCreate') }} '">Add new
                     spending</button>
             </div>
-            <div class="col-lg-3"></div>
+            <div class=""></div>
         </div>
         @if ($finances->isNotEmpty())
-            <div class="card bg-dark " id="financeCard">
+            <div class="" id="financeCard">
                 {{-- Header --}}
-                <div class="card-header">
-                    <div class="col-lg-12 text-light">
+                <div class="">
+                    <div class="">
                         <h1>Spendings by categories</h1>
                     </div>
                 </div>
                 {{-- Body --}}
-                <div class="card-body">
+                <div class="">
                     {{-- graphs --}}
-                    <div class="row">
+                    <div class="">
                         {{-- Pie --}}
-                        <div class="col-lg-4">
+                        <div class="">
                             <div id="chart"></div>
                         </div>
                         {{-- Line --}}
-                        <div class="col-lg-8">
+                        <div class="">
                             <div id ="monthlyByCategories"></div>
                         </div>
                     </div>
                 </div>
                 {{-- Footer --}}
-                <div class="card-footer text-light">
-                    <div class="row">
-                        <div class="col-lg-6">
+                <div class="">
+                    <div class="">
+                        <div class="">
                             <h1 id="avarage"></h1>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="">
                             <h1 id="sum"></h1>
                         </div>
                     </div>
@@ -47,11 +47,11 @@
         @endif
     </div>
     @if ($finances->isNotEmpty())
-        <div class="container text-center">
-            <div class="row">
-                <div class="card bg-dark text-light" id="financeCard">
+        <div class="">
+            <div class="">
+                <div class="" id="financeCard">
                     <div class="table-responsive">
-                        <table class="table table-info" id="spendingTable" data-page-length='10'>
+                        <table class="table" id="spendingTable" data-page-length='10'>
                             <thead>
                                 <tr>
                                     <th scope="col">Date</th>

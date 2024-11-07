@@ -37,10 +37,10 @@
 <body>
     <div id="app">
         {{-- Navnar --}}
-        <nav class="navbar navbar-dark bg-dark fixed-top">
-            <div class="container-fluid">
+        <nav class="">
+            <div class="">
                 {{-- Home img/button --}}
-                <a class="navbar-brand text-light"
+                <a class=""
                     href="
                     @guest
 {{ url('/') }}
@@ -50,36 +50,36 @@
                     <img id="homeIcon" src="../storage/icons/homeIcon3.png" draggable="false">
                 </a>
                 {{-- Side menu  --}}
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                <button class="" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar"
+                <div class="" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <div class="col-6 nav-left">
+                    <div class="">
+                        <div class="">
                             <img src="../storage/icons/appIcon.png" draggable="false">
                         </div>
-                        <div class="col-6 nav-right text-light">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="offcanvas"
+                        <div class="">
+                            <button type="button" class="" data-bs-dismiss="offcanvas"
                                 aria-label="Close">X</button>
                         </div>
                     </div>
                     {{-- Log in / Register and Log out --}}
-                    <div class="offcanvas-body bg-dark text-info">
-                        <ul class="navbar-nav">
+                    <div class="">
+                        <ul class="">
                             @guest
                                 @if (Route::has('login'))
-                                    <button id="menuBtn" class="btn btn-outline-primary" type="submit"
+                                    <button id="menuBtn" class="" type="submit"
                                         onclick="window.location=' {{ url('/login') }} '">{{ __('Login') }}</button>
                                 @endif
                                 @if (Route::has('register'))
-                                    <button id="menuBtn" class="btn btn-outline-warning" type="submit"
+                                    <button id="menuBtn" class="" type="submit"
                                         onclick="window.location=' {{ url('/register') }} '">
                                         {{ __('Register') }}</button>
                                 @endif
                             @else
-                                <button id="menuBtn" class="btn btn-outline-danger" type="submit"
+                                <button id="menuBtn" class="" type="submit"
                                     href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
@@ -87,17 +87,17 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                <button id="menuBtn" class="" type="submit"
                                     onclick="window.location=' {{ url('/income') }} '">Incomes</button>
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                <button id="menuBtn" class="" type="submit"
                                     onclick="window.location=' {{ url('/spending') }} '">Spendings</button>
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                <button id="menuBtn" class="" type="submit"
                                     onclick="window.location=' {{ url('/advancedStatistics') }} '">Advanced
                                     statistics</button>
-                                <button id="menuBtn" class="btn btn-outline-info" type="submit"
+                                <button id="menuBtn" class="" type="submit"
                                     onclick="window.location=' {{ url('/saving') }} '">Saving</button>
 
-                                <button id="menuBtn" class="btn btn-outline-primary" type="submit"
+                                <button id="menuBtn" class="" type="submit"
                                     onclick="window.location=' {{ url('/settings') }} '">Settings</button>
                             @endguest
                         </ul>

@@ -1,24 +1,24 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <div class="card bg-dark text-light">
-                    <div class="card-body">
+    <div class="">
+        <div class="">
+            <div class=""></div>
+            <div class="">
+                <div class="">
+                    <div class="">
                         <form id="categoryForm" action="{{ route('finances.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="mb-3">
+                            <div class="">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" name="name" id="name"
                                     class="form-control @if ($errors->has('name')) is-invalid @endif"
                                     value="{{ old('name') }}">
                                 @error('name')
-                                    <small class="text-danger">*{{ $message }}</small>
+                                    <small class="">*{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-3">
+                            <div class="">
                                 <label for="price" class="form-label">Price</label>
                                 <div class="input-group">
                                     <input type="number" min="0" name="price" id="price"
@@ -27,10 +27,10 @@
                                     <span class="input-group-text">{{ $currency }}</span>
                                 </div>
                                 @error('price')
-                                    <small class="text-danger">*{{ $message }}</small>
+                                    <small class="">*{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-3">
+                            <div class="">
                                 <label for="category_id" class="form-label">Category</label>
                                 <select id="category_id" class="form-control" name="category_id" required>
                                     <option value="" selected disabled>Select a category</option>
@@ -39,34 +39,34 @@
                                     @endforeach
                                     <option value="add_category">Add new Category</option>
                                 </select>
-                                <div class="mb-3">
+                                <div class="">
                                     <br>
-                                    <div class="col">
+                                    <div class="">
                                         <input type="checkbox" name="monthly" id="monthly" class="form-check-input">
                                         <label for="monthly" class="form-check-label">Monthly Spending</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3 text-center">
-                                <button id="add_new_btn" type="submit" class="btn btn-outline-success w-75">Add
+                            <div class="">
+                                <button id="add_new_btn" type="submit" class="">Add
                                     new</button>
-                                <div class="row">
+                                <div class="">
                                 </div>
                             </div>
                         </form>
                         <form action="{{ route('addCategory') }}" method="POST">
                             @csrf
-                            <div class="mb-3 text-center" id="newCategoryForm" style="display: none;">
+                            <div class="" id="newCategoryForm" style="display: none;">
                                 <input class="form-control mb-3" type="text" id="newCategoryInput" name="new_category"
                                     placeholder="Enter new category">
-                                <button id="addCategoryBtn" type="submit" class="btn btn-outline-success w-75">Add
+                                <button id="addCategoryBtn" type="submit" class="">Add
                                     Category</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-2"></div>
+            <div class=""></div>
         </div>
     </div>
     <script>

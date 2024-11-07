@@ -1,14 +1,14 @@
 @extends('layouts.app')
-@section('content')
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card bg-dark text-light">
-                    <div class="card-header">{{ __('Reactivate Account') }}</div>
-                    <div class="card-body">
+@section('')
+    <div class="">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <div class="">{{ __('Reactivate Account') }}</div>
+                    <div class="">
                         <form action="{{ route('reactivateAccount') }}" method="POST">
                             @csrf
-                            <div class="mb-3">
+                            <div class="">
                                 <label for="email" class="form-label">{{ __('Email Address') }}</label>
                                 <input oninput="checkIfUserDisabled(this.value);" id="email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
@@ -19,7 +19,7 @@
                                 @enderror
                             </div>
                             <button id="reactivateBTN" type="submit"
-                                class="btn btn-success">{{ __('Reactivate Account') }}</button>
+                                class="">{{ __('Reactivate Account') }}</button>
                         </form>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'email': input
-                },
+                },//gotta fix this bcs of the removal of bs5!!!
                 success: function(data) {
                     if (data.status === "failed") {
                         $('#responseTextEmail').removeClass('text-success').addClass('text-danger').html(data

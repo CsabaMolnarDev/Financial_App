@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card bg-dark text-light">
-                    <div class="card-header text" id="RegFormTittle">{{ __('Register') }}
+    <div class="">
+        <div class="">
+            <div class="">
+                <div class="">
+                    <div class="" id="RegFormTittle">{{ __('Register') }}
                     </div>
-                    <div class="card-body">
+                    <div class="">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="fullname"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Fullname') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Fullname') }}</label>
+                                <div class="">
                                     <input id="fullname" type="text"
                                         class="form-control @error('fullname') is-invalid @enderror" name="fullname"
                                         value="{{ old('fullname') }}" required autocomplete="familyname">
@@ -23,10 +23,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="username"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Username') }}</label>
+                                <div class="">
                                     <input oninput="checkUsernameTaken(this.value);" id="username" type="text"
                                         class="form-control @error('username') is-invalid @enderror" name="username"
                                         value="{{ old('username') }}" required autocomplete="usersname">
@@ -38,12 +38,12 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="phone"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Phone (optional)') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Phone (optional)') }}</label>
+                                <div class="">
                                     <input id="phone" type="text"
-                                        class="form-control text-dark inputPhone @error('phone') is-invalid @enderror"
+                                        class="form-control inputPhone @error('phone') is-invalid @enderror"
                                         name="phone" value="{{ old('phone') }}">
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">
@@ -52,10 +52,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="currency"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Currency') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Currency') }}</label>
+                                <div class="">
                                     <select id="currency" class="form-control" type="text"
                                         @error('currency') is-invalid @enderror name="currency_id"
                                         value="{{ old('currency') }}" required autocomplete="currencys">
@@ -72,10 +72,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Email Address') }}</label>
+                                <div class="">
                                     <input oninput="checkEmailTaken(this.value);" id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" required autocomplete="emails">
@@ -87,10 +87,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Password') }}</label>
+                                <div class="">
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
                                         required autocomplete="new-password">
@@ -102,32 +102,32 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-                                <div class="col-md-6">
+                                    class="">{{ __('Confirm Password') }}</label>
+                                <div class="">
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" required>
                                 </div>
                             </div>
-                            <div class="row content-justify-center">
-                                <div class="col-4">
+                            <div class="">
+                                <div class="">
                                 </div>
-                                <div class="col-4 text-center">
-                                    <button id="regButton" type="submit" class="btn btn-outline-warning">
+                                <div class="">
+                                    <button id="regButton" type="submit" class="">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
-                                <div class="col-4">
+                                <div class="">
                                 </div>
                             </div>
-                            <div class="row content-justify-center">
-                                <div class="col-4">
+                            <div class="">
+                                <div class="">
                                 </div>
-                                <div class="col-4 text-center">
+                                <div class="">
                                     <a href="{{ route('login') }}">I already have an account. Log in!</a>
                                 </div>
-                                <div class="col-4">
+                                <div class="">
                                 </div>
                             </div>
                         </form>

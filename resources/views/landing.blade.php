@@ -23,10 +23,14 @@
         class="relative mb-4 mx-4 flex h-[600px] flex-col items-center justify-center 
         overflow-clip rounded-3xl py-6 lg:h-[min(calc(100vh-2rem),2000px)] border-2 border-gray-600">
         <div class="flex z-10 flex-col gap-8 px-6 lg:w-[960px] lg:px-16">
+        <h1 class="heading-xl text-center font-display font text-light">
+        Our project is designed for financial management.
+            </h1>
             <h1 class="heading-xl text-center font-display font text-light">
-                Our project is designed for financial management.
-                We could help you to manage your finances in order for you to achieve your goals.
-                By tracking your expenses, even for a few months, you can significantly save money.
+            We could help you to manage your finances in order for you to achieve your goals.
+            </h1>
+            <h1 class="heading-xl text-center font-display font text-light">
+            By tracking your expenses, even for a few months, you can significantly save money.
             </h1>
         </div>
         <div
