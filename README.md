@@ -10,6 +10,11 @@ do we een need error page design??? i mean cool but kinda not nessesary
 how could we protect user data better
 github liccense change since MIT allowes anyone to use the code, maybe its not nessesary tho
 <!-- For front end -->
+
+
+<!-- FOR TAILWIND -->
+<!-- USE dark: so that elements will look like that in darkmode!!!! -->
+
 remove bs5 from the downloaded files
 NABAR DESIGN!!! <!-- THIS IS IMPORTANT -->
 design all the pages
